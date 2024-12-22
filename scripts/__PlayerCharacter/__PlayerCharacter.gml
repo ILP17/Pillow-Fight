@@ -44,7 +44,7 @@ function PlayerCharacter(_config = {}) : Character() constructor {
 	
 	/**
 		@param {real} _index
-		@return {Array<struct.ActionStrategy>}
+		@return {Array<Struct.ActionStrategy>}
 	*/
 	GetStrategy = function(_index) {
 		var _array = array_union(__.strategies, __.class.GetStrategies());

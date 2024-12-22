@@ -1,5 +1,5 @@
 /**
-	@param {struct.Character} _character_data
+	@param {Struct.Character} _character_data
 */
 function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) constructor {
 	/**
@@ -10,8 +10,8 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) 
 	}
 	
 	/**
-		@param {struct.TurnContext} _turn_context
-		@return {struct.Action}
+		@param {Struct.TurnContext} _turn_context
+		@return {Struct.Action}
 	*/
 	DetermineAction = function(_turn_context) {
 		var _weights = undefined;
@@ -52,22 +52,26 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) 
 	}
 	
 	/**
-		@param {struct.Action} _action
-		@param {struct.TurnContext} _turn_context
-		@return {Array<Id.Instance>}
+	 * @param {Struct.Action} _action
+	 * @param {Struct.TurnContext} _turn_context
+	 * @return {Array<Id.Instance>}
 	*/
-	DetermineTargets = function(_action, _turn_context) {
+	SelectTargets = function(_action, _turn_context) {
 		var _action_metadata = _action.GetMetadata();
 		var _target_strategy = _action.CreateTargetStrategy();
 		var _target_team = _turn_context.ResolveTargets(_action_metadata);
-		var _targets = _target_strategy.GetTarget(_target_team, _action_metadata);
-		
-		return _targets;
+        
+        _target_strategy.Initialize(_target_team);
+        
+		return _target_strategy.SelectTargets(
+            irandom(array_length(_target_strategy.GetValidTargets()) - 1),
+            _target_team,
+            _action_metadata);
 	}
 	
 	/**
-		@param {struct.Action} _action
-		@param {struct.TurnContext} _turn_context
+		@param {Struct.Action} _action
+		@param {Struct.TurnContext} _turn_context
 		@return {Array<Id.Instance>}
 	*/
 	UpdateTargets = function(_action, _turn_context) {

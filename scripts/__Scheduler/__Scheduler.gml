@@ -15,14 +15,14 @@ function Scheduler() constructor {
 	}
 	
 	/**
-		@param {struct.Action} _action
+		@param {Struct.Action} _action
 	*/
 	static AddAction = function(_action) {
 		array_push(__actions, _action);
 	}
 	
 	/**
-		@return {struct.Action|undefined}
+		@return {Struct.Action|undefined}
 	*/
 	static GetCurrentAction = function() {
 		if(array_length(__actions) == 0) {
@@ -57,7 +57,7 @@ function Scheduler() constructor {
 	
 	#region Delayed Action
 	/**
-		@param {struct.DelayedAction} _delayed_action
+		@param {Struct.DelayedAction} _delayed_action
 	*/
 	static AddDelayedAction = function(_delayed_action) {
 		array_push(__delayedActions, _delayed_action);
@@ -117,7 +117,7 @@ function Scheduler() constructor {
 
 /**
 	@param {Id.Instance} _battle_participant
-	@param {struct.Action} _action
+	@param {Struct.Action} _action
 	@param {real} _turn_count
 */
 function DelayedAction(_battle_participant, _action, _turn_count) constructor {

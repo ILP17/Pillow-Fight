@@ -19,7 +19,7 @@ function Character() constructor {
 	
 	/**
 		@param {real} _index
-		@return {struct.Action}
+		@return {Struct.Action}
 	*/
 	GetAction = function(_index) {
 		ScrEnforceImplementation(instanceof(self), nameof(GetAction));
@@ -34,7 +34,7 @@ function Character() constructor {
 	
 	/**
 		@param {real} _index
-		@return {struct.ActionStrategy}
+		@return {Struct.ActionStrategy}
 	*/
 	GetStrategy = function(_index) {
 		ScrEnforceImplementation(instanceof(self), nameof(GetStrategy));

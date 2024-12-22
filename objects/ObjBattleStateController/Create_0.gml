@@ -70,7 +70,7 @@ TryBeginBattle = function() {
 
 /**
 	@param {Id.Instance} _battle_participant
-	@param {struct.Action} _action
+	@param {Struct.Action} _action
 	@param {real} _turn_count the number of turns to wait, 0 will mean the very next turn
 */
 AddDelayedAction = function(_battle_participant, _action, _turn_count) {
@@ -79,7 +79,7 @@ AddDelayedAction = function(_battle_participant, _action, _turn_count) {
 
 /**
 	@param {Id.Instance} _battle_participant
-	@param {struct.Action} _action
+	@param {Struct.Action} _action
 	@param {real} _turn_count the number of turns to wait, 0 will mean the very next turn
 */
 OnBattleParticipantDeath = function(_battle_participant) {

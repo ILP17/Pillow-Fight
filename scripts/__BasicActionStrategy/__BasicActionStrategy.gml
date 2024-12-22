@@ -1,7 +1,7 @@
 function BasicActionStrategy() : ActionStrategy() constructor {
 	/**
-		@param {struct.Character} _character_data
-		@param {struct.TurnContext} _turn_context
+		@param {Struct.Character} _character_data
+		@param {Struct.TurnContext} _turn_context
 		@param {Array<real>|undefined} _weights
 		@return {Array<real>}
 	*/

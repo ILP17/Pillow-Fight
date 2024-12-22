@@ -18,7 +18,8 @@ function TurnContext(_turn_instance, _alpha_team, _beta_team) constructor {
 	}
 	
 	/**
-		@param {struct.ActionMetadata} _action_metadata
+     * Returns the team targeted by the action
+     * @param {Struct.ActionMetadata} _action_metadata
 	*/
 	static ResolveTargets = function(_action_metadata) {
 		var _targets = [];

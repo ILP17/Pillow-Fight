@@ -74,15 +74,15 @@ global.actionMetadata[$ nameof(BasicMultiTurnAttackAction)] = new ActionMetadata
 
 /**
 	@param {Function} _action
-	@return {struct.ActionMetadata}
+	@return {Struct.ActionMetadata}
 */
 function ScrActionGetMetadata(_action) {
 	return global.actionMetadata[$ script_get_name(_action)];
 }
 
 /**
-	@param {struct.Action} _action
-	@return {struct.ActionMetadata}
+	@param {Struct.Action} _action
+	@return {Struct.ActionMetadata}
 */
 function ScrActionGetMetadataFromInstance(_action) {
 	return global.actionMetadata[$ instanceof(_action)];

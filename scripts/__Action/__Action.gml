@@ -9,14 +9,14 @@ function Action() constructor {
 	}
 	
 	/**
-		@return {struct.ActionMetadata}
+		@return {Struct.ActionMetadata}
 	*/
 	static GetMetadata = function() {
 		return ScrActionGetMetadataFromInstance(self);
 	}
 	
 	/**
-		@return {struct.TargetStrategy}
+		@return {Struct.TargetStrategy}
 	*/
 	static CreateTargetStrategy = function() {
 		var _action_metadata = ScrActionGetMetadataFromInstance(self);

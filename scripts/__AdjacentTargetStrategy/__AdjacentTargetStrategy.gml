@@ -12,21 +12,19 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
 		return _potential_target.IsTargetable();
 	}
 	
-    SelectTargets = function(_main_valid_target_index, _target_team, _action_metadata) {
+    SelectTargets = function(_main_valid_target_index, _target_team) {
         var _targets = [],
-            _targets_length = array_length(__.validTargets);
+            _valid_targets_length = array_length(__.validTargets);
         
-        if(_targets_length == 0) {
-            return _targets;
+        if(_valid_targets_length > 0) {
+            var _main_target = __.validTargets[_main_valid_target_index];
+            var _target_index = array_get_index(_target_team, _main_target);
+            
+            array_push(_targets, _target_team[_target_index]);
+            
+            __.TryAddAdjacentTarget(_targets, _target_index - 1, _target_team);
+            __.TryAddAdjacentTarget(_targets, _target_index + 1, _target_team);
         }
-        
-        var _main_target = __.validTargets[_main_valid_target_index];
-        var _target_index = array_get_index(_target_team, _main_target);
-        
-        array_push(_targets, _target_team[_target_index]);
-        
-        __.TryAddAdjacentTarget(_targets, _target_index - 1, _target_team);
-        __.TryAddAdjacentTarget(_targets, _target_index + 1, _target_team);
         
         return _targets;
     } 
@@ -34,28 +32,31 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
     /**
         This will check that the current targets are still valid and if not return a new target list
         This may return an empty list if no suitable targets are found
-        @param {struct.Action} _action
-        @param {struct.TurnContext} _turn_context
+        @param {Struct.Action} _action
+        @param {Struct.TurnContext} _turn_context
     */
     DelayedActionTargetsCheck = function(_action, _turn_context) {
-        var _current_targets = _action.GetTargets();
+        var _current_selected_targets = _action.GetTargets();
         var _action_metadata = _action.GetMetadata();
-        var _valid = IsTargetValid(_current_targets[0]);
-        var _new_targets = _current_targets;
-        var _targets = _turn_context.ResolveTargets(_action_metadata);
+        var _valid = IsTargetValid(_current_selected_targets[0]);
+        var _target_team = _turn_context.ResolveTargets(_action_metadata);
+        var _new_targets = _current_selected_targets;
         
         if(!_valid) {
-            _new_targets = GetTarget(_targets, _action_metadata);
+            //initialize again to get new valid targets
+            Initialize(_action, _target_team);
+            var _new_valid_target_index = irandom(array_length(__.validTargets - 1));
+            _new_targets = SelectTargets(_new_valid_target_index, _target_team);
         } else {
-            var _target_index = array_get_index(_targets, _current_targets[1]);
-            if(array_length(_current_targets) >= 2 && !IsTargetValid(_current_targets[1])) {
-                array_delete(_current_targets, _target_index, 1);
+            var _target_index = array_get_index(_target_team, _current_selected_targets[1]);
+            if(array_length(_current_selected_targets) >= 2 && !IsTargetValid(_current_selected_targets[1])) {
+                array_delete(_current_selected_targets, _target_index, 1);
             }
-            _target_index = array_get_index(_targets, _current_targets[2]);
-            if(array_length(_current_targets) >= 3 && !IsTargetValid(_current_targets[2])) {
-                array_delete(_current_targets, _target_index, 1);
+            _target_index = array_get_index(_target_team, _current_selected_targets[2]);
+            if(array_length(_current_selected_targets) >= 3 && !IsTargetValid(_current_selected_targets[2])) {
+                array_delete(_current_selected_targets, _target_index, 1);
             }
-            _new_targets = _current_targets;
+            _new_targets = _current_selected_targets;
         }
         
         return _new_targets;

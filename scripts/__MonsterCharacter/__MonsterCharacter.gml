@@ -42,7 +42,7 @@ function MonsterCharacter(_config = {}) : Character() constructor {
 	
 	/**
 		@param {real} _index
-		@return {Array<struct.ActionStrategy>}
+		@return {Array<Struct.ActionStrategy>}
 	*/
 	GetStrategy = function(_index) {
 		//Feather ignore once GM1045

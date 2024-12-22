@@ -20,7 +20,7 @@ with(__) {
 }
 
 /**
-	@param {struct.Character} _character_data
+	@param {Struct.Character} _character_data
 */
 Initialize = function(_character_data) {
 	__.characterData = _character_data;
@@ -49,12 +49,12 @@ GetStat = function(_stat_key) {
 }
 
 /**
-	@param {struct.TurnContext} _turn_context
-	@return {struct.TurnActionContext|undefined}
+	@param {Struct.TurnContext} _turn_context
+	@return {Struct.TurnActionContext|undefined}
 */
 GetAction = function(_turn_context) {
 	var _action_instance = __.actionEvaluator.DetermineAction(_turn_context);
-	var _targets = __.actionEvaluator.DetermineTargets(_action_instance, _turn_context);
+	var _targets = __.actionEvaluator.SelectTargets(_action_instance, _turn_context);
 	
 	if(is_undefined(_action_instance) || is_undefined(_targets)) {
 		return undefined;
@@ -70,8 +70,8 @@ GetAction = function(_turn_context) {
 }
 
 /**
-	@param {struct.Action} _action
-	@param {struct.TurnContext} _turn_context
+	@param {Struct.Action} _action
+	@param {Struct.TurnContext} _turn_context
 	@return {Array<Id.Instance>}
 */
 UpdateTargets = function(_action, _turn_context) {
@@ -95,7 +95,7 @@ CanAct = function() {
 }
 
 /**
-	@param {struct.Buff} _buff_constructor
+	@param {Struct.Buff} _buff_constructor
 	@return {bool}
 */
 HasBuff = function(_buff_constructor) {
@@ -108,7 +108,7 @@ HasBuff = function(_buff_constructor) {
 
 /**
 	Returns true if battle participant has any of the provided buffs
-	@param {Array<struct.Buff>} _buffs
+	@param {Array<Struct.Buff>} _buffs
 	@return {bool}
 */
 HasAnyBuff = function(_buffs) {
@@ -122,7 +122,7 @@ HasAnyBuff = function(_buffs) {
 }
 
 /**
-	@param {struct.Buff}
+	@param {Struct.Buff}
 */
 ApplyBuff = function(_buff) {
 	array_push(__.buffs, _buff);
