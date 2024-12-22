@@ -1,10 +1,13 @@
 function HealTargetStrategy() : TargetStrategy() constructor {
-	__ValidTargetFilter = function(_potential_target, _index) {
-		return _potential_target.IsAlive() && _potential_target.GetHealthRatio() < 1;
+	var _self = self;
+	with(__) {
+		ValidTargetFilter = method(_self, function(_potential_target, _index) {
+			return _potential_target.IsAlive() && _potential_target.GetHealthRatio() < 1;
+		});
 	}
 	
 	GetTarget = function(_target_team, _action_metadata) {
-		var _valid_targets = array_filter(_target_team, __ValidTargetFilter);
+		var _valid_targets = array_filter(_target_team, __.ValidTargetFilter);
 		var _valid_targets_length = array_length(_valid_targets);
 		
 		if(_valid_targets_length == 0) {

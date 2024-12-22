@@ -1,36 +1,48 @@
-__sprite = SprPlayer;
-__spriteDead = SprPlayerDead;
-__healthColor = c_aqua;
-__characterData = undefined;
-__health = 0;
-__healthDisplay = 0;
-__buffs = [];
-__actionEvaluator = undefined;
+var _self = self;
+__ = {};
+with(__) {
+	sprite = SprPlayer;
+	spriteDead = SprPlayerDead;
+	healthColor = c_aqua;
+	characterData = undefined;
+	health = 0;
+	healthDisplay = 0;
+	buffs = [];
+	actionEvaluator = undefined;
+	effects = {};
+	OnDeath = method(_self, function() {
+		ClearBuffs();
+		RemoveAllEffects();
+		ObjBattleStateController.OnBattleParticipantDeath(id);
+		sprite_index = __.spriteDead;
+		image_blend = c_gray;
+	});
+}
 
 /**
 	@param {struct.Character} _character_data
 */
 Initialize = function(_character_data) {
-	__characterData = _character_data;
+	__.characterData = _character_data;
 	
-	__health = __characterData.GetStat(HP_STAT);
-	__healthDisplay = __health;
+	__.health = __.characterData.GetStat(HP_STAT);
+	__.healthDisplay = __.health;
 	
-	var _name = sprite_get_name(__characterData.sprite);
-	__sprite = __characterData.sprite;
-	__spriteDead = asset_get_index(_name + "Dead");
-	sprite_index = __sprite;
+	var _name = sprite_get_name(__.characterData.sprite);
+	__.sprite = __.characterData.sprite;
+	__.spriteDead = asset_get_index(_name + "Dead");
+	sprite_index = __.sprite;
 	
-	__actionEvaluator = new CPUActionEvaluator(__characterData);
+	__.actionEvaluator = new CPUActionEvaluator(__.characterData);
 	
 	return id;
 }
 
 GetStat = function(_stat_key) {
-	var _value = __characterData.GetStat(_stat_key);
+	var _value = __.characterData.GetStat(_stat_key);
 	
-	for(var i = 0; i < array_length(__buffs); i++) {
-		_value *= __buffs[i].stats[$ _stat_key];
+	for(var i = 0; i < array_length(__.buffs); i++) {
+		_value *= __.buffs[i].stats[$ _stat_key];
 	}
 	
 	return floor(_value);
@@ -38,11 +50,15 @@ GetStat = function(_stat_key) {
 
 /**
 	@param {struct.TurnContext} _turn_context
-	@return {struct.TurnActionContext}
+	@return {struct.TurnActionContext|undefined}
 */
 GetAction = function(_turn_context) {
-	var _action_instance = __actionEvaluator.DetermineAction(_turn_context);
-	var _targets = __actionEvaluator.DetermineTargets(_action_instance, _turn_context);
+	var _action_instance = __.actionEvaluator.DetermineAction(_turn_context);
+	var _targets = __.actionEvaluator.DetermineTargets(_action_instance, _turn_context);
+	
+	if(is_undefined(_action_instance) || is_undefined(_targets)) {
+		return undefined;
+	}
 	
 	if(array_length(_targets) == 0) {
 		throw ($"ERROR: Target strategy for {instanceof(_action_instance)} produced no targets!");
@@ -59,15 +75,15 @@ GetAction = function(_turn_context) {
 	@return {Array<Id.Instance>}
 */
 UpdateTargets = function(_action, _turn_context) {
-	return __actionEvaluator.UpdateTargets(_action, _turn_context);
+	return __.actionEvaluator.UpdateTargets(_action, _turn_context);
 }
 
 GetHealthRatio = function() {
-	return __health / __characterData.GetStat(HP_STAT);
+	return __.health / __.characterData.GetStat(HP_STAT);
 }
 
 IsAlive = function() {
-	return __health > 0;
+	return __.health > 0;
 }
 
 IsTargetable = function() {
@@ -79,7 +95,7 @@ CanAct = function() {
 }
 
 /**
-	@param {struct.Buff}
+	@param {struct.Buff} _buff_constructor
 	@return {bool}
 */
 HasBuff = function(_buff_constructor) {
@@ -87,7 +103,7 @@ HasBuff = function(_buff_constructor) {
 		return instanceof(_buff) == script_get_name(_buff_constructor);
 	});
 	
-	return array_any(__buffs, _method);
+	return array_any(__.buffs, _method);
 }
 
 /**
@@ -109,28 +125,28 @@ HasAnyBuff = function(_buffs) {
 	@param {struct.Buff}
 */
 ApplyBuff = function(_buff) {
-	array_push(__buffs, _buff);
+	array_push(__.buffs, _buff);
 }
 
 /**
 	Clears buffs
 */
 ClearBuffs = function() {
-	__buffs = [];
+	__.buffs = [];
 }
 
 /**
 	Decays all buffs' turn timers by 1
 */
 DecayBuffs = function() {
-	static __Filter = function(_buff, _index) {
+	static Filter = function(_buff, _index) {
 		return _buff.turnCount > 0;
 	}
 	
-	__buffs = array_filter(__buffs, __Filter);
+	__.buffs = array_filter(__.buffs, Filter);
 	
-	for(var i = 0; i < array_length(__buffs); i++) {
-		__buffs[i].turnCount --;
+	for(var i = 0; i < array_length(__.buffs); i++) {
+		__.buffs[i].DecrementTurnCount();
 	}
 }
 
@@ -147,7 +163,7 @@ Damage = function(_damage) {
 		_style = 3;
 	}
 	
-	__health = clamp(__health + _damage, 0, __characterData.GetStat(HP_STAT));
+	__.health = clamp(__.health + _damage, 0, __.characterData.GetStat(HP_STAT));
 	
 	instance_create_depth(
 		x + irandom_range(-12, 12),
@@ -155,44 +171,34 @@ Damage = function(_damage) {
 		depth,
 		ObjDamage).Initialize(abs(_damage), _style);
 	
-	if(__health == 0) {
-		__OnDeath();
+	if(!IsAlive()) {
+		__.OnDeath();
 	} else {
-		sprite_index = __sprite;
+		sprite_index = __.sprite;
 		image_blend = c_white;
 	}
-}
-
-__effects = {};
-
-__OnDeath = function() {
-	ClearBuffs();
-	RemoveAllEffect();
-	ObjBattleStateController.OnBattleParticipantDeath(id);
-	sprite_index = __spriteDead;
-	image_blend = c_gray;
 }
 
 /**
 	@param {Id.Instance} _effect_object
 */
 AddEffect = function(_effect_object) {
-	__effects[$ $"{_effect_object.object_index}"] = _effect_object;
+	__.effects[$ $"{_effect_object.object_index}"] = _effect_object;
 }
 
 /**
 	@param {Asset.GMObject} _effect_object
 */
 RemoveEffect = function(_effect_object) {
-	instance_destroy(__effects[$ $"{_effect_object}"]);
-	variable_struct_remove(__effects, $"{_effect_object}");
+	instance_destroy(__.effects[$ $"{_effect_object}"]);
+	variable_struct_remove(__.effects, $"{_effect_object}");
 }
 
-RemoveAllEffect = function() {
-	static __RemoveEffect = function(_name, _effect) {
+RemoveAllEffects = function() {
+	static RemoveEffect = function(_name, _effect) {
 		instance_destroy(_effect);
 	}
 	
-	struct_foreach(__effects, __RemoveEffect)
-	__effects = {};
+	struct_foreach(__.effects, RemoveEffect)
+	__.effects = {};
 }

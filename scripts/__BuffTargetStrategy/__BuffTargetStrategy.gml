@@ -1,9 +1,10 @@
 function BuffTargetStrategy() : TargetStrategy() constructor {
-	__targets = [];
-	__actionMetadata = undefined;
+	with(__) {
+		actionMetadata = undefined;
+	}
 	
 	IsTargetValid = function(_potential_target) {
-		return _potential_target.IsTargetable() && !_potential_target.HasAnyBuff(__actionMetadata.buffs);
+		return _potential_target.IsTargetable() && !_potential_target.HasAnyBuff(__.actionMetadata.buffs);
 	}
 	
 	/**
@@ -11,8 +12,8 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
 		@param {struct.ActionMetadata} _action_metadata
 	*/
 	GetTarget = function(_target_team, _action_metadata) {
-		__actionMetadata = _action_metadata;
-		var _valid_targets = array_filter(_target_team, __ValidTargetFilter);
+		__.actionMetadata = _action_metadata;
+		var _valid_targets = array_filter(_target_team, __.ValidTargetFilter);
 		var _valid_targets_length = array_length(_valid_targets);
 		
 		if(_valid_targets_length == 0) {

@@ -1,12 +1,18 @@
 function TargetStrategy() constructor {
-	/**
-		Used for target list filtering and should make use of the IsTargetValid method
-		@param {Id.Instance} _potential_target
-		@param {real} _index
-		@return {bool}
-	*/
-	__ValidTargetFilter = function(_potential_target, _index) {
-		return IsTargetValid(_potential_target);
+	var _self = self;
+	__={};
+	with(__) {
+		/**
+			Used for target list filtering and should make use of the IsTargetValid method
+			@param {Id.Instance} _potential_target
+			@param {real} _index
+			@return {bool}
+		*/
+		ValidTargetFilter = function(_potential_target, _index) {
+			return IsTargetValid(_potential_target);
+		}
+		
+		ValidTargetFilter = method(_self, ValidTargetFilter);
 	}
 	
 	/**
@@ -14,7 +20,8 @@ function TargetStrategy() constructor {
 		@return {bool}
 	*/
 	IsTargetValid = function(_potential_target) {
-		throw ($"{instanceof(self)} needs to implement {nameof(IsTargetValid)}");
+		__.ValidTargetFilter();
+		ScrEnforceImplementation(instanceof(self), nameof(IsTargetValid));
 	}
 	
 	/**
@@ -25,6 +32,6 @@ function TargetStrategy() constructor {
 		@return {Array<Id.Instance>}
 	*/
 	DelayedActionTargetsCheck = function(_action, _turn_context) {
-		throw ($"{instanceof(self)} needs to implement {nameof(DelayedActionTargetsCheck)}");
+		ScrEnforceImplementation(instanceof(self), nameof(DelayedActionTargetsCheck));
 	}
 }

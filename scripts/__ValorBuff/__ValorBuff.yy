@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Buffs",
+  "%Name":"__ValorBuff",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Buffs",
+  "name":"__ValorBuff",
   "parent":{
-    "name":"Battle Core",
-    "path":"folders/__Pillow_Combat/Scripts/Battle Core.yy",
+    "name":"Buffs",
+    "path":"folders/__Pillow_Combat/Scripts/Battle Core/Buffs.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

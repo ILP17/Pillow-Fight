@@ -1,8 +1,13 @@
 /**
 	@param {struct.Character} _character_data
 */
-function CPUActionEvaluator(_character_data) constructor {
-	__characterData = _character_data
+function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) constructor {
+	/**
+		@return {bool}
+	*/
+	IsReady = function() {
+		return true;
+	}
 	
 	/**
 		@param {struct.TurnContext} _turn_context
@@ -13,9 +18,9 @@ function CPUActionEvaluator(_character_data) constructor {
 	
 		//Get weights
 		var _action_strategy;
-		for(var i = 0; i < __characterData.GetStrategyCount(); i++) {
-			_action_strategy = __characterData.GetStrategy(i);
-			_weights = _action_strategy.EvaluateAction(__characterData, _turn_context, _weights);
+		for(var i = 0; i < __.characterData.GetStrategyCount(); i++) {
+			_action_strategy = __.characterData.GetStrategy(i);
+			_weights = _action_strategy.EvaluateAction(__.characterData, _turn_context, _weights);
 		}
 	
 		//Get total weight
@@ -37,7 +42,7 @@ function CPUActionEvaluator(_character_data) constructor {
 			_max_weight = _weights[i] + _min_weight;
 		
 			if(_chosen_weight >= _min_weight && _chosen_weight <= _max_weight) {
-				_action = __characterData.GetAction(i);
+				_action = __.characterData.GetAction(i);
 				break;
 			}
 			_min_weight = _max_weight;

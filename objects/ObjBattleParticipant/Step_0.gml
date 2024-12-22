@@ -1,17 +1,15 @@
-__healthColor = c_aqua;
+__.healthColor = c_aqua;
 
 if(GetHealthRatio() < 0.5) {
-	__healthColor = c_yellow;
+	__.healthColor = c_yellow;
 }
 
 if(GetHealthRatio() < 0.25) {
-	__healthColor = c_red;
+	__.healthColor = c_red;
 }
 
-var _difference = __health - __healthDisplay;
+var _difference = (__.health - __.healthDisplay),
+	_sign_difference = sign(_difference),
+	_abs_difference = abs(_difference);
 
-if(__health < __healthDisplay) {
-	__healthDisplay += floor(_difference * 0.1);
-} else if(__health > __healthDisplay) {
-	__healthDisplay += ceil(_difference * 0.1);
-}
+__.healthDisplay += max(_abs_difference div 5, 1) * _sign_difference;

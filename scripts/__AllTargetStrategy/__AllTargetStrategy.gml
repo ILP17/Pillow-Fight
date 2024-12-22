@@ -4,7 +4,7 @@ function AllTargetStrategy() : TargetStrategy() constructor {
 	}
 	
 	GetTarget = function(_target_team, _action_metadata) {
-		var _valid_targets = array_filter(_target_team, __ValidTargetFilter);
+		var _valid_targets = array_filter(_target_team, __.ValidTargetFilter);
 		var _valid_targets_length = array_length(_valid_targets);
 		
 		if(_valid_targets_length == 0) {

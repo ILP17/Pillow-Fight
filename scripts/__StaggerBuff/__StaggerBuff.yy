@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__StaggerBuff",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__StaggerBuff",
+  "parent":{
+    "name":"Buffs",
+    "path":"folders/__Pillow_Combat/Scripts/Battle Core/Buffs.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
