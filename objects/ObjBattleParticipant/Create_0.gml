@@ -50,32 +50,31 @@ GetStat = function(_stat_key) {
 
 /**
 	@param {Struct.TurnContext} _turn_context
-	@return {Struct.TurnActionContext|undefined}
 */
-GetAction = function(_turn_context) {
+EvaluateActionAndSelectedTargets = function(_turn_context) {
 	var _action_instance = __.actionEvaluator.DetermineAction(_turn_context);
-	var _targets = __.actionEvaluator.SelectTargets(_action_instance, _turn_context);
+    
+    _turn_context.SetAction(_action_instance);
+    
+	var _selected_targets = __.actionEvaluator.SelectTargets(_turn_context);
 	
-	if(is_undefined(_action_instance) || is_undefined(_targets)) {
+	if(is_undefined(_action_instance) || is_undefined(_selected_targets)) {
 		return undefined;
 	}
 	
-	if(array_length(_targets) == 0) {
-		throw ($"ERROR: Target strategy for {instanceof(_action_instance)} produced no targets!");
+	if(array_length(_selected_targets) == 0) {
+		throw ($"ERROR: Target strategy for {instanceof(_action_instance)} produced no selected targets!");
 	}
 	
-	_action_instance.Initialize([id], _targets);
-	
-	return new TurnActionContext(_action_instance, _targets);
+	_action_instance.Initialize([id], _selected_targets);
 }
 
 /**
-	@param {Struct.Action} _action
 	@param {Struct.TurnContext} _turn_context
 	@return {Array<Id.Instance>}
 */
-UpdateTargets = function(_action, _turn_context) {
-	return __.actionEvaluator.UpdateTargets(_action, _turn_context);
+UpdateTargets = function(_turn_context) {
+	return __.actionEvaluator.UpdateTargets(_turn_context);
 }
 
 GetHealthRatio = function() {

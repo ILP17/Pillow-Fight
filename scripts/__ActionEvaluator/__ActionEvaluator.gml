@@ -24,20 +24,18 @@ function ActionEvaluator(_character_data) constructor {
 	}
 	
 	/**
-	 * @param {Struct.Action} _action
 	 * @param {Struct.TurnContext} _turn_context
 	 * @return {Array<Id.Instance>}
 	*/
-	SelectTargets = function(_action, _turn_context) {
+	SelectTargets = function(_turn_context) {
 		ScrEnforceImplementation(nameof(ActionEvaluator), nameof(SelectTargets));
 	}
 	
 	/**
-	 * @param {Struct.Action} _action
 	 * @param {Struct.TurnContext} _turn_context
 	 * @return {Array<Id.Instance>}
 	*/
-	UpdateTargets = function(_action, _turn_context) {
+	UpdateTargets = function(_turn_context) {
 		ScrEnforceImplementation(nameof(ActionEvaluator), nameof(UpdateTargets));
 	}
 }

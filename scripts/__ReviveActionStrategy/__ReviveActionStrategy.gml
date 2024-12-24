@@ -12,14 +12,19 @@ function ReviveActionStrategy() : ActionStrategy() constructor {
 		
 		//for each action
 		for(var i = 0; i < _action_count; i++) {
-			var _metadata = _character_data.GetAction(i).GetMetadata();
+            var _action = _character_data.GetAction(i);
+            var _metadata = _action.GetMetadata();
 			
 			if(_metadata.effectType != EffectType.Revive) {
 				continue;
 			}
 			
 			_should_heal = 0;
-			var _targets = _turn_context.ResolveTargets(_metadata);
+            var _targets = ScrGetTargetTeamBaseOnAction(
+                            _action,
+                            _turn_context.GetTurnInstance(),
+                            _turn_context.GetAllyTeam(),
+                            _turn_context.GetEnemyTeam());
 			
 			//for each target
 			for(var j = 0; j < array_length(_targets); j++) {

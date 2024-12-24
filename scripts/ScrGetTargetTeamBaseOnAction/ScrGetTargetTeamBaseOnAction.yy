@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"__TurnActionContext",
+  "%Name":"ScrGetTargetTeamBaseOnAction",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__TurnActionContext",
+  "name":"ScrGetTargetTeamBaseOnAction",
   "parent":{
     "name":"Battle Core",
     "path":"folders/__Pillow_Combat/Scripts/Battle Core.yy",

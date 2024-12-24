@@ -38,6 +38,21 @@ with (__) {
 		__.battleState = BattleStates.PostTurn;
 		return true;
 	});
+    
+    SetupTurnContext = method(_self, function(_turn_instance) {
+        var _ally_team,
+            _enemy_team;
+        
+        if(array_contains(__.alphaTeam, _turn_instance)) {
+            _ally_team = __.alphaTeam;
+            _enemy_team = __.betaTeam;
+        } else if(array_contains(__.betaTeam, _turn_instance)) {
+            _ally_team = __.betaTeam;
+            _enemy_team = __.alphaTeam;
+        }
+        
+        return new TurnContext(_turn_instance, _ally_team, _enemy_team);
+    });
 
 	BattleHasVictor = method(_self, function() {
 		if(!__.CheckTeamAlive(__.alphaTeam)) {
@@ -138,14 +153,17 @@ PreTurn = function() {
 	if(__.SkipTurn(!_turn_instance.CanAct())) {
 		return;
 	}
-	
-	var _turn_context = new TurnContext(_turn_instance, __.alphaTeam, __.betaTeam);
+    
+    var _turn_context = __.SetupTurnContext(_turn_instance);
 	
 	__.scheduler.TickDelayedActions(_turn_instance);
 	
 	if(__.scheduler.HasReadyAction()) {
 		var _action = __.scheduler.GetCurrentAction();
-		var _new_targets = _turn_instance.UpdateTargets(_action, _turn_context);
+        
+        _turn_context.SetAction(_action);
+        
+		var _new_targets = _turn_instance.UpdateTargets(_turn_context);
 		
 		if(array_length(_new_targets) == 0) {
 			_action.Fail();
@@ -164,9 +182,9 @@ PreTurn = function() {
 		return;
 	}
 	
-	var _turn_action_context = _turn_instance.GetAction(_turn_context);
+	_turn_instance.EvaluateActionAndSelectedTargets(_turn_context);
 	
-	__.scheduler.AddAction(_turn_action_context.action);
+	__.scheduler.AddAction(_turn_context.GetAction());
 	__.battleState = BattleStates.Turn;
 }
 

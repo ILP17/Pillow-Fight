@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"ScrEnforceImplementation",
+  "%Name":"Exceptions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ScrEnforceImplementation",
+  "name":"Exceptions",
   "parent":{
     "name":"Utility",
     "path":"folders/__Pillow_Combat/Scripts/Battle Core/Utility.yy",

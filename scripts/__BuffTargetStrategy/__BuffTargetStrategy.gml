@@ -2,11 +2,16 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
 	var _self = self;
     
     with(__) {
-		actionMetadata = undefined;
-        InitializeInternal = method(_self, function(_action, _target_team) {
-            __.actionMetadata = _action.GetMetadata();
-        });
+		actionMetadata = undefined; 
 	}
+    
+    /**
+     * @param {Struct.TurnContext} _turn_context
+    **/
+    Initialize = function(_turn_context) {
+        __.actionMetadata = _turn_context.GetAction().GetMetadata();
+        __.AquireValidTargets(_turn_context.ResolveTargets());
+    }
 	
 	IsTargetValid = function(_potential_target) {
 		return _potential_target.IsTargetable() && !_potential_target.HasAnyBuff(__.actionMetadata.buffs);
@@ -26,20 +31,19 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
 	/**
 		This will check that the current targets are still valid and if not return a new target list
 		This may return an empty list if no suitable targets are found
-		@param {Struct.Action} _action
 		@param {Struct.TurnContext} _turn_context
 	*/
-	DelayedActionTargetsCheck = function(_action, _turn_context) {
-		var _current_targets = _action.GetTargets();
+	DelayedActionTargetsCheck = function(_turn_context) {
+        var _action = _turn_context.GetAction();
+		var _current_selected_targets = _action.GetTargets();
 		var _valid = IsTargetValid(_current_targets[0]);
-        var _action_metadata = _action.GetMetadata();
-        var _target_team = _turn_context.ResolveTargets(_action_metadata);
-		var _new_targets = _current_targets;
+        var _target_team = _turn_context.ResolveTargets();
+		var _new_targets = _current_selected_targets;
 		
 		if(!_valid) {
             //initialize again to get new valid targets
-            Initialize(_action, _target_team);
-            var _new_valid_target_index = irandom(array_length(__.validTargets - 1));
+            Initialize(_turn_context);
+            var _new_valid_target_index = irandom(array_length(__.validTargets) - 1);
 			_new_targets = SelectTargets(_new_valid_target_index, _target_team);
 		}
 		
