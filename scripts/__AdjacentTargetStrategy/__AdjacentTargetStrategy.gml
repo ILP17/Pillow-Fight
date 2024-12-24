@@ -29,11 +29,6 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
         return _targets;
     } 
     
-    /**
-        This will check that the current targets are still valid and if not return a new target list
-        This may return an empty list if no suitable targets are found
-        @param {Struct.TurnContext} _turn_context
-    */
     DelayedActionTargetsCheck = function(_turn_context) {
         var _action = _turn_context.GetAction();
         var _current_selected_targets = _action.GetTargets();
