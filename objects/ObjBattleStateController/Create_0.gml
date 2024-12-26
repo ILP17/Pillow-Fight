@@ -104,6 +104,7 @@ OnBattleParticipantDeath = function(_battle_participant) {
 PreBattle = function() {
 	var _character_data,
 		_battle_participant = noone,
+		_battle_participant_object = global.pillowCombatConfig.battleParticipantObject,
 		_base_y = room_height / 2,
 		_player_x = room_width / 3,
 		_monster_x = room_width * (2 / 3),
@@ -115,7 +116,7 @@ PreBattle = function() {
 			_player_x + irandom_range(-18, 18),
 			_y + i * 34,
 			layer,
-			ObjBattleParticipant).Initialize(_character_data);
+			_battle_participant_object).Initialize(_character_data);
 		array_push(__.alphaTeam, _battle_participant);
 	}
 	
@@ -133,7 +134,7 @@ PreBattle = function() {
 			_real_monster_x,
 			_y + i * 34,
 			layer,
-			ObjBattleParticipant).Initialize(_character_data);
+			_battle_participant_object).Initialize(_character_data);
 		_battle_participant.image_xscale = -1;
 		array_push(__.betaTeam, _battle_participant);
 	}
@@ -182,10 +183,10 @@ PreTurn = function() {
 		return;
 	}
 	
-	_turn_instance.EvaluateActionAndSelectedTargets(_turn_context);
-	
-	__.scheduler.AddAction(_turn_context.GetAction());
-	__.battleState = BattleStates.Turn;
+	if(_turn_instance.EvaluateActionAndSelectedTargets(_turn_context)) {
+     	__.scheduler.AddAction(_turn_context.GetAction());
+     	__.battleState = BattleStates.Turn;
+    }
 }
 
 Turn = function() {

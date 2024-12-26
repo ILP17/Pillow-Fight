@@ -1,13 +1,12 @@
 /**
 	@param _config
 */
-function PlayerCharacter(_config = {}) : Character() constructor {
+function ExampleMonsterCharacter(_config = {}) : Character() constructor {
 	__ = {};
 	with(__) {
-		actions = _config[$ "actions"] ?? [];
-		strategies = _config[$ "strategies"] ?? [];
-		level = _config[$ "level"] ?? 1;
-		class = ThrowIfUndefined(_config[$ "class"], "class");
+		actions = _config[$ "actions"] ?? [BasicHitAction];
+		strategies = _config[$ "strategies"] ?? [BasicActionStrategy];
+		stats = _config[$ "stats"] ?? new Stats();
 	}
 	
 	/**
@@ -15,14 +14,14 @@ function PlayerCharacter(_config = {}) : Character() constructor {
 		@return {real}
 	*/
 	GetStat = function(_stat_key) {
-		return __.class.GetStat(_stat_key, __.level);
+		return __.stats[$ _stat_key];
 	}
 	
 	/**
 		@return {real}
 	*/
 	GetActionCount = function() {
-		return array_length(__.actions) + array_length(__.class.GetActions());
+		return array_length(__.actions);
 	}
 	
 	/**
@@ -30,16 +29,15 @@ function PlayerCharacter(_config = {}) : Character() constructor {
 		@return {Array<Function>}
 	*/
 	GetAction = function(_index) {
-		var _array = array_union(__.actions, __.class.GetActions());
 		//Feather ignore once GM1045
-		return new _array[_index]();
+		return new __.actions[_index]();
 	}
 	
 	/**
 		@return {real}
 	*/
 	GetStrategyCount = function() {
-		return array_length(__.strategies) + array_length(__.class.GetStrategies());
+		return array_length(__.strategies);
 	}
 	
 	/**
@@ -47,9 +45,8 @@ function PlayerCharacter(_config = {}) : Character() constructor {
 		@return {Array<Struct.ActionStrategy>}
 	*/
 	GetStrategy = function(_index) {
-		var _array = array_union(__.strategies, __.class.GetStrategies());
 		//Feather ignore once GM1045
-		return new _array[_index]();
+		return new __.strategies[_index]();
 	}
 	
 	name = _config[$ "name"] ?? "";

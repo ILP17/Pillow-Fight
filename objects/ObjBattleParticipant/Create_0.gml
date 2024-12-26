@@ -1,8 +1,8 @@
 var _self = self;
 __ = {};
 with(__) {
-	sprite = SprPlayer;
-	spriteDead = SprPlayerDead;
+	sprite = SprPillowCombatMissing;
+	spriteDead = SprPillowCombatMissing;
 	healthColor = c_aqua;
 	characterData = undefined;
 	health = 0;
@@ -49,24 +49,26 @@ GetStat = function(_stat_key) {
 }
 
 /**
-	@param {Struct.TurnContext} _turn_context
-*/
+ * @param {Struct.TurnContext} _turn_context
+ * @return {bool} return true if action and selected targets are available, false otherwise
+**/
 EvaluateActionAndSelectedTargets = function(_turn_context) {
-	var _action_instance = __.actionEvaluator.DetermineAction(_turn_context);
+    var _action_instance = __.actionEvaluator.DetermineAction(_turn_context);
     
     _turn_context.SetAction(_action_instance);
     
-	var _selected_targets = __.actionEvaluator.SelectTargets(_turn_context);
-	
-	if(is_undefined(_action_instance) || is_undefined(_selected_targets)) {
-		return undefined;
-	}
-	
-	if(array_length(_selected_targets) == 0) {
-		throw ($"ERROR: Target strategy for {instanceof(_action_instance)} produced no selected targets!");
-	}
-	
-	_action_instance.Initialize([id], _selected_targets);
+    var _selected_targets = __.actionEvaluator.SelectTargets(_turn_context);
+    
+    if(is_undefined(_action_instance) || is_undefined(_selected_targets)) {
+        return false;
+    }
+    
+    if(array_length(_selected_targets) == 0) {
+        throw ($"ERROR: Target strategy for {instanceof(_action_instance)} produced no selected targets!");
+    }
+    
+    _action_instance.Initialize([id], _selected_targets);
+    return true;
 }
 
 /**

@@ -1,11 +1,11 @@
 global.monsters = {
-	Weirdo: new MonsterCharacter(
+	Weirdo: new ExampleMonsterCharacter(
 		{ name: "Weirdo", sprite: SprMonster, stats: new Stats({ hp: 40, at: 30, df: 2, sp: 3 }) }),
-	Killer: new MonsterCharacter(
+	Killer: new ExampleMonsterCharacter(
 		{ name: "Killer", sprite: SprAngryMonster, stats: new Stats({ hp: 25, at: 45, df: 3, sp: 2 }) }),
-	Abhorrence: new MonsterCharacter(
+	Abhorrence: new ExampleMonsterCharacter(
 		{ name: "Abhorrence", sprite: SprAbhorrence, isBoss: true, stats: new Stats({ hp: 175, at: 60, df: 5, sp: 1 }) }),
-	SassyWitch: new MonsterCharacter({
+	SassyWitch: new ExampleMonsterCharacter({
 		name: "Sassy Witch",
 		sprite: SprSassyWitch,
 		stats: new Stats({ hp: 70, at: 35, df: 3, sp: 5 }),

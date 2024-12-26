@@ -29,14 +29,14 @@ function TurnContext(_turn_instance, _ally_team, _enemy_team) constructor {
     }
     
     /**
-     * @return {Id.Instance}
+     * @return {Array<Id.Instance>}
     **/
     static GetAllyTeam = function() {
         return __.allyTeam;
     }
     
     /**
-     * @return {Id.Instance}
+     * @return {Array<Id.Instance>}
     **/
     static GetEnemyTeam = function() {
         return __.enemyTeam;

@@ -1,18 +1,18 @@
 global.playerParty = [
-	new PlayerCharacter({
+	new ExamplePlayerCharacter({
 		name: "Loser",
 		class: global.classes.Rouge,
 		level: 8 }),
-	new PlayerCharacter({
+	new ExamplePlayerCharacter({
 		name: "Kartoffel",
 		sprite: SprMage,
 		class: global.classes.Mage,
 		level: 7 }),
-	new PlayerCharacter({
+	new ExamplePlayerCharacter({
 		name: "#1 Harpy Fan",
 		class: global.classes.Warrior,
 		level: 10 }),
-	new PlayerCharacter({
+	new ExamplePlayerCharacter({
 		name: "Angel",
 		sprite: SprHealer,
 		class: global.classes.Angel,
