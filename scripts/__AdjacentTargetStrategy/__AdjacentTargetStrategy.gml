@@ -2,7 +2,7 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
 	var _self = self;
 	with(__) {
 		TryAddAdjacentTarget = method(_self, function(_targets, _index, _valid_targets) {
-			if(ScrArrayContainsIndex(_valid_targets, _index) && _valid_targets[_index].IsTargetable()) {
+			if(array_has_index(_valid_targets, _index) && _valid_targets[_index].IsTargetable()) {
 				array_push(_targets, _valid_targets[_index]);
 			}
 		});

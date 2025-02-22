@@ -27,3 +27,7 @@ global.enemyParty = [
 	global.monsters.Killer,
 	global.monsters.Killer
 ];
+
+global.pillowCombatConfig.turnSortFunction = function(_bp1, _bp2) {
+    return _bp2.GetStat(SP_STAT) - _bp1.GetStat(SP_STAT);
+};

@@ -6,7 +6,7 @@
   "name":"__ActionEvaluator",
   "parent":{
     "name":"Action Evaluator",
-    "path":"folders/__Pillow_Combat/Scripts/Battle Core/Action Evaluator.yy",
+    "path":"folders/__Pillow_Combat/Scripts/Action Evaluator.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -15,6 +15,7 @@ enum BattleStates {
 }
 
 enum BattleVictors {
+    NA,
 	Alpha,
 	Beta
 }

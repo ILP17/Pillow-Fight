@@ -1,5 +1,5 @@
 /**
- * @param {Struct.Character} _character_data
+ * @param {Struct.BaseBattleParticipantData} _character_data
 */
 function ActionEvaluator(_character_data) constructor {
 	__ = { };
@@ -12,7 +12,7 @@ function ActionEvaluator(_character_data) constructor {
 	 * @return {bool}
 	*/
 	IsReady = function() {
-		ScrEnforceImplementation(nameof(ActionEvaluator), nameof(IsReady));
+		ScrThrowNotImplemented(nameof(ActionEvaluator), nameof(IsReady));
 	}
 	
 	/**
@@ -20,7 +20,7 @@ function ActionEvaluator(_character_data) constructor {
 	 * @return {Struct.Action}
 	*/
 	DetermineAction = function(_turn_context) {
-		ScrEnforceImplementation(nameof(ActionEvaluator), nameof(DetermineAction));
+		ScrThrowNotImplemented(nameof(ActionEvaluator), nameof(DetermineAction));
 	}
 	
 	/**
@@ -28,7 +28,7 @@ function ActionEvaluator(_character_data) constructor {
 	 * @return {Array<Id.Instance>}
 	*/
 	SelectTargets = function(_turn_context) {
-		ScrEnforceImplementation(nameof(ActionEvaluator), nameof(SelectTargets));
+		ScrThrowNotImplemented(nameof(ActionEvaluator), nameof(SelectTargets));
 	}
 	
 	/**
@@ -36,6 +36,6 @@ function ActionEvaluator(_character_data) constructor {
 	 * @return {Array<Id.Instance>}
 	*/
 	UpdateTargets = function(_turn_context) {
-		ScrEnforceImplementation(nameof(ActionEvaluator), nameof(UpdateTargets));
+		ScrThrowNotImplemented(nameof(ActionEvaluator), nameof(UpdateTargets));
 	}
 }

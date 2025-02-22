@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"PillowCombatConfig",
+  "%Name":"__MonsterCharacter",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"PillowCombatConfig",
+  "name":"__MonsterCharacter",
   "parent":{
     "name":"Scripts",
-    "path":"folders/__Pillow_Combat/Scripts.yy",
+    "path":"folders/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

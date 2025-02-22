@@ -6,7 +6,7 @@
   "name":"__Buff",
   "parent":{
     "name":"Buffs",
-    "path":"folders/__Pillow_Combat/Scripts/Battle Core/Buffs.yy",
+    "path":"folders/__Pillow_Combat/Scripts/Buffs.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

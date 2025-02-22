@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__Character",
+  "%Name":"Instance",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__Character",
+  "name":"Instance",
   "parent":{
-    "name":"Battle Core",
-    "path":"folders/__Pillow_Combat/Scripts/Battle Core.yy",
+    "name":"Utility",
+    "path":"folders/Scripts/Utility.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

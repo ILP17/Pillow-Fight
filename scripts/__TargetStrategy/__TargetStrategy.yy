@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__TargetStrategy",
   "parent":{
-    "name":"Target Strategies",
-    "path":"folders/__Pillow_Combat/Scripts/Battle Core/Target Strategies.yy",
+    "name":"Scripts",
+    "path":"folders/__Pillow_Combat/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

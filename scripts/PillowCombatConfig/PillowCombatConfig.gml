@@ -1,3 +1,0 @@
-global.pillowCombatConfig = {
-    battleParticipantObject: ObjBattleParticipant
-}

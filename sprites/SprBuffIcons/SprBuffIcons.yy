@@ -29,7 +29,7 @@
   "origin":1,
   "parent":{
     "name":"UI",
-    "path":"folders/__Pillow_Combat/Sprites/UI.yy",
+    "path":"folders/Sprites/UI.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

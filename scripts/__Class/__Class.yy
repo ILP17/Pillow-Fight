@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__Class",
   "parent":{
-    "name":"Battle Core",
-    "path":"folders/__Pillow_Combat/Scripts/Battle Core.yy",
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

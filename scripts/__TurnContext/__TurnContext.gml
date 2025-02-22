@@ -61,6 +61,6 @@ function TurnContext(_turn_instance, _ally_team, _enemy_team) constructor {
             throw($"Action is undefined while trying to resolve target team");
         }
 		
-		return ScrGetTargetTeamBaseOnAction(_action, __.turnInstance, __.allyTeam, __.enemyTeam);
+		return ScrGetTargetTeamBasedOnAction(_action, __.turnInstance, __.allyTeam, __.enemyTeam);
 	}
 }

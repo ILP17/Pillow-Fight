@@ -15,19 +15,19 @@ global.monsters = {
 
 global.classes = {
 	Rouge: new Class({
-		baseStats: new Stats({ hp: 12, at: 5, df: 1, sp: 5 }),
+		baseStats: new Stats({ hp: 12, at: 5, df: 111, sp: 5 }),
 		maxStats: new Stats({ hp: 275, at: 175, df: 75, sp: 100 })}),
 	Warrior: new Class({
-		baseStats: new Stats({ hp: 15, at: 5, df: 5, sp: 3 }),
+		baseStats: new Stats({ hp: 15, at: 5, df: 511, sp: 3 }),
 		maxStats: new Stats({ hp: 350, at: 225, df: 95, sp: 75 })}),
 	Mage: new Class({
-		baseStats: new Stats({ hp: 10, at: 3, df: 1, sp: 3, mag: 1}),
+		baseStats: new Stats({ hp: 10, at: 3, df: 111, sp: 3, mag: 1}),
 		maxStats: new Stats({ hp: 250, at: 120, df: 75, sp: 85, mag: 140 }),
 		actions: [BasicHitAction, BasicLightningAction, BasicExplosionAction, BasicDefenseBuffAction],
 		strategies: [BasicActionStrategy, BuffActionStrategy]}),
 	Angel: new Class({
-		baseStats: new Stats({ hp: 10, at: 3, df: 1, sp: 4, mag: 1 }),
+		baseStats: new Stats({ hp: 10, at: 3, df: 111, sp: 4, mag: 1 }),
 		maxStats: new Stats({ hp: 195, at: 100, df: 80, sp: 90, mag: 168 }),
-		actions: [BasicHitAction, BasicHealAction, BasicResurrectionAction, BasicMultiTurnAction],
+		actions: [BasicMultiTurnAction],
 		strategies: [BasicActionStrategy, HealActionStrategy, ReviveActionStrategy]})
 }

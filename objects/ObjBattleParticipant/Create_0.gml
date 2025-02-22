@@ -20,8 +20,8 @@ with(__) {
 }
 
 /**
-	@param {Struct.Character} _character_data
-*/
+ * @param {Struct.BaseBattleParticipantData} _character_data
+**/
 Initialize = function(_character_data) {
 	__.characterData = _character_data;
 	
@@ -38,6 +38,11 @@ Initialize = function(_character_data) {
 	return id;
 }
 
+/**
+ * Gets a stat's value
+ * @param {String} _stat_key
+ * @return {real}
+**/
 GetStat = function(_stat_key) {
 	var _value = __.characterData.GetStat(_stat_key);
 	
@@ -49,10 +54,12 @@ GetStat = function(_stat_key) {
 }
 
 /**
+ * BattleStateManager will call this  before proceeding to the Turn state.
+ * Returning undefined effectively makes the BattleStateManager wait
  * @param {Struct.TurnContext} _turn_context
- * @return {bool} return true if action and selected targets are available, false otherwise
+ * @return {Struct.TurnAction,undefined} this should denote that an action has been selected
 **/
-EvaluateActionAndSelectedTargets = function(_turn_context) {
+GetAction = function(_turn_context) {
     var _action_instance = __.actionEvaluator.DetermineAction(_turn_context);
     
     _turn_context.SetAction(_action_instance);
@@ -60,21 +67,22 @@ EvaluateActionAndSelectedTargets = function(_turn_context) {
     var _selected_targets = __.actionEvaluator.SelectTargets(_turn_context);
     
     if(is_undefined(_action_instance) || is_undefined(_selected_targets)) {
-        return false;
+        return undefined;
     }
     
     if(array_length(_selected_targets) == 0) {
         throw ($"ERROR: Target strategy for {instanceof(_action_instance)} produced no selected targets!");
     }
     
-    _action_instance.Initialize([id], _selected_targets);
-    return true;
+    return new TurnAction(_action_instance, [id], _selected_targets);
 }
 
 /**
-	@param {Struct.TurnContext} _turn_context
-	@return {Array<Id.Instance>}
-*/
+ * If the BattleStateManager determines that the original targets are no longer valid,
+ * it will call this to get new targets.
+ * @param {Struct.TurnContext} _turn_context
+ * @return {Array<Id.Instance>}
+**/
 UpdateTargets = function(_turn_context) {
 	return __.actionEvaluator.UpdateTargets(_turn_context);
 }
@@ -83,6 +91,11 @@ GetHealthRatio = function() {
 	return __.health / __.characterData.GetStat(HP_STAT);
 }
 
+/**
+ * Returns true if this participant is considered alive.
+ * If one side has no alive members, the BattleStateManager will end the battle
+ * @return {bool}
+**/
 IsAlive = function() {
 	return __.health > 0;
 }
@@ -91,6 +104,11 @@ IsTargetable = function() {
 	return IsAlive();
 }
 
+/**
+ * Returns true if this participant is able to act.
+ * If it is this participants turn, and it can't act its turn is skipped.
+ * @return {bool}
+**/
 CanAct = function() {
 	return IsAlive();
 }
@@ -137,9 +155,10 @@ ClearBuffs = function() {
 }
 
 /**
-	Decays all buffs' turn timers by 1
-*/
-DecayBuffs = function() {
+ * BattleStateManager will call this at the end of the current turn for this battle participant
+**/
+OnPostTurn = function() {
+    //Decays all buffs' turn timers by 1
 	static Filter = function(_buff, _index) {
 		return _buff.turnCount > 0;
 	}

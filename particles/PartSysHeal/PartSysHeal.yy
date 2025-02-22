@@ -14,7 +14,7 @@
   "name":"PartSysHeal",
   "parent":{
     "name":"Particle Systems",
-    "path":"folders/__Pillow_Combat/Particle Systems.yy",
+    "path":"folders/Particle Systems.yy",
   },
   "resourceType":"GMParticleSystem",
   "resourceVersion":"2.0",

@@ -38,7 +38,7 @@ function TargetStrategy() constructor {
      * @return {bool}
 	**/
 	IsTargetValid = function(_potential_target) {
-		ScrEnforceImplementation(instanceof(self), nameof(IsTargetValid));
+		ScrThrowNotImplemented(instanceof(self), nameof(IsTargetValid));
 	}
     
     /**
@@ -48,7 +48,7 @@ function TargetStrategy() constructor {
      * @return {Array<Id.Instance>}
     **/
     SelectTargets = function(_main_valid_target_index, _target_team) {
-        ScrEnforceImplementation(instanceof(self), nameof(SelectTargets));
+        ScrThrowNotImplemented(instanceof(self), nameof(SelectTargets));
     }
 	
 	/**
@@ -58,6 +58,6 @@ function TargetStrategy() constructor {
 	 * @return {Array<Id.Instance>}
 	**/
 	DelayedActionTargetsCheck = function(_turn_context) {
-		ScrEnforceImplementation(instanceof(self), nameof(DelayedActionTargetsCheck));
+		ScrThrowNotImplemented(instanceof(self), nameof(DelayedActionTargetsCheck));
 	}
 }

@@ -1,13 +1,13 @@
 /**
-	@param _config
-*/
-function ExamplePlayerCharacter(_config = {}) : Character() constructor {
+ * @param _config
+**/
+function ExamplePlayerCharacter(_config = {}) : BaseBattleParticipantData() constructor {
 	__ = {};
 	with(__) {
 		actions = _config[$ "actions"] ?? [];
 		strategies = _config[$ "strategies"] ?? [];
 		level = _config[$ "level"] ?? 1;
-		class = ThrowIfUndefined(_config[$ "class"], "class");
+		class = _config[$ "class"] ?? ScrThrowArgumentUndefined("class");
 	}
 	
 	/**

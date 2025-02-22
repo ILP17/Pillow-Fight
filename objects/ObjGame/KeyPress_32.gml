@@ -1,1 +1,1 @@
-ObjBattleStateController.TryBeginBattle();
+StartBattle();

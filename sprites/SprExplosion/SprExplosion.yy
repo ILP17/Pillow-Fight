@@ -50,7 +50,7 @@
   "origin":9,
   "parent":{
     "name":"Effects",
-    "path":"folders/__Pillow_Combat/Sprites/Effects.yy",
+    "path":"folders/Sprites/Effects.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

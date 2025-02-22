@@ -1,6 +1,6 @@
 function BuffActionStrategy() : ActionStrategy() constructor {
 	/**
-		@param {Struct.Character} _character_data
+		@param {Struct.BaseBattleParticipantData} _character_data
 		@param {Struct.TurnContext} _turn_context
 		@param {Array<real>|undefined} _weights
 		@return {Array<real>}
@@ -20,7 +20,7 @@ function BuffActionStrategy() : ActionStrategy() constructor {
 			}
 			
 			_should_buff = 0;
-            var _targets = ScrGetTargetTeamBaseOnAction(
+            var _targets = ScrGetTargetTeamBasedOnAction(
                             _action,
                             _turn_context.GetTurnInstance(),
                             _turn_context.GetAllyTeam(),

@@ -1,7 +1,7 @@
 /**
 	@param _config
 */
-function ExampleMonsterCharacter(_config = {}) : Character() constructor {
+function ExampleMonsterCharacter(_config = {}) : BaseBattleParticipantData() constructor {
 	__ = {};
 	with(__) {
 		actions = _config[$ "actions"] ?? [BasicHitAction];

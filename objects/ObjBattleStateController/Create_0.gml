@@ -1,16 +1,13 @@
 var _self = self;
 __ = {};
 with (__) {
+    initialize = false
 	scheduler = new Scheduler();
 	currentTurnIndex = 0;
 	alphaTeam = [];
 	betaTeam = [];
 	currentTurnOrder = [];
 	battleState = BattleStates.NA;
-	
-	SortBySpeed = method(_self, function(_bp1, _bp2) {
-		return _bp2.GetStat(SP_STAT) - _bp1.GetStat(SP_STAT);
-	});
 
 	SignalTurnEnd = method(_self, function() {
 		__.battleState = BattleStates.PostTurn;
@@ -27,7 +24,7 @@ with (__) {
 	});
 
 	CreateTurnOrder = method(_self, function() {
-		array_sort(__.currentTurnOrder, __.SortBySpeed);
+		array_sort(__.currentTurnOrder, global.pillowCombatConfig.turnSortFunction);
 	});
 
 	SkipTurn = method(_self, function(_should_skip_turn) {
@@ -55,21 +52,23 @@ with (__) {
     });
 
 	BattleHasVictor = method(_self, function() {
+        var _victors = BattleVictors.NA;
+        
 		if(!__.CheckTeamAlive(__.alphaTeam)) {
-			OnBattleDecided(BattleVictors.Beta);
-			__.battleState = BattleStates.PostBattle;
-			return true;
+			_victors = BattleVictors.Beta;
 		} else if(!__.CheckTeamAlive(__.betaTeam)) {
-			OnBattleDecided(BattleVictors.Alpha);
-			__.battleState = BattleStates.PostBattle;
-			return true;
+			_victors = BattleVictors.Alpha;
 		}
+        
+        if(_victors != BattleStates.NA) {
+            global.pillowCombatConfig.battleDecidedFunction(_victors);
+            __.battleState = BattleStates.PostBattle;
+            return true;
+        }
 	
 		return false;
 	});
 }
-
-OnBattleDecided = function(_victor_team) {}
 
 GetBattleState = function() {
 	return __.battleState;
@@ -101,44 +100,17 @@ OnBattleParticipantDeath = function(_battle_participant) {
 	__.scheduler.RemoveDelayedActionsFor(_battle_participant);
 }
 
+/**
+ * @param {Array<Id.Instance>} _alphaTeam
+ * @param {Array<Id.Instance>} _betaTeam
+**/
+Initialize = function(_alphaTeam, _betaTeam) {
+    __.alphaTeam = _alphaTeam;
+    __.betaTeam = _betaTeam;
+    __.initialize = true;
+}
+
 PreBattle = function() {
-	var _character_data,
-		_battle_participant = noone,
-		_battle_participant_object = global.pillowCombatConfig.battleParticipantObject,
-		_base_y = room_height / 2,
-		_player_x = room_width / 3,
-		_monster_x = room_width * (2 / 3),
-		_y = _base_y - array_length(global.playerParty) * 34 / 2;
-	
-	for(var i = 0; i < array_length(global.playerParty); i++) {
-		_character_data = global.playerParty[i];
-		_battle_participant = instance_create_layer(
-			_player_x + irandom_range(-18, 18),
-			_y + i * 34,
-			layer,
-			_battle_participant_object).Initialize(_character_data);
-		array_push(__.alphaTeam, _battle_participant);
-	}
-	
-	_y = _base_y - array_length(global.enemyParty) * 34 / 2;
-	for(var i = 0; i < array_length(global.enemyParty); i++) {
-		_character_data = global.enemyParty[i];
-		
-		var _real_monster_x = _monster_x + irandom_range(-18, 18);
-		
-		if(_character_data.isBoss) {
-			_real_monster_x += 80;
-		}
-		
-		_battle_participant = instance_create_layer(
-			_real_monster_x,
-			_y + i * 34,
-			layer,
-			_battle_participant_object).Initialize(_character_data);
-		_battle_participant.image_xscale = -1;
-		array_push(__.betaTeam, _battle_participant);
-	}
-	
 	__.currentTurnOrder = array_concat(__.alphaTeam, __.betaTeam);
 	__.CreateTurnOrder();
 	__.battleState = BattleStates.PreTurn;
@@ -182,8 +154,12 @@ PreTurn = function() {
 	if(__.SkipTurn(__.scheduler.HasDelayedActionFor(_turn_instance))) {
 		return;
 	}
+    
+    var _turn_action = _turn_instance.GetAction(_turn_context);
 	
-	if(_turn_instance.EvaluateActionAndSelectedTargets(_turn_context)) {
+	if(!is_undefined(_turn_action)) {
+        var _action = _turn_action.action;
+        _action.Initialize(_turn_action.attackers, _turn_action.targets);
      	__.scheduler.AddAction(_turn_context.GetAction());
      	__.battleState = BattleStates.Turn;
     }
@@ -198,7 +174,7 @@ Turn = function() {
 }
 
 PostTurn = function() {
-	__.currentTurnOrder[__.currentTurnIndex].DecayBuffs();
+	__.currentTurnOrder[__.currentTurnIndex].OnPostTurn();
 	__.currentTurnIndex++;
 	
 	if(__.currentTurnIndex >= array_length(__.currentTurnOrder)) {
@@ -209,5 +185,4 @@ PostTurn = function() {
 	__.battleState = BattleStates.PreTurn;
 }
 
-PostBattle = function() {
-}
+PostBattle = function() { }

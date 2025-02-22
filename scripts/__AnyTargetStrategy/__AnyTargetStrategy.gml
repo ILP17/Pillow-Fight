@@ -24,7 +24,7 @@ function AnyTargetStrategy() : TargetStrategy() constructor {
 		
 		if(!_valid) {
             //initialize again to get new valid targets
-            Initialize(_target_team);
+            Initialize(_turn_context);
             var _new_valid_target_index = irandom(array_length(__.validTargets) - 1);
             
 			_new_targets = SelectTargets(_new_valid_target_index, _target_team);

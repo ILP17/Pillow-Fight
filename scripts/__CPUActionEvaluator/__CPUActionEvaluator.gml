@@ -1,5 +1,5 @@
 /**
- * @param {Struct.Character} _character_data
+ * @param {Struct.BaseBattleParticipantData} _character_data
 */
 function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) constructor {
 	/**
@@ -74,7 +74,6 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) 
 	UpdateTargets = function(_turn_context) {
         var _action = _turn_context.GetAction();
         var _target_strategy = _action.CreateTargetStrategy();
-        var _target_team = _turn_context.ResolveTargets();
         
         _target_strategy.Initialize(_turn_context);
         

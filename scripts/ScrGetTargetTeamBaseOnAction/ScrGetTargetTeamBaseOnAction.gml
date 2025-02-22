@@ -3,8 +3,9 @@
  * @param {Id.Instance} _turn_instance
  * @param {Array<Id.Instance>} _ally_team
  * @param {Array<Id.Instance>} _enemy_team
+ * @return {Array<Id.Instance>,Id.Instance}
 **/
-function ScrGetTargetTeamBaseOnAction(_action, _turn_instance, _ally_team, _enemy_team) { 
+function ScrGetTargetTeamBasedOnAction(_action, _turn_instance, _ally_team, _enemy_team) { 
     var _action_metadata = _action.GetMetadata();
     
     switch(_action_metadata.targetType) {

@@ -191,7 +191,7 @@
   "name":"FonUISmall",
   "parent":{
     "name":"Fonts",
-    "path":"folders/__Pillow_Combat/Fonts.yy",
+    "path":"folders/Fonts.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -205,10 +205,7 @@
   "sdfSpread":8,
   "size":12.0,
   "styleName":"Bold",
-  "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
-  },
+  "textureGroupId":null,
   "TTFName":"",
   "usesSDF":true,
 }

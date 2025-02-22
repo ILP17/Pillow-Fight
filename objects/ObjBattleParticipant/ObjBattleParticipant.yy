@@ -11,9 +11,12 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
-    "path":"folders/__Pillow_Combat/Objects.yy",
+    "path":"folders/Objects.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"ObjBaseBattleParticipant",
+    "path":"objects/ObjBaseBattleParticipant/ObjBaseBattleParticipant.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
