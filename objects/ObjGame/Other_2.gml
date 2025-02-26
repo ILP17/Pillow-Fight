@@ -19,6 +19,36 @@ global.playerParty = [
 		level: 8 })
 ];
 
+ScrRegisterActionMetadata(nameof(BasicHitAction), new ActionMetadata());
+ScrRegisterActionMetadata(nameof(BasicHealAction), new ActionMetadata({
+	targetType: TargetType.Team,
+	effectType: EffectType.Heal,
+	targetStrategy: HealTargetStrategy}));
+ScrRegisterActionMetadata(nameof(BasicResurrectionAction), new ActionMetadata({
+	targetType: TargetType.Team,
+	effectType: EffectType.Revive,
+	targetStrategy: ReviveTargetStrategy}));
+ScrRegisterActionMetadata(nameof(BasicLightningAction), new ActionMetadata({
+	targetStrategy: AdjacentTargetStrategy}));
+ScrRegisterActionMetadata(nameof(BasicExplosionAction), new ActionMetadata({
+	targetStrategy: AllTargetStrategy}));
+ScrRegisterActionMetadata(nameof(BasicStrengthBuffAction), new ActionMetadata({
+	targetType: TargetType.Team,
+	effectType: EffectType.Buff,
+	targetStrategy: BuffTargetStrategy,
+	buffs: [ValorBuff]}));
+ScrRegisterActionMetadata(nameof(BasicDefenseBuffAction), new ActionMetadata({
+	targetType: TargetType.Team,
+	effectType: EffectType.Buff,
+	targetStrategy: BuffTargetStrategy,
+	buffs: [ProtectionBuff]}));
+ScrRegisterActionMetadata(nameof(BasicSpeedDebuffAction), new ActionMetadata({
+	effectType: EffectType.Buff,
+	targetStrategy: BuffTargetStrategy,
+	buffs: [StaggerBuff]}));
+ScrRegisterActionMetadata(nameof(BasicMultiTurnAction), new ActionMetadata());
+ScrRegisterActionMetadata(nameof(BasicMultiTurnAttackAction), new ActionMetadata());
+
 global.enemyParty = [
 	global.monsters.Weirdo,
 	global.monsters.Weirdo,

@@ -6,7 +6,7 @@
   "name":"__ValorBuff",
   "parent":{
     "name":"Buffs",
-    "path":"folders/__Pillow_Combat/Scripts/Buffs.yy",
+    "path":"folders/Scripts/Buffs.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

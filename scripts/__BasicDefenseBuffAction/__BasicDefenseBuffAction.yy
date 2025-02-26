@@ -6,7 +6,7 @@
   "name":"__BasicDefenseBuffAction",
   "parent":{
     "name":"Actions",
-    "path":"folders/__Pillow_Combat/Scripts/Actions.yy",
+    "path":"folders/Scripts/Actions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

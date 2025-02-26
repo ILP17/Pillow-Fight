@@ -15,15 +15,6 @@ function Action() constructor {
 		return ScrActionGetMetadataFromInstance(self);
 	}
 	
-	/**
-		@return {Struct.TargetStrategy}
-	*/
-	static CreateTargetStrategy = function() {
-		var _action_metadata = ScrActionGetMetadataFromInstance(self);
-		//Feather ignore once GM1045
-		return new _action_metadata.targetStrategy();
-	}
-	
 	static HasEnded = function() {
 		return __hasEnded;
 	}

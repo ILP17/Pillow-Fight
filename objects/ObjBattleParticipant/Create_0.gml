@@ -17,6 +17,8 @@ with(__) {
 		sprite_index = __.spriteDead;
 		image_blend = c_gray;
 	});
+    actionResult = new ActionResult();
+    targetsResult = new TargetsResult();
 }
 
 /**
@@ -60,21 +62,24 @@ GetStat = function(_stat_key) {
  * @return {Struct.TurnAction,undefined} this should denote that an action has been selected
 **/
 GetAction = function(_turn_context) {
-    var _action_instance = __.actionEvaluator.DetermineAction(_turn_context);
-    
-    _turn_context.SetAction(_action_instance);
-    
-    var _selected_targets = __.actionEvaluator.SelectTargets(_turn_context);
-    
-    if(is_undefined(_action_instance) || is_undefined(_selected_targets)) {
+    if(!__.actionEvaluator.TryDetermineAction(_turn_context, __.actionResult)) {
         return undefined;
     }
     
-    if(array_length(_selected_targets) == 0) {
-        throw ($"ERROR: Target strategy for {instanceof(_action_instance)} produced no selected targets!");
+    var _action = __.actionResult.GetAction();
+    _turn_context.SetAction(_action);
+    
+    if(!__.actionEvaluator.TrySelectTargets(_turn_context, __.targetsResult)) {
+        return undefined;
     }
     
-    return new TurnAction(_action_instance, [id], _selected_targets);
+    var _targets = __.targetsResult.GetTargets();
+    
+    if(array_length(_targets) == 0) {
+        throw ($"ERROR: Target strategy for {instanceof(_action)} produced no selected targets!");
+    }
+    
+    return new TurnAction(_action, [id], _targets);
 }
 
 /**

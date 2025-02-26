@@ -2,7 +2,7 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
 	var _self = self;
     
     with(__) {
-		actionMetadata = undefined; 
+		actionMetadata = new ActionMetadata(); 
 	}
     
     /**
@@ -14,7 +14,8 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
     }
 	
 	IsTargetValid = function(_potential_target) {
-		return _potential_target.IsTargetable() && !_potential_target.HasAnyBuff(__.actionMetadata.buffs);
+        var _buffs = __.actionMetadata.GetData("buffs", []);
+		return _potential_target.IsTargetable() && !_potential_target.HasAnyBuff(_buffs);
 	}
 	
 	SelectTargets = function(_main_valid_target_index, _target_team) {

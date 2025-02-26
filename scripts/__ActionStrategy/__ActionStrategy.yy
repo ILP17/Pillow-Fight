@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"__ActionStrategy",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/__Pillow_Combat/Scripts.yy",
+    "name":"Action Strategies",
+    "path":"folders/Scripts/Action Strategies.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

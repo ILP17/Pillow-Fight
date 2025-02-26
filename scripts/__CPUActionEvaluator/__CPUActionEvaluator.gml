@@ -1,19 +1,31 @@
 /**
  * @param {Struct.BaseBattleParticipantData} _character_data
 */
-function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) constructor {
-	/**
-		@return {bool}
-	**/
-	IsReady = function() {
-		return true;
-	}
-	
-	/**
+function CPUActionEvaluator(_character_data) : ActionEvaluator() constructor { 
+	__ = {};
+    
+    with(__) {
+        characterData = _character_data;
+        GetTargetStrategy = function(_action_metadata) {
+            var _target_strategy = _action_metadata.GetData("targetStrategy", AnyTargetStrategy);
+            return new _target_strategy();
+        }
+    }
+    /**
+     * Tries to determine an action.
+     * Returns true if successful and action result should contain the action
+     * Returns false if no action has been determined
 	 * @param {Struct.TurnContext} _turn_context
-	 * @return {Struct.Action}
+	 * @param {Struct.ActionResult} _action_result
+	 * @return {bool}
 	**/
-	DetermineAction = function(_turn_context) {
+	TryDetermineAction = function(_turn_context, _action_result) {
+        if(is_undefined(_action_result)) {
+            ScrThrowArgumentUndefined(nameof(_action_result));
+        }
+        
+        _action_result.SetAction(undefined);
+        
 		var _weights = undefined;
 	
 		//Get weights
@@ -47,24 +59,40 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) 
 			}
 			_min_weight = _max_weight;
 		}
+        
+        _action_result.SetAction(_action);
 	
-		return _action;
+		return true;
 	}
 	
 	/**
+     * Tries to determine a set of targets.
+     * Returns true if successful and action result should contain the action
+     * Returns false if no action has been determined
 	 * @param {Struct.TurnContext} _turn_context
-	 * @return {Array<Id.Instance>}
+	 * @param {Struct.TargetsResult} _targets_result
+	 * @return {bool}
 	**/
-	SelectTargets = function(_turn_context) {
+	TrySelectTargets = function(_turn_context, _targets_result) {
+        if(is_undefined(_targets_result)) {
+            ScrThrowArgumentUndefined(nameof(_targets_result));
+        }
+        
+        _targets_result.SetTargets(undefined);
+        
         var _action = _turn_context.GetAction();
-		var _target_strategy = _action.CreateTargetStrategy();
+		var _target_strategy = __.GetTargetStrategy(_action.GetMetadata());
 		var _target_team = _turn_context.ResolveTargets();
         
         _target_strategy.Initialize(_turn_context);
         
-		return _target_strategy.SelectTargets(
+        var _targets = _target_strategy.SelectTargets(
             irandom(array_length(_target_strategy.GetValidTargets()) - 1),
             _target_team);
+        
+        _targets_result.SetTargets(_targets);
+        
+		return true;
 	}
 	
 	/**
@@ -73,7 +101,7 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator(_character_data) 
 	**/
 	UpdateTargets = function(_turn_context) {
         var _action = _turn_context.GetAction();
-        var _target_strategy = _action.CreateTargetStrategy();
+        var _target_strategy = __.GetTargetStrategy(_action.GetMetadata());
         
         _target_strategy.Initialize(_turn_context);
         

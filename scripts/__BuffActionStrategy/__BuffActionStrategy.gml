@@ -34,7 +34,9 @@ function BuffActionStrategy() : ActionStrategy() constructor {
 					continue;
 				}
 				
-				if(!_target.HasAnyBuff(_metadata.buffs)) {
+                var _buffs = _metadata.GetData("buffs", []);
+                
+				if(!_target.HasAnyBuff(_buffs)) {
 					_should_buff = 1;
 					break;
 				}

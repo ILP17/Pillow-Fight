@@ -1,3 +1,10 @@
+#macro MAX_LEVEL 50
+#macro HP_STAT "hp"
+#macro AT_STAT "at"
+#macro DF_STAT "df"
+#macro MAG_STAT "mag"
+#macro SP_STAT "sp"
+
 global.monsters = {
 	Weirdo: new ExampleMonsterCharacter(
 		{ name: "Weirdo", sprite: SprMonster, stats: new Stats({ hp: 40, at: 30, df: 2, sp: 3 }) }),

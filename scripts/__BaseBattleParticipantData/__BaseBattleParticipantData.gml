@@ -26,21 +26,4 @@ function BaseBattleParticipantData() constructor {
 	GetAction = function(_index) {
 		ScrThrowNotImplemented(instanceof(self), nameof(GetAction));
 	}
-	
-	/**
-     * Gets the number of available action strategies
-     * @return {real}
-	**/
-	GetStrategyCount = function() {
-		ScrThrowNotImplemented(instanceof(self), nameof(GetStrategyCount));
-	}
-	
-	/**
-     * Gets a strategy
-	 * @param {real} _index
-	 * @return {Struct.ActionStrategy}
-	**/
-	GetStrategy = function(_index) {
-		ScrThrowNotImplemented(instanceof(self), nameof(GetStrategy));
-	}
 }
