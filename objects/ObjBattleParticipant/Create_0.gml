@@ -17,8 +17,6 @@ with(__) {
 		sprite_index = __.spriteDead;
 		image_blend = c_gray;
 	});
-    actionResult = new ActionResult();
-    targetsResult = new TargetsResult();
 }
 
 /**
@@ -59,26 +57,12 @@ GetStat = function(_stat_key) {
  * BattleStateManager will call this  before proceeding to the Turn state.
  * Returning undefined effectively makes the BattleStateManager wait
  * @param {Struct.TurnContext} _turn_context
- * @return {Struct.TurnAction,undefined} this should denote that an action has been selected
+ * @return {Struct.TurnAction} this should denote that an action has been selected
 **/
 GetAction = function(_turn_context) {
-    if(!__.actionEvaluator.TryDetermineAction(_turn_context, __.actionResult)) {
-        return undefined;
-    }
-    
-    var _action = __.actionResult.GetAction();
-    _turn_context.SetAction(_action);
-    
-    if(!__.actionEvaluator.TrySelectTargets(_turn_context, __.targetsResult)) {
-        return undefined;
-    }
-    
-    var _targets = __.targetsResult.GetTargets();
-    
-    if(array_length(_targets) == 0) {
-        throw ($"ERROR: Target strategy for {instanceof(_action)} produced no selected targets!");
-    }
-    
+    var _action = __.actionEvaluator.TryDetermineAction(_turn_context); 
+    var _targets = __.actionEvaluator.TrySelectTargets(_turn_context, _action);
+    show_debug_message($"action={instanceof(_action)}, _targets={_targets}");
     return new TurnAction(_action, [id], _targets);
 }
 

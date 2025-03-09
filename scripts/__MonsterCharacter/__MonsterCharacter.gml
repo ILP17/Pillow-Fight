@@ -1,6 +1,6 @@
-/**
-	@param _config
-*/
+/** 
+ * @param _config
+**/
 function ExampleMonsterCharacter(_config = {}) : BaseBattleParticipantData() constructor {
 	__ = {};
 	with(__) {
@@ -9,41 +9,41 @@ function ExampleMonsterCharacter(_config = {}) : BaseBattleParticipantData() con
 		stats = _config[$ "stats"] ?? new Stats();
 	}
 	
-	/**
-		@param {string} _stat_key
-		@return {real}
-	*/
+	/** 
+     * @param {string} _stat_key 
+     * @return {real}
+	**/
 	GetStat = function(_stat_key) {
 		return __.stats[$ _stat_key];
 	}
 	
-	/**
-		@return {real}
-	*/
+	/** 
+     * @return {real}
+	**/
 	GetActionCount = function() {
 		return array_length(__.actions);
 	}
 	
-	/**
-		@param {real} _index
-		@return {Array<Function>}
-	*/
+	/** 
+     * @param {real} _index 
+     * @return {Struct.Action}
+	**/
 	GetAction = function(_index) {
 		//Feather ignore once GM1045
 		return new __.actions[_index]();
 	}
 	
-	/**
-		@return {real}
-	*/
+	/** 
+     * @return {real}
+	**/
 	GetStrategyCount = function() {
 		return array_length(__.strategies);
 	}
 	
-	/**
-		@param {real} _index
-		@return {Array<Struct.ActionStrategy>}
-	*/
+	/** 
+     * @param {real} _index 
+     * @return {Array<Struct.ActionStrategy>}
+	**/
 	GetStrategy = function(_index) {
 		//Feather ignore once GM1045
 		return new __.strategies[_index]();

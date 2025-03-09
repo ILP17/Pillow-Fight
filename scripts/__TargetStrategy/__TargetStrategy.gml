@@ -21,9 +21,11 @@ function TargetStrategy() constructor {
     
     /**
      * @param {Struct.TurnContext} _turn_context
+     * @param {Struct.Action} _action
     **/
-    Initialize = function(_turn_context) {
-        __.AquireValidTargets(_turn_context.ResolveTargets());
+    Initialize = function(_turn_context, _action) {
+        var _action_to_use = _action ?? _turn_context.GetTurnAction().action;
+        __.AquireValidTargets(ScrGetTargetTeamBasedOnAction(_action_to_use, _turn_context));
     }
     
     /**

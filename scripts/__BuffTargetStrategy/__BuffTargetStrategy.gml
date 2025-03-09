@@ -7,10 +7,12 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
     
     /**
      * @param {Struct.TurnContext} _turn_context
+     * @param {Struct.Action} _action
     **/
-    Initialize = function(_turn_context) {
-        __.actionMetadata = _turn_context.GetAction().GetMetadata();
-        __.AquireValidTargets(_turn_context.ResolveTargets());
+    Initialize = function(_turn_context, _action) {
+        var _action_to_use = _action ?? _turn_context.GetTurnAction().action;
+        __.actionMetadata = _action_to_use.GetMetadata();
+        __.AquireValidTargets(ScrGetTargetTeamBasedOnAction(_action_to_use, _turn_context));
     }
 	
 	IsTargetValid = function(_potential_target) {
@@ -30,8 +32,7 @@ function BuffTargetStrategy() : TargetStrategy() constructor {
 	}
 	
 	DelayedActionTargetsCheck = function(_turn_context) {
-        var _action = _turn_context.GetAction();
-		var _current_selected_targets = _action.GetTargets();
+        var _current_selected_targets = _turn_context.GetTurnAction().targets;
 		var _valid = IsTargetValid(_current_targets[0]);
         var _target_team = _turn_context.ResolveTargets();
 		var _new_targets = _current_selected_targets;

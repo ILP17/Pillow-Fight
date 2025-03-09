@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"ScrGetTargetTeamBaseOnAction",
+  "%Name":"ScrGetTargetTeamBasedOnAction",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ScrGetTargetTeamBaseOnAction",
+  "name":"ScrGetTargetTeamBasedOnAction",
   "parent":{
     "name":"Scripts",
     "path":"folders/__Pillow_Combat/Scripts.yy",

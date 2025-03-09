@@ -7,8 +7,9 @@ function BasicLightningAction() : Action() constructor {
 	//Feather restore GM2043
 	
 	DoStrike = function() {
-		var _attacker = array_first(__attackers);
-		var _victim = __targets[__target_index];
+        var _turn_action = __.turn_context.GetTurnAction();
+		var _attacker = array_first(_turn_action.attackers);
+        var _victim = _turn_action.targets[__target_index];
 		var _effect = instance_create_depth(_victim.x, _victim.y, _victim.depth + 1, ObjBasicEffect);
 		_effect.Initialize(SprLightning, 24);
 		_effect.image_yscale = 100;
@@ -16,9 +17,9 @@ function BasicLightningAction() : Action() constructor {
 		__strikeTimer.Reset();
 		
 		if(__target_index == 0) {
-			_victim.Damage(GetDamage(_attacker, 0.8, _victim, MAG_STAT, DF_STAT, 4));
+			_victim.Damage(ScrGetDamage(_attacker, 0.8, _victim, MAG_STAT, DF_STAT, 4));
 		} else {
-			_victim.Damage(GetDamage(_attacker, 0.5, _victim, MAG_STAT, DF_STAT, 4));
+			_victim.Damage(ScrGetDamage(_attacker, 0.5, _victim, MAG_STAT, DF_STAT, 4));
 		}
 		
 		__strikeCount --;
@@ -34,12 +35,13 @@ function BasicLightningAction() : Action() constructor {
 	}
 	
 	Run = function() {
-		var _attacker = __attackers[0];
+        var _turn_action = __.turn_context.GetTurnAction();
+		var _attacker = array_first(_turn_action.attackers);
 		
 		switch(__state) {
 			case 0:
 				if(ScrInstanceMoveTo(_attacker, _attacker.x, _attacker.ystart - 64, 6)) {
-					__strikeCount = array_length(__targets);
+					__strikeCount = array_length(_turn_action.targets);
 					AdvanceState();
 				}
 				break;
@@ -52,7 +54,7 @@ function BasicLightningAction() : Action() constructor {
 				}
 				break;
 			case 3:
-				__hasEnded = true;
+				__.has_ended = true;
 				break;
 		}
 	}

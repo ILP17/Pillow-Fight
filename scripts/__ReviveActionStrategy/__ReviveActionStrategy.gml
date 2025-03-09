@@ -1,13 +1,12 @@
 function ReviveActionStrategy() : ActionStrategy() constructor {
 	/**
-		@param {Struct.BaseBattleParticipantData} _character_data
-		@param {Struct.TurnContext} _turn_context
-		@param {Array<real>|undefined} _weights
-		@return {Array<real>}
-	*/
-	EvaluateAction = function(_character_data, _turn_context, _weights = undefined) {
+	 * @param {Struct.BaseBattleParticipantData} _character_data
+	 * @param {Struct.TurnContext} _turn_context
+	 * @param {Array<real>} _weights
+	 * @return {Array<real>}
+	**/
+	EvaluateAction = function(_character_data, _turn_context, _weights) {
 		var _action_count = _character_data.GetActionCount();
-		_weights ??= __InitializeWeights(_action_count);
 		var _should_heal = 0;
 		
 		//for each action
@@ -20,11 +19,7 @@ function ReviveActionStrategy() : ActionStrategy() constructor {
 			}
 			
 			_should_heal = 0;
-            var _targets = ScrGetTargetTeamBasedOnAction(
-                            _action,
-                            _turn_context.GetTurnInstance(),
-                            _turn_context.GetAllyTeam(),
-                            _turn_context.GetEnemyTeam());
+            var _targets = ScrGetTargetTeamBasedOnAction(_action, _turn_context);
 			
 			//for each target
 			for(var j = 0; j < array_length(_targets); j++) {
@@ -38,10 +33,10 @@ function ReviveActionStrategy() : ActionStrategy() constructor {
 			
 			switch(_should_heal) {
 				case 0:
-					_weights[i] = __AdjustWeight(_weights[i], -999);
+					_weights[i] = __.AdjustWeight(_weights[i], -999);
 					break;
 				case 1:
-					_weights[i] = __AdjustWeight(_weights[i], 100);
+					_weights[i] = __.AdjustWeight(_weights[i], 100);
 					break;
 			}
 		}

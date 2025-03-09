@@ -31,8 +31,9 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 	}
 	
 	Run = function() {
-		var _attacker = __attackers[0],
-			_victim = __targets[0];
+		var _turn_action = __.turn_context.GetTurnAction();
+		var _attacker = array_first(_turn_action.attackers);
+        var _victim = array_first(_turn_action.targets);
 		
 		switch(__state) {
 			case 0:
@@ -66,7 +67,7 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 			case 3:
 				__DoRotation(_attacker);
 				_attacker.RemoveEffect(ObjAngelBeamCharge);
-				_victim.Damage(GetDamage(_attacker, 1, _victim, MAG_STAT, DF_STAT));
+				_victim.Damage(ScrGetDamage(_attacker, 1, _victim, MAG_STAT, DF_STAT));
 				__state++;
 				break;
 			case 4:
@@ -81,7 +82,7 @@ function BasicMultiTurnAttackAction() : Action() constructor {
 				__effect.image_yscale -= 0.05;
 				break;
 			case 5:
-				__hasEnded = true;
+				__.has_ended = true;
 				break;
 		}
 	}

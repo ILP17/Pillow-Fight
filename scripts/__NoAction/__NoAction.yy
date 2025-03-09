@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Array",
+  "%Name":"__NoAction",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Array",
+  "name":"__NoAction",
   "parent":{
-    "name":"Utility",
-    "path":"folders/__Pillow_Combat/Scripts/Utility.yy",
+    "name":"Actions",
+    "path":"folders/__Pillow_Combat/Scripts/Actions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -16,8 +16,10 @@ function BasicExplosionAction() : Action() constructor {
 			AdvanceState();
 			return;
 		}
-		
-		var _victim = __targets[irandom(array_length(__targets) - 1)];
+        
+		var _turn_action = __.turn_context.GetTurnAction();
+        var _victims = _turn_action.targets;
+		var _victim = _victims[irandom(array_length(_victims) - 1)];
 		var _effect = instance_create_depth(
 			_victim.x + irandom_range(-24, 24),
 			_victim.y + irandom_range(-16, 16),
@@ -32,7 +34,9 @@ function BasicExplosionAction() : Action() constructor {
 	}
 	
 	Run = function() {
-		var _attacker = __attackers[0];
+        var _turn_action = __.turn_context.GetTurnAction();
+		var _attacker = array_first(_turn_action.attackers);
+        var _victims = _turn_action.targets;
 		
 		switch(__state) {
 			case 0:
@@ -44,14 +48,14 @@ function BasicExplosionAction() : Action() constructor {
 				__strikeTimer.Tick();
 				break;
 			case 2:
-				for(var i = 0; i < array_length(__targets); i++) {
-					var _victim = __targets[i];
+				for(var i = 0; i < array_length(_victims); i++) {
+					var _victim = _victims[i];
 					var _effect = instance_create_depth(
 						_victim.x,
 						_victim.y,
 						_victim.depth + 1, ObjBasicEffect);
 					_effect.Initialize(SprExplosion);
-					_victim.Damage(GetDamage(_attacker, 0.5, _victim, MAG_STAT, DF_STAT, 5));
+					_victim.Damage(ScrGetDamage(_attacker, 0.5, _victim, MAG_STAT, DF_STAT, 5));
 				}
 				AdvanceState();
 				break;
@@ -64,7 +68,7 @@ function BasicExplosionAction() : Action() constructor {
 				__waitTimer.Tick();
 				break;
 			case 5:
-				__hasEnded = true;
+				__.has_ended = true;
 				break;
 		}
 	}

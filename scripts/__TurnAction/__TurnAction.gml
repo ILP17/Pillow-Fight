@@ -5,7 +5,14 @@
  * @param {Array<Id.Instance>} _targets
 **/
 function TurnAction(_action, _attackers, _targets) constructor {
-    action = _action ?? ScrThrowArgumentUndefined(nameof(_action));
-    attackers = _attackers ?? ScrThrowArgumentUndefined(nameof(_attackers));
-    targets = _targets ?? ScrThrowArgumentUndefined(nameof(_targets));
+    action = _action ?? new NoAction();
+    attackers = _attackers ?? [];
+    targets = _targets ?? [];
+    
+    /**
+     * @return {bool}
+    **/
+    static IsValid = function() {
+        return ScrActionIsValid(action) && !array_empty(targets);
+    }
 }

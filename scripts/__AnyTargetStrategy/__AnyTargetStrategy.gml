@@ -15,11 +15,9 @@ function AnyTargetStrategy() : TargetStrategy() constructor {
 	}
 	
 	DelayedActionTargetsCheck = function(_turn_context) {
-        var _action = _turn_context.GetAction();
-		var _current_selected_targets = _action.GetTargets();
+		var _current_selected_targets = _turn_context.GetTurnAction().targets;
 		var _valid = IsTargetValid(_current_selected_targets[0]);
-        var _action_metadata = _action.GetMetadata();
-		var _target_team = _turn_context.ResolveTargets(_action_metadata);
+		var _target_team = _turn_context.ResolveTargets();
         var _new_targets = _current_selected_targets;
 		
 		if(!_valid) {

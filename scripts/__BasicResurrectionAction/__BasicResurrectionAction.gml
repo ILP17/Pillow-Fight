@@ -14,8 +14,9 @@ function BasicResurrectionAction() : Action() constructor {
 	}
 	
 	Run = function() {
-		var _attacker = __attackers[0],
-			_victim = __targets[0];
+		var _turn_action = __.turn_context.GetTurnAction();
+		var _attacker = array_first(_turn_action.attackers);
+        var _victim = array_first(_turn_action.targets);
 		
 		switch(__state) {
 			case 0:
@@ -41,7 +42,7 @@ function BasicResurrectionAction() : Action() constructor {
 				break;
 			case 3:
 				_victim.x = _victim.xstart
-				_victim.Damage(GetDamageNoDefense(_attacker, -0.30, _victim, MAG_STAT, 10));
+				_victim.Damage(ScrGetDamageNoDefense(_attacker, -0.30, _victim, MAG_STAT, 10));
 				__z = 0;
 				__zSpeed = -14;
 				AdvanceState();
@@ -60,7 +61,7 @@ function BasicResurrectionAction() : Action() constructor {
 				break;
 			case 6:
 				part_system_destroy(__part_system);
-				__hasEnded = true;
+				__.has_ended = true;
 				break;
 		}
 	}

@@ -30,15 +30,14 @@ function AdjacentTargetStrategy() : TargetStrategy() constructor {
     } 
     
     DelayedActionTargetsCheck = function(_turn_context) {
-        var _action = _turn_context.GetAction();
-        var _current_selected_targets = _action.GetTargets();
+        var _current_selected_targets = _turn_context.GetTurnAction().targets;
         var _valid = IsTargetValid(_current_selected_targets[0]);
         var _target_team = _turn_context.ResolveTargets();
         var _new_targets = _current_selected_targets;
         
         if(!_valid) {
             //initialize again to get new valid targets
-            Initialize(_target_team);
+            Initialize(_turn_context);
             var _new_valid_target_index = irandom(array_length(__.validTargets) - 1);
             _new_targets = SelectTargets(_new_valid_target_index, _target_team);
         } else {

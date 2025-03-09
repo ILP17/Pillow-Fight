@@ -13,8 +13,9 @@ function BasicHealAction() : Action() constructor {
 	}
 	
 	Run = function() {
-		var _attacker = __attackers[0],
-			_victim = __targets[0];
+		var _turn_action = __.turn_context.GetTurnAction();
+		var _attacker = array_first(_turn_action.attackers);
+        var _victim = array_first(_turn_action.targets);
 		
 		switch(__state) {
 			case 0:
@@ -32,7 +33,7 @@ function BasicHealAction() : Action() constructor {
 				AdvanceState();
 				break;
 			case 2:
-				_victim.Damage(GetDamageNoDefense(_attacker, -0.25, _victim, MAG_STAT, 7));
+				_victim.Damage(ScrGetDamageNoDefense(_attacker, -0.25, _victim, MAG_STAT, 7));
 				AdvanceState();
 				break;
 			case 3:
@@ -40,7 +41,7 @@ function BasicHealAction() : Action() constructor {
 				break;
 			case 4:
 				part_system_destroy(__part_system);
-				__hasEnded = true;
+				__.has_ended = true;
 				break;
 		}
 	}

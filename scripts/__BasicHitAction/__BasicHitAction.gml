@@ -2,8 +2,9 @@ function BasicHitAction() : Action() constructor {
 	__state = 0;
 	
 	Run = function() {
-		var _attacker = __attackers[0],
-			_victim = __targets[0];
+        var _turn_action = __.turn_context.GetTurnAction();
+		var _attacker = array_first(_turn_action.attackers);
+        var _victim = array_first(_turn_action.targets);
 		
 		switch(__state) {
 			case 0:
@@ -13,7 +14,7 @@ function BasicHitAction() : Action() constructor {
 				}
 				break;
 			case 1:
-				_victim.Damage(GetDamage(_attacker, 0.5, _victim, AT_STAT, DF_STAT));
+				_victim.Damage(ScrGetDamage(_attacker, 0.5, _victim, AT_STAT, DF_STAT));
 				__state++;
 				break;
 			case 2:
@@ -23,7 +24,7 @@ function BasicHitAction() : Action() constructor {
 				}
 				break;
 			case 3:
-				__hasEnded = true;
+				__.has_ended = true;
 				break;
 		}
 	}

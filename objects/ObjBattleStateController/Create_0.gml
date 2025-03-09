@@ -82,20 +82,18 @@ TryBeginBattle = function() {
 	__.battleState = BattleStates.PreBattle;
 }
 
-/**
-	@param {Id.Instance} _battle_participant
-	@param {Struct.Action} _action
-	@param {real} _turn_count the number of turns to wait, 0 will mean the very next turn
-*/
-AddDelayedAction = function(_battle_participant, _action, _turn_count) {
-	__.scheduler.AddDelayedAction(new DelayedAction(_battle_participant, _action, _turn_count));
+/** 
+ * @param {Id.Instance} _battle_participant 
+ * @param {Struct.TurnAction} _turn_action 
+ * @param {real} _turn_count the number of turns to wait, 0 will mean the very next turn
+**/
+AddDelayedAction = function(_battle_participant, _turn_action, _turn_count) {
+	__.scheduler.AddDelayedAction(new DelayedAction(_battle_participant, _turn_action, _turn_count));
 }
 
-/**
-	@param {Id.Instance} _battle_participant
-	@param {Struct.Action} _action
-	@param {real} _turn_count the number of turns to wait, 0 will mean the very next turn
-*/
+/** 
+ * @param {Id.Instance} _battle_participant
+**/
 OnBattleParticipantDeath = function(_battle_participant) {
 	__.scheduler.RemoveDelayedActionsFor(_battle_participant);
 }
@@ -131,21 +129,19 @@ PreTurn = function() {
 	
 	__.scheduler.TickDelayedActions(_turn_instance);
 	
-	if(__.scheduler.HasReadyAction()) {
-		var _action = __.scheduler.GetCurrentAction();
+	if(__.scheduler.HasReadyTurnAction()) {
+		var _turn_action = __.scheduler.GetCurrentTurnAction();
         
-        _turn_context.SetAction(_action);
+        _turn_context.SetTurnAction(_turn_action);
         
 		var _new_targets = _turn_instance.UpdateTargets(_turn_context);
 		
-		if(array_length(_new_targets) == 0) {
-			_action.Fail();
-			__.scheduler.TrashCurrentAction();
+		if(array_empty(_new_targets)) {
+			_turn_action.action.Fail();
+			__.scheduler.TrashCurrentTurnAction();
 			__.battleState = BattleStates.PostTurn;
 			return;
 		}
-		
-		_action.Initialize([_turn_instance], _new_targets);
 		
 		__.battleState = BattleStates.Turn;
 		return;
@@ -156,19 +152,20 @@ PreTurn = function() {
 	}
     
     var _turn_action = _turn_instance.GetAction(_turn_context);
-	
-	if(!is_undefined(_turn_action)) {
-        var _action = _turn_action.action;
-        _action.Initialize(_turn_action.attackers, _turn_action.targets);
-     	__.scheduler.AddAction(_turn_context.GetAction());
+    
+    if(_turn_action.IsValid()) {
+        _turn_context.SetTurnAction(_turn_action);
+        
+        _turn_action.action.Initialize(_turn_context);
+     	__.scheduler.AddTurnAction(_turn_action);
      	__.battleState = BattleStates.Turn;
     }
 }
 
 Turn = function() {
-	__.scheduler.ProcessCurrentAction();
+	__.scheduler.ProcessCurrentTurnAction();
 	
-	if(!__.scheduler.HasReadyAction()) {
+	if(!__.scheduler.HasReadyTurnAction()) {
 		__.battleState = BattleStates.PostTurn;
 	}
 }

@@ -49,3 +49,5 @@ function ScrRegisterActionMetadata(_action_name, _action_metadata) {
 function ScrActionGetMetadataFromInstance(_action) {
 	return global.actionMetadata[$ instanceof(_action)] ?? new ActionMetadata();
 }
+
+static_get(new Action());

@@ -11,14 +11,14 @@ function TurnContext(_turn_instance, _ally_team, _enemy_team) constructor {
         turnInstance = _turn_instance ?? ScrThrowArgumentUndefined(nameof(_turn_instance));
         allyTeam = _ally_team ?? ScrThrowArgumentUndefined(nameof(_ally_team));
         enemyTeam = _enemy_team ?? ScrThrowArgumentUndefined(nameof(_enemy_team));
-        action = undefined;
+        turnAction = new TurnAction();
     }
     
     /**
-     * @return {Struct.Action,undefined}
+     * @return {Struct.TurnAction}
     **/
-    static GetAction = function() {
-        return __.action;
+    static GetTurnAction = function() {
+        return __.turnAction;
     }
     
     /**
@@ -43,24 +43,22 @@ function TurnContext(_turn_instance, _ally_team, _enemy_team) constructor {
     }
     
     /**
-     * @param {Struct.Action}
+     * @param {Struct.TurnAction}
     **/
-    static SetAction = function(_action) {
-        __.action = _action;
+    static SetTurnAction = function(_action) {
+        __.turnAction = _action;
     }
 	
 	/**
      * Returns the team targeted by the action
-     * Throw is there is no action (action is undefined)
+     * Throw is there is no selected action (action is undefined)
      * @return {Array<Id.Instance>}
 	**/
 	static ResolveTargets = function() {
-        var _action = GetAction();
-        
-        if(is_undefined(_action)) {
-            throw($"Action is undefined while trying to resolve target team");
+        if(!__.turnAction.IsValid()) {
+            throw($"Could not resolve potential targets since there is no selected action.");
         }
 		
-		return ScrGetTargetTeamBasedOnAction(_action, __.turnInstance, __.allyTeam, __.enemyTeam);
+		return ScrGetTargetTeamBasedOnAction(__.turnAction.action, self);
 	}
 }

@@ -1,4 +1,5 @@
-randomize();
+random_set_seed(2379711551);
+//randomize();
 show_debug_message($"START seed={random_get_seed()}");
 
 StartBattle = function() {

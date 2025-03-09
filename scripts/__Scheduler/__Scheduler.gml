@@ -1,11 +1,12 @@
 function Scheduler() constructor {
-	__actions = [];
-	__delayedActions = [];
+	__ = { };
+    __.turn_actions = [];
+	__.delayed_turn_actions = [];
 	
 	static __ConsumeDelayedAction = function(_delayed_action) {
 		array_delete(
-			__delayedActions,
-			array_get_index(__delayedActions, _delayed_action),
+			__.delayed_turn_actions,
+			array_get_index(__.delayed_turn_actions, _delayed_action),
 			1
 		);
 	}
@@ -14,69 +15,71 @@ function Scheduler() constructor {
 		return _delayed_action.battleParticipant == __battle_participant_to_search_for;
 	}
 	
-	/**
-		@param {Struct.Action} _action
-	*/
-	static AddAction = function(_action) {
-		array_push(__actions, _action);
+	/** 
+     * @param {Struct.TurnAction} _turn_action
+	**/
+	static AddTurnAction = function(_turn_action) {
+		array_push(__.turn_actions, _turn_action);
 	}
 	
-	/**
-		@return {Struct.Action|undefined}
-	*/
-	static GetCurrentAction = function() {
-		if(array_length(__actions) == 0) {
-			return undefined;
+	/** 
+     * @return {Struct.TurnAction}
+	**/
+	static GetCurrentTurnAction = function() {
+		if(array_empty(__.turn_actions)) {
+			return new TurnAction();
 		}
 		
-		return __actions[0];
+		return __.turn_actions[0];
 	}
 	
-	static ProcessCurrentAction = function() {
-		if(array_length(__actions) == 0) {
+	static ProcessCurrentTurnAction = function() {
+		if(array_empty(__.turn_actions)) {
 			return;
 		}
+        
+        var _action = array_first(__.turn_actions).action;
 		
-		__actions[0].Run();
+		_action.Run();
 		
-		if(__actions[0].HasEnded()) {
-			array_shift(__actions);
+		if(_action.HasEnded()) {
+			array_shift(__.turn_actions);
 		}
 	}
 	
-	static TrashCurrentAction = function() {
-		array_shift(__actions);
+	static TrashCurrentTurnAction = function() {
+		array_shift(__.turn_actions);
 	}
 	
 	/**
-		@return {bool}
-	*/
-	static HasReadyAction = function() {
-		return array_length(__actions) > 0;
+     * @return {bool}
+	**/
+	static HasReadyTurnAction = function() {
+		return !array_empty(__.turn_actions);
 	}
 	
 	#region Delayed Action
 	/**
-		@param {Struct.DelayedAction} _delayed_action
-	*/
+     * @param {Struct.DelayedAction} _delayed_action
+	**/
 	static AddDelayedAction = function(_delayed_action) {
-		array_push(__delayedActions, _delayed_action);
+		array_push(__.delayed_turn_actions, _delayed_action);
 	}
 	
 	/**
-		@param {Id.Instance} _battle_participant
-	*/
+     * @param {Id.Instance} _battle_participant
+	**/
 	__battle_participant_to_search_for = noone;
 	static TickDelayedActions = function(_battle_participant) {		
 		__battle_participant_to_search_for = _battle_participant;
 		
-		var _delayed_actions = array_filter(__delayedActions, __FilterByBattleParticipant),
+		var _delayed_turn_actions = array_filter(__.delayed_turn_actions, __FilterByBattleParticipant),
 			_delayed_action;
 		
-		for(var i = 0; i < array_length(_delayed_actions); i++) {
-			_delayed_action = _delayed_actions[i];
+		for(var i = 0; i < array_length(_delayed_turn_actions); i++) {
+			_delayed_action = _delayed_turn_actions[i];
 			if(_delayed_action.remainingTurns <= 0) {
-				AddAction(_delayed_action.action);
+				AddTurnAction(_delayed_action.turn_action);
 				__ConsumeDelayedAction(_delayed_action);
 				continue;
 			}
@@ -86,42 +89,42 @@ function Scheduler() constructor {
 	}
 	
 	/**
-		@param {Id.Instance} _battle_participant
-	*/
+     * @param {Id.Instance} _battle_participant
+	**/
 	static RemoveDelayedActionsFor = function(_battle_participant) {		
 		__battle_participant_to_search_for = _battle_participant;
 		
-		var _delayed_actions = array_filter(__delayedActions, __FilterByBattleParticipant),
+		var _delayed_turn_actions = array_filter(__.delayed_turn_actions, __FilterByBattleParticipant),
 			_delayed_action;
 		
-		for(var i = 0; i < array_length(_delayed_actions); i++) {
-			_delayed_action = _delayed_actions[i];
-			__ConsumeDelayedAction(_delayed_actions[i]);
+		for(var i = 0; i < array_length(_delayed_turn_actions); i++) {
+			_delayed_action = _delayed_turn_actions[i];
+			__ConsumeDelayedAction(_delayed_turn_actions[i]);
 			continue;
 		}
 	}
 	
 	/**
-		@param {Id.Instance} _battle_participant
-		@return {bool}
-	*/
+     * @param {Id.Instance} _battle_participant
+     * @return {bool}
+	**/
 	static HasDelayedActionFor = function(_battle_participant) {		
 		__battle_participant_to_search_for = _battle_participant;
 		
-		var _actions = array_filter(__delayedActions, __FilterByBattleParticipant);
+		var _turn_actions = array_filter(__.delayed_turn_actions, __FilterByBattleParticipant);
 		
-		return array_length(_actions) > 0;
+		return !array_empty(_turn_actions);
 	}
 	#endregion
 }
 
-/**
-	@param {Id.Instance} _battle_participant
-	@param {Struct.Action} _action
-	@param {real} _turn_count
-*/
-function DelayedAction(_battle_participant, _action, _turn_count) constructor {
+/** 
+ * @param {Id.Instance} _battle_participant 
+ * @param {Struct.TurnAction} _turn_action 
+ * @param {real} _turn_count
+**/
+function DelayedAction(_battle_participant, _turn_action, _turn_count) constructor {
 	battleParticipant = _battle_participant;
-	action = _action;
+	turn_action = _turn_action;
 	remainingTurns = _turn_count;
 }

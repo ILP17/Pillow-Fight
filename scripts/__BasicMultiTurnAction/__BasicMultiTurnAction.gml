@@ -6,7 +6,8 @@ function BasicMultiTurnAction() : Action() constructor {
 	__part_system = undefined;
 	
 	Run = function() {
-		var _attacker = __attackers[0];
+        var _turn_action = __.turn_context.GetTurnAction();
+		var _attacker = array_first(_turn_action.attackers);
 		
 		switch(__state) {
 			case 0:
@@ -19,16 +20,15 @@ function BasicMultiTurnAction() : Action() constructor {
 				}
 				break;
 			case 1:
-				var _action = new BasicMultiTurnAttackAction();
+				var _action = new BasicMultiTurnAttackAction().Initialize(__.turn_context);
+                var _new_turn_action = new TurnAction(_action, _turn_action.attackers, _turn_action.targets);
 				
-				_action.Initialize(__attackers, __targets);
-				
-				ObjBattleStateController.AddDelayedAction(_attacker, _action, 0);
+				ObjBattleStateController.AddDelayedAction(_attacker, _new_turn_action, 0);
 				_attacker.AddEffect(instance_create_depth(_attacker.x, _attacker.y, _attacker.depth + 1, ObjAngelBeamCharge));
 				__state++;
 				break;
 			case 2:
-				__hasEnded = true;
+				__.has_ended = true;
 				break;
 		}
 	}
