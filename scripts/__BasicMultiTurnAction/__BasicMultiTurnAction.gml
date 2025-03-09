@@ -20,7 +20,7 @@ function BasicMultiTurnAction() : Action() constructor {
 				}
 				break;
 			case 1:
-				var _action = new BasicMultiTurnAttackAction().Initialize(__.turn_context);
+				var _action = new BasicMultiTurnAttackAction();
                 var _new_turn_action = new TurnAction(_action, _turn_action.attackers, _turn_action.targets);
 				
 				ObjBattleStateController.AddDelayedAction(_attacker, _new_turn_action, 0);

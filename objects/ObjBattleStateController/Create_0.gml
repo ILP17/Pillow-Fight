@@ -131,10 +131,10 @@ PreTurn = function() {
 	
 	if(__.scheduler.HasReadyTurnAction()) {
 		var _turn_action = __.scheduler.GetCurrentTurnAction();
-        
         _turn_context.SetTurnAction(_turn_action);
         
 		var _new_targets = _turn_instance.UpdateTargets(_turn_context);
+        _turn_action.targets = _new_targets;
 		
 		if(array_empty(_new_targets)) {
 			_turn_action.action.Fail();
@@ -143,6 +143,7 @@ PreTurn = function() {
 			return;
 		}
 		
+        _turn_action.action.Initialize(_turn_context);
 		__.battleState = BattleStates.Turn;
 		return;
 	}

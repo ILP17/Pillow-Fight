@@ -16,7 +16,7 @@ function AnyTargetStrategy() : TargetStrategy() constructor {
 	
 	DelayedActionTargetsCheck = function(_turn_context) {
 		var _current_selected_targets = _turn_context.GetTurnAction().targets;
-		var _valid = IsTargetValid(_current_selected_targets[0]);
+		var _valid = IsTargetValid(array_first(_current_selected_targets));
 		var _target_team = _turn_context.ResolveTargets();
         var _new_targets = _current_selected_targets;
 		
@@ -27,6 +27,8 @@ function AnyTargetStrategy() : TargetStrategy() constructor {
             
 			_new_targets = SelectTargets(_new_valid_target_index, _target_team);
 		}
+        
+        show_message($"{_new_targets[0].__.characterData.name}, hp={_new_targets[0].__.health}")
 		
 		return _new_targets;
 	}

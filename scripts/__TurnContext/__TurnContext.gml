@@ -45,8 +45,8 @@ function TurnContext(_turn_instance, _ally_team, _enemy_team) constructor {
     /**
      * @param {Struct.TurnAction}
     **/
-    static SetTurnAction = function(_action) {
-        __.turnAction = _action;
+    static SetTurnAction = function(_turn_action) {
+        __.turnAction = _turn_action;
     }
 	
 	/**
