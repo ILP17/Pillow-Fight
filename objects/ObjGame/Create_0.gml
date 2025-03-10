@@ -44,10 +44,4 @@ StartBattle = function() {
    
    ObjBattleStateController.Initialize(_alphaTeam, _betaTeam);
    ObjBattleStateController.TryBeginBattle();
-   ObjBattleStateController.OnBattleDecided = function() {
-        if(!auto_run){
-            return;
-        }
-        game_restart();
-   }
 }
