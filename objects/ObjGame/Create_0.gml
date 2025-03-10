@@ -1,5 +1,6 @@
-random_set_seed(2379711551);
-//randomize();
+auto_run = true;
+
+randomize();
 show_debug_message($"START seed={random_get_seed()}");
 
 StartBattle = function() {
@@ -44,6 +45,9 @@ StartBattle = function() {
    ObjBattleStateController.Initialize(_alphaTeam, _betaTeam);
    ObjBattleStateController.TryBeginBattle();
    ObjBattleStateController.OnBattleDecided = function() {
-       game_restart();
+        if(!auto_run){
+            return;
+        }
+        game_restart();
    }
 }

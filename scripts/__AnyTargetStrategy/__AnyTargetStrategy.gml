@@ -27,8 +27,6 @@ function AnyTargetStrategy() : TargetStrategy() constructor {
             
 			_new_targets = SelectTargets(_new_valid_target_index, _target_team);
 		}
-        
-        show_message($"{_new_targets[0].__.characterData.name}, hp={_new_targets[0].__.health}")
 		
 		return _new_targets;
 	}
