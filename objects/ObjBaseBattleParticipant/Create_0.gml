@@ -9,9 +9,9 @@ GetStat = function(_stat_key) {
 
 /**
  * BattleStateManager will call this  before proceeding to the Turn state.
- * Returning undefined effectively makes the BattleStateManager wait
+ * If the turn action contains invalid or missing data, the BattleStateManager will wait untill there is valid data
  * @param {Struct.TurnContext} _turn_context
- * @return {Struct.TurnAction,undefined} this should denote that an action has been selected
+ * @return {Struct.TurnAction} this should denote that an action and targets have been selected
 **/
 GetAction = function(_turn_context) {
     ScrThrowNotImplemented(object_get_name(object_index), nameof(GetAction));

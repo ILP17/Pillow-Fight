@@ -6,7 +6,7 @@
   "name":"__ActionMetadata",
   "parent":{
     "name":"Actions",
-    "path":"folders/__Pillow_Combat/Scripts/Actions.yy",
+    "path":"folders/Pillow_Fight/Scripts/Actions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

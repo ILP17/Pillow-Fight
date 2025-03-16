@@ -38,14 +38,20 @@ with (__) {
     
     SetupTurnContext = method(_self, function(_turn_instance) {
         var _ally_team,
-            _enemy_team;
+            _enemy_team,
+            _team = GetTeam(_turn_instance);
         
-        if(array_contains(__.alphaTeam, _turn_instance)) {
-            _ally_team = __.alphaTeam;
-            _enemy_team = __.betaTeam;
-        } else if(array_contains(__.betaTeam, _turn_instance)) {
-            _ally_team = __.betaTeam;
-            _enemy_team = __.alphaTeam;
+        switch(_team) {
+            case 0:
+                _ally_team = __.alphaTeam;
+                _enemy_team = __.betaTeam;
+                break;
+            case 1:
+                _ally_team = __.betaTeam;
+                _enemy_team = __.alphaTeam;
+                break;
+            default:
+                throw("[SetupTurnContext] Current turn instance is not part of a team.");
         }
         
         return new TurnContext(_turn_instance, _ally_team, _enemy_team);
@@ -68,6 +74,20 @@ with (__) {
 	
 		return false;
 	});
+}
+
+/**
+ * @param {Id.Instance} _battle_participant
+ * @return {real} Represents the team's index starting from 0. -1 means there is no team associated with the battle participant.
+**/
+GetTeam = function(_battle_participant) {
+    if(array_contains(__.alphaTeam, _battle_participant)) {
+        return 0;
+    } else if(array_contains(__.betaTeam, _battle_participant)) {
+        return 1;
+    }
+    
+    return -1;
 }
 
 GetBattleState = function() {

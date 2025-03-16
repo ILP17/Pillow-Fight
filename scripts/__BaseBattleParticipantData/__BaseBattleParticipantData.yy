@@ -6,7 +6,7 @@
   "name":"__BaseBattleParticipantData",
   "parent":{
     "name":"Scripts",
-    "path":"folders/__Pillow_Combat/Scripts.yy",
+    "path":"folders/Pillow_Fight/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

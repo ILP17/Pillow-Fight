@@ -1,6 +1,6 @@
 {
   "$GMProject":"v1",
-  "%Name":"Turn Based Combat Prototype",
+  "%Name":"Pillow Fight",
   "AudioGroups":[
     {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
@@ -10,11 +10,6 @@
   },
   "defaultScriptType":1,
   "Folders":[
-    {"$GMFolder":"","%Name":"__Pillow_Combat","folderPath":"folders/__Pillow_Combat.yy","name":"__Pillow_Combat","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Objects","folderPath":"folders/__Pillow_Combat/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/__Pillow_Combat/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Actions","folderPath":"folders/__Pillow_Combat/Scripts/Actions.yy","name":"Actions","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Utility","folderPath":"folders/__Pillow_Combat/Scripts/Utility.yy","name":"Utility","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Animation Curves","folderPath":"folders/Animation Curves.yy","name":"Animation Curves","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Extensions","folderPath":"folders/Extensions.yy","name":"Extensions","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -22,6 +17,11 @@
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Particle Systems","folderPath":"folders/Particle Systems.yy","name":"Particle Systems","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Paths","folderPath":"folders/Paths.yy","name":"Paths","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Pillow_Fight","folderPath":"folders/Pillow_Fight.yy","name":"Pillow_Fight","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Pillow_Fight/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Pillow_Fight/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Actions","folderPath":"folders/Pillow_Fight/Scripts/Actions.yy","name":"Actions","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Utility","folderPath":"folders/Pillow_Fight/Scripts/Utility.yy","name":"Utility","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Rooms","folderPath":"folders/Rooms.yy","name":"Rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Action Evaluator","folderPath":"folders/Scripts/Action Evaluator.yy","name":"Action Evaluator","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -48,9 +48,9 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.1300.0.768",
+    "IDEVersion":"2024.1300.0.775",
   },
-  "name":"Turn Based Combat Prototype",
+  "name":"Pillow Fight",
   "resources":[
     {"id":{"name":"AnimCurveElastic","path":"animcurves/AnimCurveElastic/AnimCurveElastic.yy",},},
     {"id":{"name":"FonUI","path":"fonts/FonUI/FonUI.yy",},},

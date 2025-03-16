@@ -6,7 +6,7 @@
   "name":"Exceptions",
   "parent":{
     "name":"Utility",
-    "path":"folders/__Pillow_Combat/Scripts/Utility.yy",
+    "path":"folders/Pillow_Fight/Scripts/Utility.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
