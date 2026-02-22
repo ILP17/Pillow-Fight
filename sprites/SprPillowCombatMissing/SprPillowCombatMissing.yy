@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"SprPillowCombatMissing",
   "bboxMode":0,
   "bbox_bottom":15,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"776c2dcf-111b-40d7-9966-82d08ae78d0c","name":"776c2dcf-111b-40d7-9966-82d08ae78d0c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"776c2dcf-111b-40d7-9966-82d08ae78d0c","name":"776c2dcf-111b-40d7-9966-82d08ae78d0c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

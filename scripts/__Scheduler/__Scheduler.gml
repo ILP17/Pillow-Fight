@@ -1,4 +1,4 @@
-function Scheduler() constructor {
+function ActionScheduler() constructor {
 	__ = { };
     __.turn_actions = [];
 	__.delayed_turn_actions = [];
@@ -14,6 +14,10 @@ function Scheduler() constructor {
 	static __FilterByBattleParticipant = function(_delayed_action, _index) {
 		return _delayed_action.battleParticipant == __battle_participant_to_search_for;
 	}
+    
+    static __AnyTurnActions = function() {
+		return array_length(__.turn_actions) > 0;
+	}
 	
 	/** 
      * @param {Struct.TurnAction} _turn_action
@@ -26,7 +30,7 @@ function Scheduler() constructor {
      * @return {Struct.TurnAction}
 	**/
 	static GetCurrentTurnAction = function() {
-		if(array_empty(__.turn_actions)) {
+		if (!__AnyTurnActions()) {
 			return new TurnAction();
 		}
 		
@@ -34,7 +38,7 @@ function Scheduler() constructor {
 	}
 	
 	static ProcessCurrentTurnAction = function() {
-		if(array_empty(__.turn_actions)) {
+		if (!__AnyTurnActions()) {
 			return;
 		}
         
@@ -55,7 +59,7 @@ function Scheduler() constructor {
      * @return {bool}
 	**/
 	static HasReadyTurnAction = function() {
-		return !array_empty(__.turn_actions);
+		return __AnyTurnActions();
 	}
 	
 	#region Delayed Action
@@ -113,7 +117,7 @@ function Scheduler() constructor {
 		
 		var _turn_actions = array_filter(__.delayed_turn_actions, __FilterByBattleParticipant);
 		
-		return !array_empty(_turn_actions);
+		return array_length(_turn_actions) > 0;
 	}
 	#endregion
 }

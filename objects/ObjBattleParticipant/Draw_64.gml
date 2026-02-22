@@ -1,5 +1,5 @@
 var _view_ratio = display_get_gui_width() / camera_get_view_width(view_camera[0]);
-var _display_health_ratio = __.healthDisplay / __.characterData.GetStat(HP_STAT);
+var _display_health_ratio = __.healthDisplay / __.character_data.GetStat(HP_STAT);
 
 draw_set_halign(sign(image_xscale) == 1 ? fa_right : fa_left);
 draw_set_valign(fa_bottom);
@@ -8,7 +8,7 @@ draw_set_font(FonUISmall);
 draw_text(
 	(xstart + (abs(sprite_width) - 2) * -image_xscale) * _view_ratio,
 	(ystart - sprite_height * 0.75) * _view_ratio,
-	__.characterData.name
+	__.character_data.name
 );
 
 var _middle_x = (xstart - (abs(sprite_width) + 12) * image_xscale);

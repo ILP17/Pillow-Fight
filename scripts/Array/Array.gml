@@ -12,13 +12,6 @@ function array_sum(_array) {
 
 /**
  * @param {Array} _array
-**/
-function array_empty(_array) {
-	return array_length(_array) == 0;
-}
-
-/**
- * @param {Array} _array
  * @param {real} _index
 **/
 function array_has_index(_array, _index) {

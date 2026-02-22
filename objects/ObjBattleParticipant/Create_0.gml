@@ -4,7 +4,7 @@ with(__) {
 	sprite = SprPillowCombatMissing;
 	spriteDead = SprPillowCombatMissing;
 	healthColor = c_aqua;
-	characterData = undefined;
+	character_data = undefined;
 	health = 0;
 	healthDisplay = 0;
 	buffs = [];
@@ -23,19 +23,23 @@ with(__) {
  * @param {Struct.BaseBattleParticipantData} _character_data
 **/
 Initialize = function(_character_data) {
-	__.characterData = _character_data;
+	__.character_data = _character_data;
 	
-	__.health = __.characterData.GetStat(HP_STAT);
+	__.health = __.character_data.GetStat(HP_STAT);
 	__.healthDisplay = __.health;
 	
-	var _name = sprite_get_name(__.characterData.sprite);
-	__.sprite = __.characterData.sprite;
+	var _name = sprite_get_name(__.character_data.sprite);
+	__.sprite = __.character_data.sprite;
 	__.spriteDead = asset_get_index(_name + "Dead");
 	sprite_index = __.sprite;
 	
-	__.actionEvaluator = new CPUActionEvaluator(__.characterData);
+	__.actionEvaluator = new CPUActionEvaluator(__.character_data);
 	
 	return id;
+}
+
+GetCharacterData = function() {
+    return __.character_data;
 }
 
 /**
@@ -44,7 +48,7 @@ Initialize = function(_character_data) {
  * @return {real}
 **/
 GetStat = function(_stat_key) {
-	var _value = __.characterData.GetStat(_stat_key);
+	var _value = __.character_data.GetStat(_stat_key);
 	
 	for(var i = 0; i < array_length(__.buffs); i++) {
 		_value *= __.buffs[i].stats[$ _stat_key];
@@ -77,7 +81,7 @@ UpdateTargets = function(_turn_context) {
 }
 
 GetHealthRatio = function() {
-	return __.health / __.characterData.GetStat(HP_STAT);
+	return __.health / __.character_data.GetStat(HP_STAT);
 }
 
 /**
@@ -172,7 +176,7 @@ Damage = function(_damage) {
 		_style = 3;
 	}
 	
-	__.health = clamp(__.health + _damage, 0, __.characterData.GetStat(HP_STAT));
+	__.health = clamp(__.health + _damage, 0, __.character_data.GetStat(HP_STAT));
 	
 	instance_create_depth(
 		x + irandom_range(-12, 12),

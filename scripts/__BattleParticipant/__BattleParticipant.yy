@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__BattleParticipant",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__BattleParticipant",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Pillow_Fight/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

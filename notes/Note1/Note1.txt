@@ -1,0 +1,9 @@
+## Purpose
+The purpose of this library is to provide quick set up of a turn based battle system. 
+
+The aim is to be easy to use and configurable.
+
+## Features this library is not responsible for.
+
+- Skipping turns
+- Battle effects

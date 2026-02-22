@@ -2,7 +2,7 @@ var _self = self;
 __ = {};
 with (__) {
     initialize = false
-	scheduler = new Scheduler();
+	scheduler = new ActionScheduler();
 	currentTurnIndex = 0;
 	alphaTeam = [];
 	betaTeam = [];
@@ -94,6 +94,10 @@ GetBattleState = function() {
 	return __.battleState;
 }
 
+GetCuurentTurnInstance = function() {
+    return __.currentTurnOrder[__.currentTurnIndex];
+}
+
 TryBeginBattle = function() {
 	if(GetBattleState() != BattleStates.NA) {
 		return;
@@ -156,7 +160,7 @@ PreTurn = function() {
 		var _new_targets = _turn_instance.UpdateTargets(_turn_context);
         _turn_action.targets = _new_targets;
 		
-		if(array_empty(_new_targets)) {
+		if(array_length(_new_targets) == 0) {
 			_turn_action.action.Fail();
 			__.scheduler.TrashCurrentTurnAction();
 			__.battleState = BattleStates.PostTurn;
@@ -175,11 +179,11 @@ PreTurn = function() {
     var _turn_action = _turn_instance.GetAction(_turn_context);
     
     if(_turn_action.IsValid()) {
+        show_debug_message($"{_turn_instance.GetCharacterData().name} prepares {instanceof(_turn_action.action)}");
         _turn_context.SetTurnAction(_turn_action);
-        
         _turn_action.action.Initialize(_turn_context);
-     	__.scheduler.AddTurnAction(_turn_action);
-     	__.battleState = BattleStates.Turn;
+        __.scheduler.AddTurnAction(_turn_action);
+        __.battleState = BattleStates.Turn;
     }
 }
 

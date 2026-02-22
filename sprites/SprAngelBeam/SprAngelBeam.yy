@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"SprAngelBeam",
   "bboxMode":0,
   "bbox_bottom":19,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"8993710b-4ef4-40dd-8da3-b2b4186f64fa","name":"8993710b-4ef4-40dd-8da3-b2b4186f64fa","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"7515377f-b663-49d9-992d-9bf23a08f5b9","name":"7515377f-b663-49d9-992d-9bf23a08f5b9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"8993710b-4ef4-40dd-8da3-b2b4186f64fa","name":"8993710b-4ef4-40dd-8da3-b2b4186f64fa","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7515377f-b663-49d9-992d-9bf23a08f5b9","name":"7515377f-b663-49d9-992d-9bf23a08f5b9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
