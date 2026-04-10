@@ -51,7 +51,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.1400.4.991",
+    "IDEVersion":"2024.14.4.221",
   },
   "name":"Pillow Fight",
   "resources":[
@@ -100,6 +100,7 @@
     {"id":{"name":"__BuffTargetStrategy","path":"scripts/__BuffTargetStrategy/__BuffTargetStrategy.yy",},},
     {"id":{"name":"__Class","path":"scripts/__Class/__Class.yy",},},
     {"id":{"name":"__CPUActionEvaluator","path":"scripts/__CPUActionEvaluator/__CPUActionEvaluator.yy",},},
+    {"id":{"name":"__DamageStyle","path":"scripts/__DamageStyle/__DamageStyle.yy",},},
     {"id":{"name":"__HealActionStrategy","path":"scripts/__HealActionStrategy/__HealActionStrategy.yy",},},
     {"id":{"name":"__HealTargetStrategy","path":"scripts/__HealTargetStrategy/__HealTargetStrategy.yy",},},
     {"id":{"name":"__MonsterCharacter","path":"scripts/__MonsterCharacter/__MonsterCharacter.yy",},},
