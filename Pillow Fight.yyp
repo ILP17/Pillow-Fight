@@ -51,7 +51,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.221",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"Pillow Fight",
   "resources":[
@@ -143,6 +143,7 @@
     {"id":{"name":"SprMageDead","path":"sprites/SprMageDead/SprMageDead.yy",},},
     {"id":{"name":"SprMonster","path":"sprites/SprMonster/SprMonster.yy",},},
     {"id":{"name":"SprMonsterDead","path":"sprites/SprMonsterDead/SprMonsterDead.yy",},},
+    {"id":{"name":"SprPanel","path":"sprites/SprPanel/SprPanel.yy",},},
     {"id":{"name":"SprPillowCombatMissing","path":"sprites/SprPillowCombatMissing/SprPillowCombatMissing.yy",},},
     {"id":{"name":"SprPlayer","path":"sprites/SprPlayer/SprPlayer.yy",},},
     {"id":{"name":"SprPlayerDead","path":"sprites/SprPlayerDead/SprPlayerDead.yy",},},
