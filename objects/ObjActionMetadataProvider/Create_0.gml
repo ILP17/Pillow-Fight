@@ -25,7 +25,7 @@ CreateActionMetadata = function(_config = {}) {
     var _effect_type = _config[$ "effectType"];
     if(!is_undefined(_effect_type)) { _action_metadata_config[$ "effectType"] = TargetTypeFromString(_effect_type); }
     
-    var _buffs = "buffs";
+    var _buffs = _config[$ "buffs"];
     if(!is_undefined(_buffs)) {
         var _buff_list = [];
         
