@@ -19,7 +19,7 @@ StartBattle = function() {
             _player_x + irandom_range(-18, 18),
             _y + i * 34,
             layer,
-            ObjBattleParticipant).Initialize(_character_data);
+            ObjBattleParticipant).Initialize(_character_data, true);
         array_push(_alphaTeam, _battle_participant);
     }
     
@@ -37,7 +37,7 @@ StartBattle = function() {
             _real_monster_x,
             _y + i * 34,
             layer,
-            ObjBattleParticipant).Initialize(_character_data);
+            ObjBattleParticipant).Initialize(_character_data, false);
         _battle_participant.image_xscale = -1;
         array_push(_betaTeam, _battle_participant);
     }

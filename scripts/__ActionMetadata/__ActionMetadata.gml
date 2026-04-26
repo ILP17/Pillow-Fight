@@ -1,4 +1,5 @@
 function ActionMetadata(_config = {}) constructor {
+	name = _config[$ "name"] ?? "_action_";
 	targetType = _config[$ "targetType"] ?? TargetType.Enemy;
 	effectType = _config[$ "effectType"] ?? EffectType.Damage;
     

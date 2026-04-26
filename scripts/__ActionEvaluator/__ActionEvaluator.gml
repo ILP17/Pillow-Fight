@@ -2,6 +2,8 @@
  * Interface for determining an acton and a set of targets for a turn
 **/
 function ActionEvaluator() constructor {
+    Reset = function() { }
+    
 	/**
      * Tries to determine an action.
      * Returns an action if successful

@@ -21,8 +21,9 @@ with(__) {
 
 /**
  * @param {Struct.BaseBattleParticipantData} _character_data
+ * @param {bool} _is_player
 **/
-Initialize = function(_character_data) {
+Initialize = function(_character_data, _is_player) {
 	__.character_data = _character_data;
 	
 	__.health = __.character_data.GetStat(HP_STAT);
@@ -33,7 +34,7 @@ Initialize = function(_character_data) {
 	__.spriteDead = asset_get_index(_name + "Dead");
 	sprite_index = __.sprite;
 	
-	__.actionEvaluator = new CPUActionEvaluator(__.character_data);
+	__.actionEvaluator = _is_player ? new PlayerActionEvaluator(__.character_data) : new CPUActionEvaluator(__.character_data);
 	
 	return id;
 }
@@ -58,7 +59,7 @@ GetStat = function(_stat_key) {
 }
 
 /**
- * BattleStateManager will call this  before proceeding to the Turn state.
+ * BattleStateManager will call this before proceeding to the Turn state.
  * Returning undefined effectively makes the BattleStateManager wait
  * @param {Struct.TurnContext} _turn_context
  * @return {Struct.TurnAction} this should denote that an action has been selected
@@ -66,8 +67,14 @@ GetStat = function(_stat_key) {
 GetAction = function(_turn_context) {
     var _action = __.actionEvaluator.TryDetermineAction(_turn_context); 
     var _targets = __.actionEvaluator.TrySelectTargets(_turn_context, _action);
-    show_debug_message($"action={instanceof(_action)}, _targets={_targets}");
-    return new TurnAction(_action, [id], _targets);
+    //show_debug_message($"action={instanceof(_action)}, _targets={_targets}");
+    var _turn_action = new TurnAction(_action, [id], _targets);
+    
+    if(_turn_action.IsValid()) {
+        __.actionEvaluator.Reset();
+    }
+    
+    return _turn_action;
 }
 
 /**

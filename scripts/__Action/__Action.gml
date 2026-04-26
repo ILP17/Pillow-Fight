@@ -10,7 +10,7 @@ function Action() constructor {
      * @return {Struct.ActionMetadata}
 	**/
 	static GetMetadata = function() {
-		return ScrActionGetMetadataFromInstance(self);
+		return ObjActionMetadataProvider.GetActionMetadata(self);
 	}
 	
     /**

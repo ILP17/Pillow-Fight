@@ -1,0 +1,52 @@
+{
+    "BasicHitAction": {
+        "name": "Hit"
+    },
+    "BasicHealAction": {
+        "name": "Heal",
+        "targetStrategy": "heal",
+        "targetType": "team",
+        "effectType": "buff"
+    },
+    "BasicResurrectionAction": {
+        "name": "Resurrection",
+        "targetStrategy": "revive",
+        "targetType": "team",
+        "effectType": "buff"
+    },
+    "BasicLightningAction": {
+        "name": "Lightning",
+        "targetStrategy": "target_and_adjacent"
+    },
+    "BasicExplosionAction": {
+        "name": "Explosion",
+        "targetStrategy": "all"
+    },
+    "BasicStrengthBuffAction": {
+        "name": "Strength",
+        "targetStrategy": "buff",
+        "targetType": "team",
+        "effectType": "buff",
+        "buffs": ["ValorBuff"]
+    },
+    "BasicDefenseBuffAction": {
+        "name": "Defense",
+        "targetStrategy": "buff",
+        "targetType": "team",
+        "effectType": "buff",
+        "buffs": ["ProtectionBuff"]
+    },
+    "BasicSpeedDebuffAction": {
+        "name": "Menace",
+        "targetStrategy": "buff",
+        "effectType": "buff",
+        "buffs": ["StaggerBuff"]
+    },
+    "BasicMultiTurnAction": {
+        "name": "Angel Beam",
+        "next": "BasicMultiTurnAttackAction"
+    },
+    "BasicMultiTurnAttackAction": {
+        "name": "_name_"
+    }
+}

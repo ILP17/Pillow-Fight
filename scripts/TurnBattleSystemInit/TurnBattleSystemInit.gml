@@ -13,19 +13,6 @@ enum BattleVictors {
 	Beta
 }
 
-enum EffectType {
-	Damage,
-	Heal,
-	Revive,
-	Buff
-}
-
-enum TargetType {
-	Enemy,
-	Team,
-	Self
-}
-
 global.actionMetadata = {};
 
 // Fill this with character data
@@ -43,22 +30,6 @@ function BattleStatesToString(_battle_state) {
 	    case BattleStates.PostTurn: return "PostTurn";
 	    case BattleStates.PostBattle: return "PostBattle";
     }
-}
-
-/**
- * @param {String} _action_name
- * @param {Struct.ActionMetadata} _action_metadata
-**/
-function ScrRegisterActionMetadata(_action_name, _action_metadata) {
-	global.actionMetadata[$ _action_name] = _action_metadata;
-}
-
-/**
- * @param {Struct.Action} _action
- * @return {Struct.ActionMetadata}
-**/
-function ScrActionGetMetadataFromInstance(_action) {
-	return global.actionMetadata[$ instanceof(_action)] ?? new ActionMetadata();
 }
 
 static_get(new Action());

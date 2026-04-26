@@ -1,11 +1,12 @@
 /**
  * @param {Struct.BaseBattleParticipantData} _character_data
 **/
-function CPUActionEvaluator(_character_data) : ActionEvaluator() constructor { 
+function PlayerActionEvaluator(_character_data) : ActionEvaluator() constructor { 
 	__ = {};
     
     with(__) {
         characterData = _character_data;
+        action = new NoAction();
         /**
          * @return {Struct.TargetStrategy}
         **/
@@ -15,7 +16,11 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator() constructor {
         }
     }
     
-    Reset = function() { }
+    __SelectAction = function(_action) { __.action = _action; }
+    
+    Reset = function() {
+        __.action = new NoAction();
+    }
     
     /**
      * Tries to determine an action.
@@ -25,40 +30,16 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator() constructor {
 	 * @return {Struct.Action}
 	**/
 	TryDetermineAction = function(_turn_context) {
-        var _action = new NoAction();
         var _character_data = __.characterData;
-        var _strat_count = _character_data.GetStrategyCount();
-        var _weights = array_create(_character_data.GetActionCount(), 0);
         
-		//Get weights
-		var _action_strategy;
-		for(var i = 0; i < _strat_count; i++) {
-			_action_strategy = _character_data.GetStrategy(i);
-			_weights = _action_strategy.EvaluateAction(_character_data, _turn_context, _weights);
-		}
-        
-		var _total_weight = array_sum(_weights);
+        if(!ObjUIControllerAction.IsShowing() && !ScrActionIsValid(__.action)) {
+            ObjUIControllerAction.Show();
+            ObjUIControllerAction.SetCharacter(_character_data);
+            ObjUIControllerAction.on_action_selected = __SelectAction;
+            __.action = new NoAction();
+        }
 	
-		//Get action
-		var _chosen_weight = random(_total_weight),
-			_min_weight = 0,
-			_max_weight = 0;
-        
-		for(var i = 0; i < array_length(_weights); i++) {
-			if(_weights[i] == 0) {
-				continue;
-			}
-		
-			_max_weight = _weights[i] + _min_weight;
-		
-			if(_chosen_weight >= _min_weight && _chosen_weight <= _max_weight) {
-				_action = _character_data.GetAction(i).Initialize(_turn_context);
-				break;
-			}
-			_min_weight = _max_weight;
-		}
-	
-		return _action;
+		return __.action;
 	}
 	
 	/**
@@ -70,6 +51,10 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator() constructor {
 	 * @return {Array<Id.Instance>}
 	**/
 	TrySelectTargets = function(_turn_context, _action) {
+        if(!ScrActionIsValid(_action)) {
+            return [];
+        }
+        
         var _targets = [];
 		var _target_strategy = __.GetTargetStrategy(_action.GetMetadata());
 		var _target_team = ScrGetTargetTeamBasedOnAction(_action, _turn_context);

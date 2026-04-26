@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__EffectType",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__EffectType",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Pillow_Fight/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
