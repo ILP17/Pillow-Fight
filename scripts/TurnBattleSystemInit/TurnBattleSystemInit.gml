@@ -1,8 +1,9 @@
 enum BattleStates {
-	NA,			// Pause
-	PreBattle,	// Intro Animation
-	PreTurn,	// Get Action and Target
-	Turn,		// Turn cycle
+	NA,			 // Pause
+	PreBattle,	    // Intro Animation
+	PreTurn,	  // Get Action and Target
+	Turn,		    // Turn cycle
+	ExecuteAction, // Turn cycle
 	PostTurn,	// Advance Turn
 	PostBattle	// Exp Award Animation
 }
@@ -27,6 +28,7 @@ function BattleStatesToString(_battle_state) {
 	    case BattleStates.PreBattle: return "PreBattle";
 	    case BattleStates.PreTurn:	return "PreTurn";
 	    case BattleStates.Turn: return "Turn";
+	    case BattleStates.ExecuteAction: return "ExecuteAction";
 	    case BattleStates.PostTurn: return "PostTurn";
 	    case BattleStates.PostBattle: return "PostBattle";
     }

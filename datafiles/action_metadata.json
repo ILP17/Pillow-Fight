@@ -1,52 +1,62 @@
 {
     "BasicHitAction": {
-        "name": "Hit"
+        "name": "Hit",
+        "cost": 1
     },
     "BasicHealAction": {
         "name": "Heal",
+        "cost": 2,
         "targetStrategy": "heal",
         "targetType": "team",
-        "effectType": "buff"
+        "effectType": "heal"
     },
     "BasicResurrectionAction": {
         "name": "Resurrection",
+        "cost": 3,
         "targetStrategy": "revive",
         "targetType": "team",
-        "effectType": "buff"
+        "effectType": "revive"
     },
     "BasicLightningAction": {
         "name": "Lightning",
+        "cost": 2,
         "targetStrategy": "target_and_adjacent"
     },
     "BasicExplosionAction": {
         "name": "Explosion",
+        "cost": 2,
         "targetStrategy": "all"
     },
     "BasicStrengthBuffAction": {
         "name": "Strength",
+        "cost": 2,
         "targetStrategy": "buff",
         "targetType": "team",
         "effectType": "buff",
-        "buffs": ["ValorBuff"]
+        "buffs": ["valor"]
     },
     "BasicDefenseBuffAction": {
         "name": "Defense",
+        "cost": 1,
         "targetStrategy": "buff",
         "targetType": "team",
         "effectType": "buff",
-        "buffs": ["ProtectionBuff"]
+        "buffs": ["protection"]
     },
     "BasicSpeedDebuffAction": {
         "name": "Menace",
+        "cost": 1,
         "targetStrategy": "buff",
         "effectType": "buff",
-        "buffs": ["StaggerBuff"]
+        "buffs": ["stagger"]
     },
     "BasicMultiTurnAction": {
         "name": "Angel Beam",
+        "cost": 3,
         "next": "BasicMultiTurnAttackAction"
     },
     "BasicMultiTurnAttackAction": {
-        "name": "_name_"
+        "name": "_name_",
+        "cost": 3
     }
 }

@@ -9,7 +9,7 @@ var _margin_x = 8;
 var _margin_y = 8;
 
 var _debug_text = $"Battle State: {BattleStatesToString(_battle_state)}";
-_debug_text += $"\nCuurent Turn: {ObjBattleStateController.GetCuurentTurnInstance().GetCharacterData().name}";
+_debug_text += $"\nCuurent Turn: {ObjBattleStateController.GetCurrentTurnInstance().GetCharacterData().name}";
 
 draw_text(_margin_x, _margin_y, _debug_text);
 
