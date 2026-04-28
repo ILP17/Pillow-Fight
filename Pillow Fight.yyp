@@ -147,6 +147,7 @@
     {"id":{"name":"SprAngryMonsterDead","path":"sprites/SprAngryMonsterDead/SprAngryMonsterDead.yy",},},
     {"id":{"name":"SprBuffIcons","path":"sprites/SprBuffIcons/SprBuffIcons.yy",},},
     {"id":{"name":"SprDamage","path":"sprites/SprDamage/SprDamage.yy",},},
+    {"id":{"name":"SprEnergy","path":"sprites/SprEnergy/SprEnergy.yy",},},
     {"id":{"name":"SprExplosion","path":"sprites/SprExplosion/SprExplosion.yy",},},
     {"id":{"name":"SprHealer","path":"sprites/SprHealer/SprHealer.yy",},},
     {"id":{"name":"SprHealerDead","path":"sprites/SprHealerDead/SprHealerDead.yy",},},

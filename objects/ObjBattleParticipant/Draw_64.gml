@@ -36,10 +36,23 @@ if(__.healthDisplay > 0) {
 		false);
 }
 
+if(__.is_player) {
+    draw_sprite(
+    	SprEnergy,0,
+    	(sign(image_xscale) == 1 ? _x1 : _x2) + -18 * image_xscale,
+    	_y1);
+    
+    draw_set_color(__.energy > 0 ? c_white : c_red);
+    draw_set_font(FonUISmall);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_top);
+    draw_text((sign(image_xscale) == 1 ? _x1 : _x2) + -12 * image_xscale, _y1 + 8, __.energy);
+}
+
 for(var i = 0; i < array_length(__.buffs); i++) {
 	draw_sprite(
 		SprBuffIcons,
 		__.buffs[i].iconIndex,
-		(sign(image_xscale) == 1 ? _x1 : _x2) + (-18 - 18 * i) * image_xscale,
+		(sign(image_xscale) == 1 ? _x1 : _x2) + (-18 - 18 * i + 1) * image_xscale,
 		_y1);
 }

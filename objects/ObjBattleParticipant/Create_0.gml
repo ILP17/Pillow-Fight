@@ -5,7 +5,9 @@ with(__) {
 	spriteDead = SprPillowCombatMissing;
 	healthColor = c_aqua;
 	character_data = undefined;
+    is_player = false;
 	health = 0;
+    energy = 0;
 	healthDisplay = 0;
 	buffs = [];
 	actionEvaluator = undefined;
@@ -28,6 +30,7 @@ Initialize = function(_character_data, _is_player) {
 	
 	__.health = __.character_data.GetStat(HP_STAT);
 	__.healthDisplay = __.health;
+	__.is_player = _is_player;
 	
 	var _name = sprite_get_name(__.character_data.sprite);
 	__.sprite = __.character_data.sprite;
@@ -35,8 +38,26 @@ Initialize = function(_character_data, _is_player) {
 	sprite_index = __.sprite;
 	
 	__.actionEvaluator = _is_player ? new PlayerActionEvaluator(__.character_data) : new CPUActionEvaluator(__.character_data);
+    
+    Reset();
 	
 	return id;
+}
+
+Reset = function() {
+    __.energy = 3;
+}
+
+AddEnergy = function(_amount) {
+    __.energy = clamp(__.energy + _amount, 0, 3);
+}
+
+IsPlayer = function() {
+    return __.is_player;
+}
+
+GetEnergy = function(_amount) {
+    return __.energy;
 }
 
 GetCharacterData = function() {
@@ -72,6 +93,7 @@ GetAction = function(_turn_context) {
     
     if(_turn_action.IsValid()) {
         __.actionEvaluator.Reset();
+        AddEnergy(-_action.GetMetadata().GetData("cost", 0))
     }
     
     return _turn_action;
