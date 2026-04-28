@@ -35,7 +35,7 @@ SetCharacter = function(_character_data) {
                 {
                     type: "Instance",
                     instanceObjectIndex: ObjButton,
-                    instanceVariables: { text: $"({_action_metadata.GetData("cost", 0)}) {_action_metadata.name}", callback: method({ action: _action, selected: __on_action_selected }, function() { selected(action) }) }, 
+                    instanceVariables: { text: _action_metadata.name, callback: method({ action: _action, selected: __on_action_selected }, function() { selected(action) }) }, 
                     flexStretchWidth: true,
                     flexStretchHeight: true,
                     instanceColour: -1

@@ -1,6 +1,7 @@
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_font(FonUI);
+draw_set_color(c_white);
 
 var _gui_width = display_get_gui_width();
 var _gui_height = display_get_gui_height();
@@ -9,7 +10,7 @@ var _margin_x = 8;
 var _margin_y = 8;
 
 var _debug_text = $"Battle State: {BattleStatesToString(_battle_state)}";
-_debug_text += $"\nCuurent Turn: {ObjBattleStateController.GetCurrentTurnInstance().GetCharacterData().name}";
+_debug_text += $"\nCurrent Turn: {ObjBattleStateController.GetCurrentTurnInstance().GetCharacterData().name}";
 
 draw_text(_margin_x, _margin_y, _debug_text);
 

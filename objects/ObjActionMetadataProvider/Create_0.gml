@@ -6,7 +6,6 @@ CreateActionMetadata = function(_config = {}) {
     var _action_metadata_config = {};
     
     ParseValue(_config, _action_metadata_config, "name");
-    ParseValue(_config, _action_metadata_config, "cost");
     ParseValue(_config, _action_metadata_config, "targetType", TargetTypeFromString);
     ParseValue(_config, _action_metadata_config, "effectType", EffectTypeFromString);
     ParseValue(_config, _action_metadata_config, "targetStrategy", ParseTargetStrategy);

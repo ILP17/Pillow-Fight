@@ -212,14 +212,7 @@ ExecuteAction = function() {
 }
 
 PostTurn = function() {
-    var _turn_instance = GetCurrentTurnInstance();
-    
-    if(_turn_instance.IsPlayer() && _turn_instance.GetEnergy() > 0) {
-        __.battleState = BattleStates.Turn;
-        return;
-    }
-    
-	__.currentTurnOrder[__.currentTurnIndex].OnPostTurn();
+    __.currentTurnOrder[__.currentTurnIndex].OnPostTurn();
 	__.currentTurnIndex++;
 	
 	if(__.currentTurnIndex >= array_length(__.currentTurnOrder)) {
