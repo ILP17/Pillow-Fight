@@ -94,7 +94,7 @@ GetBattleState = function() {
 	return __.battleState;
 }
 
-GetCuurentTurnInstance = function() {
+GetCurrentTurnInstance = function() {
     return __.currentTurnOrder[__.currentTurnIndex];
 }
 
@@ -143,7 +143,23 @@ PreTurn = function() {
 		return;
 	}
 	
-	var _turn_instance = __.currentTurnOrder[__.currentTurnIndex];
+	var _turn_instance = GetCurrentTurnInstance();
+	
+	if(__.SkipTurn(!_turn_instance.CanAct())) {
+		return;
+	}
+    
+    _turn_instance.Reset();
+    
+    __.battleState = BattleStates.Turn;
+}
+
+Turn = function() {
+	if(__.BattleHasVictor()) {
+		return;
+	}
+	
+	var _turn_instance = GetCurrentTurnInstance();
 	
 	if(__.SkipTurn(!_turn_instance.CanAct())) {
 		return;
@@ -168,7 +184,7 @@ PreTurn = function() {
 		}
 		
         _turn_action.action.Initialize(_turn_context);
-		__.battleState = BattleStates.Turn;
+		__.battleState = BattleStates.ExecuteAction;
 		return;
 	}
 	
@@ -183,11 +199,11 @@ PreTurn = function() {
         _turn_context.SetTurnAction(_turn_action);
         _turn_action.action.Initialize(_turn_context);
         __.scheduler.AddTurnAction(_turn_action);
-        __.battleState = BattleStates.Turn;
+        __.battleState = BattleStates.ExecuteAction;
     }
 }
 
-Turn = function() {
+ExecuteAction = function() {
 	__.scheduler.ProcessCurrentTurnAction();
 	
 	if(!__.scheduler.HasReadyTurnAction()) {
@@ -196,6 +212,13 @@ Turn = function() {
 }
 
 PostTurn = function() {
+    var _turn_instance = GetCurrentTurnInstance();
+    
+    if(_turn_instance.IsPlayer() && _turn_instance.GetEnergy() > 0) {
+        __.battleState = BattleStates.Turn;
+        return;
+    }
+    
 	__.currentTurnOrder[__.currentTurnIndex].OnPostTurn();
 	__.currentTurnIndex++;
 	
