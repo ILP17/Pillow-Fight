@@ -36,8 +36,12 @@ Initialize = function(_character_data, _is_player) {
 	
 	__.actionEvaluator = _is_player ? new PlayerActionEvaluator(__.character_data) : new CPUActionEvaluator(__.character_data);
 	
+    Reset();
+    
 	return id;
 }
+
+Reset = function() { }
 
 GetCharacterData = function() {
     return __.character_data;
