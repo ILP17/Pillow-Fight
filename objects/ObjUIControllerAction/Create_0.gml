@@ -11,9 +11,13 @@ IsShowing = function() {
 }
 
 /**
- * @param {Struct.BaseBattleParticipantData} _character_data
+ * @param {Struct.TurnContext} _turn_context
 **/
-SetCharacter = function(_character_data) { 
+SetCharacter = function(_turn_context) {
+    __.battle_participant = _turn_context.GetTurnInstance();
+    __.turn_context = _turn_context;
+    var _character_data = __.battle_participant.GetCharacterData();
+    
     //Clean list node
     var _count = flexpanel_node_get_num_children(__.list_node);
     
@@ -59,10 +63,29 @@ __.node_root = layer_get_flexpanel_node(UI_ACTION);
 __.list_node = flexpanel_node_get_child(__.node_root, "List");
 __.selected_index = 0;
 __.prompt = "What will {0} do?";
+__.character_data = undefined;
+__.turn_context = undefined;
 
+/**
+ * @param {Struct.Action} _action
+**/
 on_action_selected = function(_action) { }
 
+/**
+ * @param {Struct.Action} _action
+**/
 __on_action_selected = function(_action) {
+    var _action_metadata = _action.GetMetadata();
+    var _func = _action_metadata.GetData("targetStrategy", undefined);
+    var _target_strategy = new _func();
+    
+    _target_strategy.Initialize(__.turn_context, _action)
+    
+    if (__.battle_participant.GetEnergy() < _action_metadata.GetData("cost", 0) || 
+        array_length(_target_strategy.GetValidTargets()) == 0) {
+        return;
+    }
+    
     on_action_selected(_action);
     Hide();
 }
