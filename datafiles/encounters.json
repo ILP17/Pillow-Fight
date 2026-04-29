@@ -1,0 +1,9 @@
+{
+    "encounters":
+    [
+        ["Weirdo", "Weirdo", "Abhorrence", "SassyWitch", "Killer", "Killer"],
+        ["Killer", "Killer", "Killer", "Killer"],
+        ["Killer", "SassyWitch", "SassyWitch", "SassyWitch"],
+        ["Weirdo", "Weirdo", "Weirdo", "Weirdo", "Weirdo", "Weirdo"]
+    ]
+}

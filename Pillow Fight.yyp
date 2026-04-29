@@ -51,6 +51,7 @@
   ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"action_metadata.json","CopyToMask":-1,"filePath":"datafiles","name":"action_metadata.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"encounters.json","CopyToMask":-1,"filePath":"datafiles","name":"encounters.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
   "LibraryEmitters":[],
@@ -71,6 +72,7 @@
     {"id":{"name":"ObjBattleStateController","path":"objects/ObjBattleStateController/ObjBattleStateController.yy",},},
     {"id":{"name":"ObjButton","path":"objects/ObjButton/ObjButton.yy",},},
     {"id":{"name":"ObjDamage","path":"objects/ObjDamage/ObjDamage.yy",},},
+    {"id":{"name":"ObjEncounterProvider","path":"objects/ObjEncounterProvider/ObjEncounterProvider.yy",},},
     {"id":{"name":"ObjGame","path":"objects/ObjGame/ObjGame.yy",},},
     {"id":{"name":"ObjUIControllerAction","path":"objects/ObjUIControllerAction/ObjUIControllerAction.yy",},},
     {"id":{"name":"PartSysAngelBeam","path":"particles/PartSysAngelBeam/PartSysAngelBeam.yy",},},
