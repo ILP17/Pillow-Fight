@@ -81,8 +81,7 @@ __on_action_selected = function(_action) {
     
     _target_strategy.Initialize(__.turn_context, _action)
     
-    if (__.battle_participant.GetEnergy() < _action_metadata.GetData("cost", 0) || 
-        array_length(_target_strategy.GetValidTargets()) == 0) {
+    if (array_length(_target_strategy.GetValidTargets()) == 0) {
         return;
     }
     
