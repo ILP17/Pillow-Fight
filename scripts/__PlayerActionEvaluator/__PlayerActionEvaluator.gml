@@ -34,7 +34,7 @@ function PlayerActionEvaluator(_character_data) : ActionEvaluator() constructor 
         
         if(!ObjUIControllerAction.IsShowing() && !ScrActionIsValid(__.action)) {
             ObjUIControllerAction.Show();
-            ObjUIControllerAction.SetCharacter(_character_data);
+            ObjUIControllerAction.SetCharacter(_turn_context);
             ObjUIControllerAction.on_action_selected = __SelectAction;
             __.action = new NoAction();
         }
