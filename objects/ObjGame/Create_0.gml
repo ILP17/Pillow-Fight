@@ -4,6 +4,8 @@ randomize();
 show_debug_message($"START seed={random_get_seed()}");
 
 StartBattle = function() {
+    global.enemyParty=ObjEncounterProvider.GetRandomEncounter();
+    
     var _character_data,
         _battle_participant = noone,
         _base_y = room_height / 2,
