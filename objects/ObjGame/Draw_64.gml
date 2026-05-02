@@ -10,7 +10,12 @@ var _margin_x = 8;
 var _margin_y = 8;
 
 var _debug_text = $"Battle State: {BattleStatesToString(_battle_state)}";
-_debug_text += $"\nCurrent Turn: {ObjBattleStateController.GetCurrentTurnInstance().GetCharacterData().name}";
+var _current_turn_name = "no one"
+if(_battle_state > BattleStates.NA) {
+    _current_turn_name = ObjBattleStateController.GetCurrentTurnInstance().GetCharacterData().name;
+}
+
+_debug_text += $"\nCurrent Turn: {_current_turn_name}";
 
 draw_text(_margin_x, _margin_y, _debug_text);
 

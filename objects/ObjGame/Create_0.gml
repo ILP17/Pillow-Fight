@@ -1,9 +1,13 @@
-auto_run = true;
+auto_run = false;
 
 randomize();
 show_debug_message($"START seed={random_get_seed()}");
 
 StartBattle = function() {
+    if(ObjBattleStateController.GetBattleState() != BattleStates.NA) {
+        return;
+    }
+    
     global.enemyParty=ObjEncounterProvider.GetRandomEncounter();
     
     var _character_data,

@@ -52,11 +52,12 @@
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"action_metadata.json","CopyToMask":-1,"filePath":"datafiles","name":"action_metadata.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"encounters.json","CopyToMask":-1,"filePath":"datafiles","name":"encounters.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"battle_entities.json","CopyToMask":-1,"filePath":"datafiles","name":"battle_entities.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.1400.5.1052",
+    "IDEVersion":"2024.1400.5.1055",
   },
   "name":"Pillow Fight",
   "resources":[
@@ -68,6 +69,7 @@
     {"id":{"name":"ObjAngelBeamCharge","path":"objects/ObjAngelBeamCharge/ObjAngelBeamCharge.yy",},},
     {"id":{"name":"ObjBaseBattleParticipant","path":"objects/ObjBaseBattleParticipant/ObjBaseBattleParticipant.yy",},},
     {"id":{"name":"ObjBasicEffect","path":"objects/ObjBasicEffect/ObjBasicEffect.yy",},},
+    {"id":{"name":"ObjBattleEntityDataProvider","path":"objects/ObjBattleEntityDataProvider/ObjBattleEntityDataProvider.yy",},},
     {"id":{"name":"ObjBattleParticipant","path":"objects/ObjBattleParticipant/ObjBattleParticipant.yy",},},
     {"id":{"name":"ObjBattleStateController","path":"objects/ObjBattleStateController/ObjBattleStateController.yy",},},
     {"id":{"name":"ObjButton","path":"objects/ObjButton/ObjButton.yy",},},

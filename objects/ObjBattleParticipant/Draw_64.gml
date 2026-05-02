@@ -53,6 +53,6 @@ for(var i = 0; i < array_length(__.buffs); i++) {
 	draw_sprite(
 		SprBuffIcons,
 		__.buffs[i].iconIndex,
-		(sign(image_xscale) == 1 ? _x1 : _x2) + (-18 - 18 * i + 1) * image_xscale,
+		(sign(image_xscale) == 1 ? _x1 : _x2) + (-18 - 18 * (i + 1)) * image_xscale,
 		_y1);
 }
