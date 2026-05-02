@@ -45,7 +45,7 @@ ParseBuffs = function(_buffs) {
             case "valor": _buff = ValorBuff; break;
             case "protection": _buff = ProtectionBuff; break;
             case "stagger": _buff = StaggerBuff; break;
-            default: show_message($"[CreateActionMetadata] {_buffs[i]} is not a valid buff"); game_end();
+            default: show_message($"[ParseBuffs] {_buffs[i]} is not a valid buff"); game_end();
         }
         
         array_push(_buff_list, _buff);
