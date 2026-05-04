@@ -1,0 +1,16 @@
+{
+    "steps": [
+        {
+            "type": "move", "target": "attacker", "x": "victim", "y": "victim", "speed": 8, "padding": 24
+        },
+        {
+            "type": "damage", "agressor": "attacker", "defender": "victim", "agressor_stat": "at", "defender_stat": "df", "scaler": 0.5
+        },
+        {
+            "type": "move", "target": "attacker", "x": "attacker.start", "y": "attacker.start", "speed": 8
+        },
+        { 
+            "type": "timer", "time": 10, "repeat": 1 
+        }
+    ]
+}

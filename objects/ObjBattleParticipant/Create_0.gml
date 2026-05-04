@@ -12,6 +12,8 @@ with(__) {
 	buffs = [];
 	actionEvaluator = undefined;
 	effects = {};
+	particles = {};
+	animations = {};
 	OnDeath = method(_self, function() {
 		ClearBuffs();
 		RemoveAllEffects();
@@ -92,7 +94,7 @@ GetAction = function(_turn_context) {
     var _turn_action = new TurnAction(_action, [id], _targets);
     
     if(_turn_action.IsValid()) {
-        __.actionEvaluator.Reset();
+        __.actionEvaluator.Reset(); 
         AddEnergy(-_action.GetMetadata().GetData("cost", 0))
     }
     
@@ -222,18 +224,59 @@ Damage = function(_damage) {
 }
 
 /**
-	@param {Id.Instance} _effect_object
-*/
-AddEffect = function(_effect_object) {
-	__.effects[$ $"{_effect_object.object_index}"] = _effect_object;
+ * @param {String} _id
+ * @param {Id.Instance} _instance
+**/
+AddEffect = function(_id, _effect_object) {
+	__.effects[$ _id] = _effect_object;
 }
 
 /**
-	@param {Asset.GMObject} _effect_object
-*/
-RemoveEffect = function(_effect_object) {
-	instance_destroy(__.effects[$ $"{_effect_object}"]);
-	variable_struct_remove(__.effects, $"{_effect_object}");
+ * @param {String} _id
+ * @return {Id.Instance}
+**/
+GetEffect = function(_id) {
+	return __.effects[$ _id];
+}
+
+/**
+ * @param {String} _id
+**/
+ClearEffect = function(_id) {
+	instance_destroy(__.effects[$ _id]);
+	variable_struct_remove(__.effects, _id);
+}
+
+/**
+ * @param {String} _id
+ * @param {Id.Instance} _instance
+**/
+AddParticle = function(_id, _instance) {
+	__.particles[$ _id] = _instance;
+}
+
+/**
+ * @param {String} _id
+**/
+ClearParticle = function(_id) {
+	instance_destroy(__.particles[$ _id]);
+	variable_struct_remove(__.particles, _id);
+}
+
+/**
+ * @param {String} _id
+ * @param {Struct.Animation} _instance
+**/
+AddAnimation = function(_id, _instance) {
+	__.animations[$ _id] = _instance;
+}
+
+/**
+ * @param {String} _id
+**/
+StopAnimation = function(_id) {
+    __.animations[$ _id].Stop();
+	variable_struct_remove(__.animations, _id);
 }
 
 RemoveAllEffects = function() {

@@ -1,0 +1,24 @@
+{
+    "steps": [
+        {
+            "type": "move", "target": "attacker", "x": "attacker", "y": "attacker.ystart-64", "speed": 6
+        },
+        {
+            "type": "timer", "time": 15, "repeat": 6, "step": { 
+                "type": "effect", "x": "victim.random", "y": "victim.random", "depth": "victim.random", "sprite": "SprExplosion", "scale": [0.5, 0.5]
+            }
+        },
+        {
+            "type": "foreach", "target": "victim", "step": [
+                { "type": "effect", "x": "victim", "y": "victim", "depth": "victim", "sprite": "SprExplosion" },
+                { "type": "damage", "agressor": "attacker", "defender": "victim", "agressor_stat": "mag", "defender_stat": "df", "scaler": 0.5, "base_damage": 5 }
+            ]
+        },
+        {
+            "type": "move", "target": "attacker", "x": "attacker", "y": "attacker.ystart", "speed": 4 
+        },
+        { 
+            "type": "timer", "time": 30, "repeat": 1 
+        }
+    ]
+}

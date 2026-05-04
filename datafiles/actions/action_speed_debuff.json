@@ -1,0 +1,16 @@
+{
+    "steps": [
+        {
+            "type": "animation", "animation": "jump", "target": "attacker"
+        },
+        {
+            "type": "particle", "particle": "PartSysStaggerBuff", "x": "victim", "y": "victim-16", "depth": "victim+1"
+        },
+        {
+            "type": "status", "status": "stagger", "active_turns": 3, "target": "victim"
+        },
+        { 
+            "type": "timer", "time": 30, "repeat": 1 
+        }
+    ]
+}

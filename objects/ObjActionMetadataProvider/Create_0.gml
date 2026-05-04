@@ -1,5 +1,5 @@
-GetActionMetadata = function(_action) {
-    return __.data[$ instanceof(_action)];
+GetActionMetadata = function(_key) {
+    return __.data[$ _key];
 }
 
 CreateActionMetadata = function(_config = {}) {

@@ -29,6 +29,10 @@ function ExampleMonsterCharacter(_config = {}) : BaseBattleParticipantData() con
      * @return {Struct.Action}
 	**/
 	GetAction = function(_index) {
+        if(is_instanceof(__.actions[_index], ActionRunner)) {
+            return __.actions[_index];
+        }
+        
 		//Feather ignore once GM1045
 		return new __.actions[_index]();
 	}

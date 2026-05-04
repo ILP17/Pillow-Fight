@@ -6,3 +6,7 @@ if(__initialLife != -1) {
 		__life --;
 	}
 }
+
+if(!is_undefined(animation)) {
+    animation.Play();
+}

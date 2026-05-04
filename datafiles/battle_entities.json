@@ -19,7 +19,7 @@
             "sp": 5,
             "mag": 12
         },
-        "actions": ["BasicHitAction", "BasicLightningAction", "BasicExplosionAction", "BasicDefenseBuffAction"],
+        "actions": ["action_strike", "BasicLightningAction", "action_explosion", "action_defense_buff"],
 		"strategies": ["BasicActionStrategy", "BuffActionStrategy"]
     },
     "No1HarpyFan": {
@@ -36,13 +36,13 @@
         "name": "Angel",
         "sprite": "SprHealer",
         "stats": {
-            "hp": 30,
+            "hp": 300,
             "at": 12,
             "df": 7,
             "sp": 6,
             "mag": 16
         },
-        "actions": ["BasicHitAction", "BasicHealAction", "BasicResurrectionAction", "BasicMultiTurnAction"],
+        "actions": ["action_strike", "action_heal", "action_resurrection", "action_angel_beam"],
 		"strategies": ["BasicActionStrategy", "HealActionStrategy", "ReviveActionStrategy"]
     },
     "Weirdo": {
@@ -85,7 +85,7 @@
             "df": 3,
             "sp": 5
         },
-        "actions": [ "BasicHitAction", "BasicStrengthBuffAction", "BasicSpeedDebuffAction" ],
+        "actions": [ "action_strike", "action_strength_buff", "action_speed_debuff" ],
 		"strategies": [ "BasicActionStrategy", "BuffActionStrategy" ]
     }
 }

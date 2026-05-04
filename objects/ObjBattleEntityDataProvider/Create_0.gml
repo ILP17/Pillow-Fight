@@ -23,7 +23,7 @@ CreateBattleEntity = function(_config = {}) {
     ParseValue(_config, _battle_entity_config, "sprite", SprPillowCombatMissing, asset_get_index);
     ParseValue(_config, _battle_entity_config, "isBoss", false);
     ParseValue(_config, _battle_entity_config, "stats", new Stats(), ParseStats);
-    ParseValue(_config, _battle_entity_config, "actions", [BasicHitAction], ParseActions);
+    ParseValue(_config, _battle_entity_config, "actions", [ ObjActionProvider.GetAction("action_strike") ], ParseActions);
     ParseValue(_config, _battle_entity_config, "strategies", [BasicActionStrategy], ParseActionStrategies);
     
     return new ExampleMonsterCharacter(_battle_entity_config);
@@ -49,16 +49,15 @@ ParseActions = function(_actions) {
         var _action;
         
         switch(_actions[i]) {
-            case "BasicHitAction": _action = BasicHitAction; break;
             case "BasicLightningAction": _action = BasicLightningAction; break;
-            case "BasicExplosionAction": _action = BasicExplosionAction; break;
-            case "BasicHealAction": _action = BasicHealAction; break;
-            case "BasicResurrectionAction": _action = BasicResurrectionAction; break;
-            case "BasicMultiTurnAction": _action = BasicMultiTurnAction; break;
-            case "BasicDefenseBuffAction": _action = BasicDefenseBuffAction; break;
-            case "BasicStrengthBuffAction": _action = BasicStrengthBuffAction; break;
-            case "BasicSpeedDebuffAction": _action = BasicSpeedDebuffAction; break;
-            default: show_message($"[ParseActions] {_actions[i]} is not a valid action"); game_end();
+            default: 
+                _action = ObjActionProvider.GetAction(_actions[i]);
+                
+                if(is_undefined(_action)) {
+                    show_message($"[ParseActions] {_actions[i]} is not a valid action");
+                    game_end();
+                }
+                break;
         }
         
         array_push(_action_list, _action);
