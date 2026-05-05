@@ -6,6 +6,7 @@ function ActionStepEffectUpdate(_config) : ActionStep(_config) constructor {
     life = _config[$ "life"];
     sprite = _config[$ "sprite"];
     scale = _config[$ "scale"];
+    angle = _config[$ "angle"];
     animation = _config[$ "animation"];
     
     static Run = function() {
@@ -19,6 +20,7 @@ function ActionStepEffectUpdate(_config) : ActionStep(_config) constructor {
         _effect.x = is_undefined(x) ? _effect.x : EvaluateX(x);
         _effect.y = is_undefined(y) ? _effect.y : EvaluateY(y);
         _effect.depth = is_undefined(depth) ? _effect.depth : EvaluateDepth(depth);
+        _effect.image_angle = is_undefined(angle) ? _effect.image_angle : angle;
         
         if(!is_undefined(sprite)) {
             _effect.sprite_index = asset_get_index(sprite);
@@ -34,11 +36,7 @@ function ActionStepEffectUpdate(_config) : ActionStep(_config) constructor {
         }
         
         if(!is_undefined(animation)) {
-            if(is_string(animation)) {
-                _effect.SetAnimation(ObjAnimationProvider.GetAnimation(animation, _instance, turn_context, {}));
-            } else {
-                _effect.SetAnimation(ObjAnimationProvider.GetAnimation(animation[$ "type"], _instance, turn_context, animation));
-            }
+            _effect.SetAnimation(ObjAnimationProvider.GetAnimation(animation, _effect, turn_context));
         }
         
         finished = true;

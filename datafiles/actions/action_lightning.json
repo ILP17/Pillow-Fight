@@ -1,0 +1,35 @@
+{
+    "steps": [
+        {
+            "type": "move", "target": "attacker", "x": "attacker", "y": "attacker.ystart-64", "speed": 6
+        },
+        {
+            "type": "timer", "time": 20, "repeat": 1, "step": [
+                { "type": "effect", "x": "victim", "y": "victim", "depth": "victim", "sprite": "SprLightning", "scale": [1, 100], "angle": -25, "life": 24 },
+                { "type": "damage", "agressor": "attacker", "defender": "victim", "agressor_stat": "mag", "defender_stat": "df", "scaler": 0.8, "base_damage": 4 }
+            ]
+        },
+        {
+            "type": "if", "exists": "victim[1]", "true" :{
+                "type": "timer", "time": 20, "repeat": 1, "step": [
+                    { "type": "effect", "x": "victim[1]", "y": "victim[1]", "depth": "victim[1]", "sprite": "SprLightning", "scale": [1, 100], "angle": -25, "life": 24 },
+                    { "type": "damage", "agressor": "attacker", "defender": "victim[1]", "agressor_stat": "mag", "defender_stat": "df", "scaler": 0.5, "base_damage": 4 }
+                ]
+            }
+        },
+        {
+            "type": "if", "exists": "victim[2]", "true" :{
+                "type": "timer", "time": 20, "repeat": 1, "step": [
+                    { "type": "effect", "x": "victim[2]", "y": "victim[2]", "depth": "victim[2]", "sprite": "SprLightning", "scale": [1, 100], "angle": -25, "life": 24 },
+                    { "type": "damage", "agressor": "attacker", "defender": "victim[2]", "agressor_stat": "mag", "defender_stat": "df", "scaler": 0.5, "base_damage": 4 }
+                ]
+            }
+        },
+        {
+            "type": "move", "target": "attacker", "x": "attacker", "y": "attacker.ystart", "speed": 4 
+        },
+        { 
+            "type": "timer", "time": 10, "repeat": 1 
+        }
+    ]
+}

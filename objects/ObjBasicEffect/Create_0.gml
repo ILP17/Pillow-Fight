@@ -22,5 +22,13 @@ SetAnimation = function(_animation) {
         animation.Stop();
     }
     
-    animation = _animation
+    animation = _animation;
+    animation.Play();
+}
+
+/**
+ * @return {Struct.Animation}
+**/
+GetAnimation = function() {
+    return animation;
 }

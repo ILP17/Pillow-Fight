@@ -13,6 +13,12 @@ function ActionStepMove(_config) : ActionStep(_config) constructor {
         var _target = ParseInstance(target);
         var _x = EvaluateX(x);
         var _y = EvaluateY(y);
+        
+        if(_target == noone) {
+            finished = true;
+            return;
+        }
+        
         finished = ScrInstanceMoveTo(_target, _x, _y, speed, padding);
     }
 }

@@ -29,13 +29,16 @@ function AnimationSpin(_instance) : Animation() constructor {
     Play = function() { 
 		if(spin_speed >= max_spin_speed) {
 			finished = true;
-			return;
-		}
-		spin_speed += 0.5;
+		} else {
+            spin_speed += 0.5;
+        }
+        
         __DoRotation();
     }
     
     Stop = function() {
         instance.image_angle = 0;
+        instance.x = instance.xstart;
+        instance.y = instance.ystart;
     }
 }

@@ -7,11 +7,11 @@ function ActionStepAnimation(_config) : ActionStep(_config) constructor {
     __Reset = function() {
         var _target = ParseInstance(target);
         
-        if(is_string(animation_config)) {
-            animation = ObjAnimationProvider.GetAnimation(animation_config, _target, turn_context, {});
-        } else {
-            animation = ObjAnimationProvider.GetAnimation(animation_config[$ "type"], _target, turn_context, animation_config);
+        if(_target == noone) {
+            return;
         }
+        
+        animation = ObjAnimationProvider.GetAnimation(animation_config, _target, turn_context);
 	}
     
     static Run = function() {

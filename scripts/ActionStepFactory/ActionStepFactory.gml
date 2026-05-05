@@ -17,6 +17,7 @@ function ActionStepFactory(_config) {
         case "particle_clear": return new ActionStepParticleClear(_config); break;
         case "status": return new ActionStepStatus(_config); break;
         case "prepare": return new ActionStepPrepare(_config); break;
+        case "if": return new ActionStepIf(_config); break;
     }
     
     show_message($"[ActionStepFactory] unknown action step: {_config}");

@@ -50,10 +50,27 @@ function ActionStep(_config) constructor {
             return noone;
         }
         
-        var _has_random = string_pos_ext(KEYWORD_RANDOM, _input, _starting_index)
+        var _has_random = string_pos_ext(KEYWORD_RANDOM, _input, _starting_index);
+        var _open_index = string_pos_ext("[", _input, _starting_index);
+        var _close_index = string_pos_ext("]", _input, _starting_index);
+        var _index = 0;
         
-        if(_has_attacker) {
-            var _attacker = attacker[0];
+        if(_open_index && _close_index) {
+            _index = real(string_copy(_input, _open_index + 1, _close_index-_open_index-1));
+        } else if(_open_index || _close_index) {
+            show_message("[ParseInstance] incomplete set of square brackets");
+            game_end();
+            return noone;
+        }
+        
+        if(_open_index && _close_index && _has_random) {
+            show_message("[ParseInstance] random is not valid when indexing target");
+            game_end();
+            return noone;
+        }
+        
+        if(_has_attacker && _index >= 0 && _index < array_length(attacker)) {
+            var _attacker = attacker[_index];
             
             if(_has_random) {
                 if(random_attacker == noone) {
@@ -65,8 +82,8 @@ function ActionStep(_config) constructor {
             return _attacker;
         }
         
-        if(_has_victim) {
-            var _victim = victim[0];
+        if(_has_victim && _index >= 0 && _index < array_length(victim)) {
+            var _victim = victim[_index];
             
             if(_has_random) {
                 if(random_victim == noone) {
@@ -77,6 +94,8 @@ function ActionStep(_config) constructor {
             
             return _victim;
         }
+        
+        return noone;
     }
     
     ParseNumber = function(_input) {
@@ -114,13 +133,19 @@ function ActionStep(_config) constructor {
         
         if(is_string(_input)) {
             var _instance = ParseInstance(_input);
-            var _number = ParseNumber(_input);
+            var _instance_x = 0;
             
-            if(string_pos(".start", _input) || string_pos(".xstart", _input)) {
-                return _instance.xstart + _number;
+            if(_instance != noone) {
+                if(string_pos(".start", _input) || string_pos(".xstart", _input)) {
+                    _instance_x = _instance.xstart;
+                } else {
+                    _instance_x = _instance.x;
+                }
             }
             
-            return _instance.x + _number;
+            var _number = ParseNumber(_input);
+            
+            return _instance_x + _number;
         }
         
         show_message($"[EvaluateX] failed to parse x, input={_input}");
@@ -139,13 +164,19 @@ function ActionStep(_config) constructor {
         
         if(is_string(_input)) {
             var _instance = ParseInstance(_input);
-            var _number = ParseNumber(_input);
+            var _instance_y = 0;
             
-            if(string_pos(".start", _input) || string_pos(".ystart", _input)) {
-                return _instance.ystart + _number;
+            if(_instance != noone) {
+                if(string_pos(".start", _input) || string_pos(".ystart", _input)) {
+                    _instance_y = _instance.ystart;
+                } else {
+                    _instance_y = _instance.y;
+                }
             }
             
-            return _instance.y + _number;
+            var _number = ParseNumber(_input);
+            
+            return _instance_y + _number;
         }
         
         show_message($"[EvaluateY] failed to parse y, input={_input}");
@@ -165,7 +196,7 @@ function ActionStep(_config) constructor {
         if(is_string(_input)) {
             var _instance = ParseInstance(_input);
             var _number = ParseNumber(_input);
-            return _instance.depth + _number;
+            return (_instance == noone ? 0 : _instance.depth) + _number;
         }
         
         show_message($"[EvaluateDepth] failed to parse depth, input={_input}");

@@ -19,7 +19,7 @@
             "sp": 5,
             "mag": 12
         },
-        "actions": ["action_strike", "BasicLightningAction", "action_explosion", "action_defense_buff"],
+        "actions": ["action_strike", "action_lightning", "action_explosion", "action_defense_buff"],
 		"strategies": ["BasicActionStrategy", "BuffActionStrategy"]
     },
     "No1HarpyFan": {

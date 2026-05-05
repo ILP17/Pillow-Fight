@@ -49,7 +49,6 @@ ParseActions = function(_actions) {
         var _action;
         
         switch(_actions[i]) {
-            case "BasicLightningAction": _action = BasicLightningAction; break;
             default: 
                 _action = ObjActionProvider.GetAction(_actions[i]);
                 

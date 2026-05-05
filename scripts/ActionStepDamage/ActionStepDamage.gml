@@ -14,6 +14,11 @@ function ActionStepDamage(_config) : ActionStep(_config) constructor {
         var _agressor = ParseInstance(agressor);
         var _defender = ParseInstance(defender);
         
+        if(_agressor == noone || _defender == noone) {
+            finished = true;
+            return;
+        }
+        
         if(is_undefined(defender_stat)){
             _defender.Damage(ScrGetDamageNoDefense(_agressor, scaler, _defender, agressor_stat, base_damage))
         } else {

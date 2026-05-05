@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__BasicLightningAction",
+  "%Name":"ActionStepIf",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__BasicLightningAction",
+  "name":"ActionStepIf",
   "parent":{
-    "name":"Actions",
-    "path":"folders/Scripts/Actions.yy",
+    "name":"Action Engine",
+    "path":"folders/Scripts/Action Engine.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

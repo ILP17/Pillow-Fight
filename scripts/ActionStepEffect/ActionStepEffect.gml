@@ -6,10 +6,23 @@ function ActionStepEffect(_config) : ActionStep(_config) constructor {
     life = _config[$ "life"] ?? -1;
     sprite = asset_get_index(_config[$ "sprite"] ?? nameof(SprPillowCombatMissing));
     scale = _config[$ "scale"] ?? [1, 1];
+    angle= _config[$ "angle"] ?? 0;
     animation = _config[$ "animation"];
+    waiting = false;
+    effect = noone;
+    
+    __Reset = function() {
+        effect = noone;
+        waiting = false;
+    }
     
     static Run = function() {
         if(finished) {
+            return;
+        }
+        
+        if(waiting) {
+            finished = effect.GetAnimation().finished;
             return;
         }
         
@@ -17,19 +30,19 @@ function ActionStepEffect(_config) : ActionStep(_config) constructor {
         var _x = EvaluateX(x);
         var _y = EvaluateY(y);
         var _depth = EvaluateDepth(depth);
-        var _effect = CreateBasicEffect(_x, _y, _depth, sprite, life);
-        ScrInstanceSetScale(_effect, scale[0], scale[1]);
+        effect = CreateBasicEffect(_x, _y, _depth, sprite, life);
+        ScrInstanceSetScale(effect, scale[0], scale[1]);
+        effect.image_angle = angle;
         
         if(!is_undefined(id)) {
-            _instance.AddEffect(id, _effect);
+            _instance.AddEffect(id, effect);
         }
         
         if(!is_undefined(animation)) {
-            if(is_string(animation)) {
-                _effect.SetAnimation(ObjAnimationProvider.GetAnimation(animation, _instance, turn_context, {}));
-            } else {
-                _effect.SetAnimation(ObjAnimationProvider.GetAnimation(animation[$ "type"], _instance, turn_context, animation));
-            }
+            effect.SetAnimation(ObjAnimationProvider.GetAnimation(animation, effect, turn_context));
+            
+            waiting = true;
+            return;
         }
         
         finished = true;

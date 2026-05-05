@@ -29,12 +29,12 @@ function ActionStepForeach(_config) : ActionStep(_config) constructor {
     __Reset_Step = function(_step, _array) {
         _step.Reset(turn_context);
         
-        if(iterating == 0) {
-            _step.victim = victim;
+        if(iterating == 1) {
+            _step.victim = _array;
             return;
         }
         
-        _step.attacker = attacker;
+        _step.attacker = _array;
     }
     
     static Run = function() {

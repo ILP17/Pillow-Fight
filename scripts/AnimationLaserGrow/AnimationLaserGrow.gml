@@ -17,12 +17,14 @@ function AnimationLaserGrow(_instance, _turn_context, _config) : Animation() con
         
         var _x = _action_step.EvaluateX(x);
         var _y = _action_step.EvaluateY(y);
-        var _distance = point_distance(instance.x, instance.y - 12, _x, _y);
+        var _direction = point_direction(instance.x, instance.y, _x, _y);
+        var _distance = point_distance(instance.x, instance.y, _x, _y);
         
         length += min(16, _distance - length);
+        instance.image_angle = _direction;
         instance.image_xscale = length / sprite_get_width(instance.sprite_index);
 		
-		if(length == _distance) {
+		if(length >= _distance) {
             finished = true;
 		}
     }

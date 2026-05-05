@@ -16,6 +16,11 @@ function ActionStepStatus(_config) : ActionStep(_config) constructor {
         
         var _target = ParseInstance(target);
         
+        if(_target == noone) {
+            finished = true;
+            return;
+        }
+        
         _target.ApplyBuff(ObjStatusProvider.GetStatus(status, active_turns));
         
         finished = true;
