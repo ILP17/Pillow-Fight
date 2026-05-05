@@ -10,6 +10,7 @@ function ActionStepFactory(_config) {
         case "effect": return new ActionStepEffect(_config); break;
         case "effect_update": return new ActionStepEffectUpdate(_config); break;
         case "effect_remove": return new ActionStepEffectRemove(_config); break;
+        case "effect_animation_wait": return new ActionStepEffectAnimationWait(_config); break;
         case "damage": return new ActionStepDamage(_config); break;
         case "animation": return new ActionStepAnimation(_config); break;
         case "animation_stop": return new ActionStepAnimationStop(_config); break;

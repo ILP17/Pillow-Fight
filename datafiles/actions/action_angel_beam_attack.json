@@ -17,6 +17,9 @@
             "type": "effect_update", "id": "laser", "animation": "laser_shrink"
         },
         {
+            "type": "effect_animation_wait", "id": "laser"
+        },
+        {
             "type": "effect_remove", "id": "laser"
         },
         {

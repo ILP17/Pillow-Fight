@@ -148,6 +148,7 @@
     {"id":{"name":"ActionStepAnimationStop","path":"scripts/ActionStepAnimationStop/ActionStepAnimationStop.yy",},},
     {"id":{"name":"ActionStepDamage","path":"scripts/ActionStepDamage/ActionStepDamage.yy",},},
     {"id":{"name":"ActionStepEffect","path":"scripts/ActionStepEffect/ActionStepEffect.yy",},},
+    {"id":{"name":"ActionStepEffectAnimationWait","path":"scripts/ActionStepEffectAnimationWait/ActionStepEffectAnimationWait.yy",},},
     {"id":{"name":"ActionStepEffectRemove","path":"scripts/ActionStepEffectRemove/ActionStepEffectRemove.yy",},},
     {"id":{"name":"ActionStepEffectUpdate","path":"scripts/ActionStepEffectUpdate/ActionStepEffectUpdate.yy",},},
     {"id":{"name":"ActionStepFactory","path":"scripts/ActionStepFactory/ActionStepFactory.yy",},},

@@ -46,17 +46,11 @@ ParseActions = function(_actions) {
     var _action_list = [];
     
     for(var i = 0; i < array_length(_actions); i++) {
-        var _action;
+        var _action = ObjActionProvider.GetAction(_actions[i]);
         
-        switch(_actions[i]) {
-            default: 
-                _action = ObjActionProvider.GetAction(_actions[i]);
-                
-                if(is_undefined(_action)) {
-                    show_message($"[ParseActions] {_actions[i]} is not a valid action");
-                    game_end();
-                }
-                break;
+        if(is_undefined(_action)) {
+            show_message($"[ParseActions] {_actions[i]} is not a valid action");
+            game_end();
         }
         
         array_push(_action_list, _action);
