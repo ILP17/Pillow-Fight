@@ -1,3 +1,6 @@
+/**
+ * @param {Id.Instance} _instance
+**/
 function AnimationJump(_instance) : Animation() constructor {
     z = 0;
 	zSpeed = -12;
@@ -9,8 +12,6 @@ function AnimationJump(_instance) : Animation() constructor {
 		zSpeed += zGravity;
 		instance.y = instance.ystart + z;
         
-		if(z == 0) {
-			finished = true;
-		}
+        finished = z == 0;
     }
 }

@@ -16,7 +16,7 @@ with(__) {
 	animations = {};
 	OnDeath = method(_self, function() {
 		ClearBuffs();
-		RemoveAllEffects();
+		RemoveAll();
 		ObjBattleStateController.OnBattleParticipantDeath(id);
 		sprite_index = __.spriteDead;
 		image_blend = c_gray;
@@ -94,11 +94,19 @@ GetAction = function(_turn_context) {
     var _turn_action = new TurnAction(_action, [id], _targets);
     
     if(_turn_action.IsValid()) {
-        __.actionEvaluator.Reset(); 
-        AddEnergy(-_action.GetMetadata().GetData("cost", 0))
+        __.actionEvaluator.Reset();
     }
     
     return _turn_action;
+}
+
+/**
+ * @param {Struct.TurnContext} _turn_context
+ * @param {Struct.Action} _action
+**/
+InitializeAction = function(_turn_context, _action) {
+    _action.Initialize(_turn_context);
+    AddEnergy(-_action.GetMetadata().GetData("cost", 0));
 }
 
 /**
@@ -279,11 +287,24 @@ StopAnimation = function(_id) {
 	variable_struct_remove(__.animations, _id);
 }
 
-RemoveAllEffects = function() {
+RemoveAll = function() {
 	static RemoveEffect = function(_name, _effect) {
 		instance_destroy(_effect);
 	}
+    
+    static RemoveAnimation = function(_name, _animation) {
+		_animation.Stop();
+	}
+    
+    static RemoveParticle = function(_name, _particle) {
+		instance_destroy(_particle);
+	}
 	
-	struct_foreach(__.effects, RemoveEffect)
+	struct_foreach(__.effects, RemoveEffect);
+	struct_foreach(__.animations, RemoveAnimation);
+	struct_foreach(__.particles, RemoveParticle);
+    
 	__.effects = {};
+	__.animations = {};
+	__.particles = {};
 }

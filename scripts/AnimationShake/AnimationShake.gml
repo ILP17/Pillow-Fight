@@ -1,3 +1,6 @@
+/**
+ * @param {Id.Instance} _instance
+**/
 function AnimationShake(_instance) : Animation() constructor {
     shake_time = 80;
     shake_timer = 80;

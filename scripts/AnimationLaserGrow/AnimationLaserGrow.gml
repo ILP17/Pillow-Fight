@@ -24,8 +24,6 @@ function AnimationLaserGrow(_instance, _turn_context, _config) : Animation() con
         instance.image_angle = _direction;
         instance.image_xscale = length / sprite_get_width(instance.sprite_index);
 		
-		if(length >= _distance) {
-            finished = true;
-		}
+		finished = length >= _distance;
     }
 }

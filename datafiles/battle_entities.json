@@ -36,7 +36,7 @@
         "name": "Angel",
         "sprite": "SprHealer",
         "stats": {
-            "hp": 300,
+            "hp": 30,
             "at": 12,
             "df": 7,
             "sp": 6,
