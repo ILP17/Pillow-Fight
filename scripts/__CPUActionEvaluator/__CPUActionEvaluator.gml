@@ -52,7 +52,7 @@ function CPUActionEvaluator(_character_data) : ActionEvaluator() constructor {
 			_max_weight = _weights[i] + _min_weight;
 		
 			if(_chosen_weight >= _min_weight && _chosen_weight <= _max_weight) {
-				_action = _character_data.GetAction(i).Initialize(_turn_context);
+				_action = _character_data.GetAction(i);
 				break;
 			}
 			_min_weight = _max_weight;

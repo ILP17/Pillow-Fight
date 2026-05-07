@@ -1,0 +1,91 @@
+{
+    "Loser": {
+        "name": "Loser",
+        "sprite": "SprPlayer",
+        "stats": {
+            "hp": 52,
+            "at": 22,
+            "df": 10,
+            "sp": 22
+        }
+    },
+    "Kartoffel": {
+        "name": "Kartoffel",
+        "sprite": "SprMage",
+        "stats": {
+            "hp": 48,
+            "at": 18,
+            "df": 8,
+            "sp": 5,
+            "mag": 18
+        },
+        "actions": ["action_strike", "action_lightning", "action_explosion", "action_defense_buff"],
+		"strategies": ["BasicActionStrategy", "BuffActionStrategy"]
+    },
+    "No1HarpyFan": {
+        "name": "#1 Harpy Fan",
+        "sprite": "SprPlayer",
+        "stats": {
+            "hp": 72,
+            "at": 32,
+            "df": 15,
+            "sp": 6
+        }
+    },
+    "Angel": {
+        "name": "Angel",
+        "sprite": "SprHealer",
+        "stats": {
+            "hp": 50,
+            "at": 15,
+            "df": 7,
+            "sp": 6,
+            "mag": 15
+        },
+        "actions": ["action_strike", "action_heal", "action_resurrection", "action_angel_beam"],
+		"strategies": ["BasicActionStrategy", "HealActionStrategy", "ReviveActionStrategy"]
+    },
+    "Weirdo": {
+        "name": "Wierdo",
+        "sprite": "SprMonster",
+        "stats": {
+            "hp": 40,
+            "at": 30,
+            "df": 2,
+            "sp": 3
+        }
+    },
+    "Killer": {
+        "name": "Killer",
+        "sprite": "SprAngryMonster",
+        "stats": {
+            "hp": 25,
+            "at": 45,
+            "df": 3,
+            "sp": 2
+        }
+    },
+    "Abhorrence": {
+        "name": "Abhorrence",
+        "sprite": "SprAbhorrence",
+        "isBoss": true,
+        "stats": {
+            "hp": 175,
+            "at": 60,
+            "df": 5,
+            "sp": 1
+        }
+    },
+    "SassyWitch": {
+        "name": "Sassy Witch",
+        "sprite": "SprSassyWitch",
+        "stats": {
+            "hp": 70,
+            "at": 35,
+            "df": 3,
+            "sp": 5
+        },
+        "actions": [ "action_strike", "action_strength_buff", "action_speed_debuff" ],
+		"strategies": [ "BasicActionStrategy", "BuffActionStrategy" ]
+    }
+}

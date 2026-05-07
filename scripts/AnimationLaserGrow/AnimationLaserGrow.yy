@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"AnimationLaserGrow",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"AnimationLaserGrow",
+  "parent":{
+    "name":"Animations",
+    "path":"folders/Scripts/Animations.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,15 @@
+## Keywords
+**attacker** - the instance running the action
+
+**victim** - 
+>The first victim (also known as the main victim) instance the action is targeting.\
+If multiple victims are present, denote the specific victim like so:\
+**victim[x]**
+
+## Steps
+move
+- target
+- x
+- y
+- speed
+- padding  [optional]

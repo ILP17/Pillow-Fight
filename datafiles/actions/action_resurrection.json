@@ -1,0 +1,22 @@
+{
+    "steps": [
+        {
+            "type": "animation", "animation": "jump", "target": "attacker"
+        },
+        {
+            "type": "particle", "particle": "PartSysResurrect", "x": "victim", "y": "victim-16", "depth": "victim+1"
+        },
+        {
+            "type": "animation", "animation": "shake", "target": "victim"
+        },
+        {
+            "type": "damage", "agressor": "attacker", "defender": "victim", "agressor_stat": "mag", "scaler": -0.30, "base_damage": 10
+        },
+        {
+            "type": "animation", "animation": "jump", "target": "victim"
+        },
+        { 
+            "type": "timer", "time": 15, "repeat": 1
+        }
+    ]
+}

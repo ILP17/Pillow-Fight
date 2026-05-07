@@ -11,7 +11,7 @@ GetEncounter = function(_index) {
             break;
         }
         
-        array_push(_encounter, global.monsters[$ _encounter_config[i]]);
+        array_push(_encounter, ObjBattleEntityDataProvider.GetBattleEntity(_encounter_config[i]));
     }
     
     

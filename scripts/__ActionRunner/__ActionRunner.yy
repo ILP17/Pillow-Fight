@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__ActionRunner",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__ActionRunner",
+  "parent":{
+    "name":"Actions",
+    "path":"folders/Scripts/Actions.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

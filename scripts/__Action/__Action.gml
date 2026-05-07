@@ -10,7 +10,7 @@ function Action() constructor {
      * @return {Struct.ActionMetadata}
 	**/
 	static GetMetadata = function() {
-		return ObjActionMetadataProvider.GetActionMetadata(self);
+		return ObjActionMetadataProvider.GetActionMetadata(instanceof(self));
 	}
 	
     /**
@@ -25,8 +25,11 @@ function Action() constructor {
     **/
     Initialize = function(_turn_context) {
         __.turn_context = _turn_context;
+        __Initialize();
         return self;
     }
+    
+    __Initialize = function() { }
     
     Run = function() { }
     

@@ -172,6 +172,7 @@ Turn = function() {
 	if(__.scheduler.HasReadyTurnAction()) {
 		var _turn_action = __.scheduler.GetCurrentTurnAction();
         _turn_context.SetTurnAction(_turn_action);
+        _turn_instance.InitializeAction(_turn_context, _turn_action.action);
         
 		var _new_targets = _turn_instance.UpdateTargets(_turn_context);
         _turn_action.targets = _new_targets;
@@ -183,7 +184,6 @@ Turn = function() {
 			return;
 		}
 		
-        _turn_action.action.Initialize(_turn_context);
 		__.battleState = BattleStates.ExecuteAction;
 		return;
 	}
@@ -197,7 +197,7 @@ Turn = function() {
     if(_turn_action.IsValid()) {
         show_debug_message($"{_turn_instance.GetCharacterData().name} prepares {instanceof(_turn_action.action)}");
         _turn_context.SetTurnAction(_turn_action);
-        _turn_action.action.Initialize(_turn_context);
+        _turn_instance.InitializeAction(_turn_context, _turn_action.action);
         __.scheduler.AddTurnAction(_turn_action);
         __.battleState = BattleStates.ExecuteAction;
     }

@@ -1,0 +1,29 @@
+{
+    "steps": [
+        {
+            "type": "animation", "animation": "spin", "target": "attacker", "id": "spin"
+        },
+        {
+            "type": "effect", "id": "laser", "x": "attacker", "y": "attacker-12", "depth": "attacker+1", "sprite": "SprAngelBeam", "life": 9999,
+            "animation": { "type": "laser_grow", "x": "victim", "y": "victim-12" }
+        },
+        {
+            "type": "particle_clear", "id": "beam"
+        },
+        { 
+            "type": "damage", "agressor": "attacker", "defender": "victim", "agressor_stat": "mag", "defender_stat": "df", "scaler": 1
+        },
+        {
+            "type": "effect_update", "id": "laser", "animation": "laser_shrink"
+        },
+        {
+            "type": "effect_animation_wait", "id": "laser"
+        },
+        {
+            "type": "effect_remove", "id": "laser"
+        },
+        {
+            "type": "animation_stop", "id": "spin"
+        }
+    ]
+}

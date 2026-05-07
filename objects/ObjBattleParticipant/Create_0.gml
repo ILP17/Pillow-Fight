@@ -5,14 +5,17 @@ with(__) {
 	spriteDead = SprPillowCombatMissing;
 	healthColor = c_aqua;
 	character_data = undefined;
+    is_player = false;
 	health = 0;
 	healthDisplay = 0;
 	buffs = [];
 	actionEvaluator = undefined;
 	effects = {};
+	particles = {};
+	animations = {};
 	OnDeath = method(_self, function() {
 		ClearBuffs();
-		RemoveAllEffects();
+		RemoveAll();
 		ObjBattleStateController.OnBattleParticipantDeath(id);
 		sprite_index = __.spriteDead;
 		image_blend = c_gray;
@@ -28,6 +31,7 @@ Initialize = function(_character_data, _is_player) {
 	
 	__.health = __.character_data.GetStat(HP_STAT);
 	__.healthDisplay = __.health;
+	__.is_player = _is_player;
 	
 	var _name = sprite_get_name(__.character_data.sprite);
 	__.sprite = __.character_data.sprite;
@@ -35,13 +39,17 @@ Initialize = function(_character_data, _is_player) {
 	sprite_index = __.sprite;
 	
 	__.actionEvaluator = _is_player ? new PlayerActionEvaluator(__.character_data) : new CPUActionEvaluator(__.character_data);
-	
+    
     Reset();
     
 	return id;
 }
 
 Reset = function() { }
+
+IsPlayer = function() {
+    return __.is_player;
+}
 
 GetCharacterData = function() {
     return __.character_data;
@@ -79,6 +87,14 @@ GetAction = function(_turn_context) {
     }
     
     return _turn_action;
+}
+
+/**
+ * @param {Struct.TurnContext} _turn_context
+ * @param {Struct.Action} _action
+**/
+InitializeAction = function(_turn_context, _action) {
+    _action.Initialize(_turn_context);
 }
 
 /**
@@ -204,25 +220,79 @@ Damage = function(_damage) {
 }
 
 /**
-	@param {Id.Instance} _effect_object
-*/
-AddEffect = function(_effect_object) {
-	__.effects[$ $"{_effect_object.object_index}"] = _effect_object;
+ * @param {String} _id
+ * @param {Id.Instance} _instance
+**/
+AddEffect = function(_id, _effect_object) {
+	__.effects[$ _id] = _effect_object;
 }
 
 /**
-	@param {Asset.GMObject} _effect_object
-*/
-RemoveEffect = function(_effect_object) {
-	instance_destroy(__.effects[$ $"{_effect_object}"]);
-	variable_struct_remove(__.effects, $"{_effect_object}");
+ * @param {String} _id
+ * @return {Id.Instance}
+**/
+GetEffect = function(_id) {
+	return __.effects[$ _id];
 }
 
-RemoveAllEffects = function() {
+/**
+ * @param {String} _id
+**/
+ClearEffect = function(_id) {
+	instance_destroy(__.effects[$ _id]);
+	variable_struct_remove(__.effects, _id);
+}
+
+/**
+ * @param {String} _id
+ * @param {Id.Instance} _instance
+**/
+AddParticle = function(_id, _instance) {
+	__.particles[$ _id] = _instance;
+}
+
+/**
+ * @param {String} _id
+**/
+ClearParticle = function(_id) {
+	instance_destroy(__.particles[$ _id]);
+	variable_struct_remove(__.particles, _id);
+}
+
+/**
+ * @param {String} _id
+ * @param {Struct.Animation} _instance
+**/
+AddAnimation = function(_id, _instance) {
+	__.animations[$ _id] = _instance;
+}
+
+/**
+ * @param {String} _id
+**/
+StopAnimation = function(_id) {
+    __.animations[$ _id].Stop();
+	variable_struct_remove(__.animations, _id);
+}
+
+RemoveAll = function() {
 	static RemoveEffect = function(_name, _effect) {
 		instance_destroy(_effect);
 	}
+    
+    static RemoveAnimation = function(_name, _animation) {
+		_animation.Stop();
+	}
+    
+    static RemoveParticle = function(_name, _particle) {
+		instance_destroy(_particle);
+	}
 	
-	struct_foreach(__.effects, RemoveEffect)
+	struct_foreach(__.effects, RemoveEffect);
+	struct_foreach(__.animations, RemoveAnimation);
+	struct_foreach(__.particles, RemoveParticle);
+    
 	__.effects = {};
+	__.animations = {};
+	__.particles = {};
 }

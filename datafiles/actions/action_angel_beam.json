@@ -1,0 +1,16 @@
+{
+    "steps": [
+        {
+            "type": "animation", "animation": "jump", "target": "attacker"
+        },
+        {
+            "type": "prepare", "action": "action_angel_beam_attack", "turn_count": 0
+        },
+        {
+            "type": "particle", "particle": "PartSysAngelBeam", "x": "attacker", "y": "attacker-16", "depth": "attacker+1", "id": "beam"
+        },
+        { 
+            "type": "timer", "time": 10, "repeat": 1 
+        }
+    ]
+}
