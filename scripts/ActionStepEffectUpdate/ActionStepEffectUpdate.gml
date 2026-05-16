@@ -15,7 +15,7 @@ function ActionStepEffectUpdate(_config) : ActionStep(_config) constructor {
         }
         
         var _instance = turn_context.GetTurnInstance();
-        var _effect = _instance.GetEffect(id);
+        var _effect = _instance.GetEffects().Get(id);
         
         _effect.x = is_undefined(x) ? _effect.x : EvaluateX(x);
         _effect.y = is_undefined(y) ? _effect.y : EvaluateY(y);

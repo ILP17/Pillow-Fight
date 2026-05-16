@@ -3,11 +3,13 @@ __ = {};
 with (__) {
     initialize = false
 	scheduler = new ActionScheduler();
+    turn_context = new TurnContext(noone, [], []);
 	currentTurnIndex = 0;
 	alphaTeam = [];
 	betaTeam = [];
 	currentTurnOrder = [];
 	battleState = BattleStates.NA;
+    end_turn = false;
 
 	SignalTurnEnd = method(_self, function() {
 		__.battleState = BattleStates.PostTurn;
@@ -42,11 +44,11 @@ with (__) {
             _team = GetTeam(_turn_instance);
         
         switch(_team) {
-            case 0:
+            case BattleTeams.Alpha:
                 _ally_team = __.alphaTeam;
                 _enemy_team = __.betaTeam;
                 break;
-            case 1:
+            case BattleTeams.Beta:
                 _ally_team = __.betaTeam;
                 _enemy_team = __.alphaTeam;
                 break;
@@ -58,12 +60,12 @@ with (__) {
     });
 
 	BattleHasVictor = method(_self, function() {
-        var _victors = BattleVictors.NA;
+        var _victors = BattleTeams.NA;
         
 		if(!__.CheckTeamAlive(__.alphaTeam)) {
-			_victors = BattleVictors.Beta;
+			_victors = BattleTeams.Beta;
 		} else if(!__.CheckTeamAlive(__.betaTeam)) {
-			_victors = BattleVictors.Alpha;
+			_victors = BattleTeams.Alpha;
 		}
         
         if(_victors != BattleStates.NA) {
@@ -82,19 +84,36 @@ with (__) {
 **/
 GetTeam = function(_battle_participant) {
     if(array_contains(__.alphaTeam, _battle_participant)) {
-        return 0;
+        return BattleTeams.Alpha;
     } else if(array_contains(__.betaTeam, _battle_participant)) {
-        return 1;
+        return BattleTeams.Beta;
     }
     
-    return -1;
+    return BattleTeams.NA;
 }
 
-GetBattleState = function() {
-	return __.battleState;
-}
+GetBattleState = function() { return __.battleState; }
 
-GetCurrentTurnInstance = function() {
+/**
+ * @return {Id.Instance}
+**/
+GetCurrentTurnInstance = function() { return __.currentTurnOrder[__.currentTurnIndex]; }
+
+/**
+ * @return {Array<Id.Instance>}
+**/
+GetTurnOrder = function() { return __.currentTurnOrder; }
+
+MoveToNextTurnInstance = function() {
+    var _prev_turn_index = __.currentTurnIndex;
+    
+    __.currentTurnIndex = (__.currentTurnIndex + 1) % array_length(__.currentTurnOrder);
+    
+    if(__.currentTurnIndex < _prev_turn_index) {
+        if(ObjOptionsProvider.GetOption(OPTION_USE_TEAM_ENERGY, false)) { global.team_energy = global.max_team_energy; }
+		__.CreateTurnOrder();
+	}
+    
     return __.currentTurnOrder[__.currentTurnIndex];
 }
 
@@ -102,8 +121,10 @@ TryBeginBattle = function() {
 	if(GetBattleState() != BattleStates.NA) {
 		return;
 	}
-
+    
 	__.battleState = BattleStates.PreBattle;
+    
+    instance_create_depth(0, 0, depth, ObjBattleHUD).SetUp(array_concat(__.alphaTeam, __.betaTeam));
 }
 
 /** 
@@ -139,13 +160,9 @@ PreBattle = function() {
 }
 
 PreTurn = function() {
-	if(__.BattleHasVictor()) {
-		return;
-	}
+    var _turn_instance = GetCurrentTurnInstance();
 	
-	var _turn_instance = GetCurrentTurnInstance();
-	
-	if(__.SkipTurn(!_turn_instance.CanAct())) {
+    if(__.BattleHasVictor() || __.SkipTurn(!_turn_instance.CanAct())) {
 		return;
 	}
     
@@ -165,16 +182,16 @@ Turn = function() {
 		return;
 	}
     
-    var _turn_context = __.SetupTurnContext(_turn_instance);
+    __.turn_context = __.SetupTurnContext(_turn_instance);
 	
 	__.scheduler.TickDelayedActions(_turn_instance);
 	
 	if(__.scheduler.HasReadyTurnAction()) {
 		var _turn_action = __.scheduler.GetCurrentTurnAction();
-        _turn_context.SetTurnAction(_turn_action);
-        _turn_instance.InitializeAction(_turn_context, _turn_action.action);
+        __.turn_context.SetTurnAction(_turn_action);
+        _turn_instance.InitializeAction(__.turn_context, _turn_action.action);
         
-		var _new_targets = _turn_instance.UpdateTargets(_turn_context);
+		var _new_targets = _turn_instance.UpdateTargets(__.turn_context);
         _turn_action.targets = _new_targets;
 		
 		if(array_length(_new_targets) == 0) {
@@ -192,12 +209,12 @@ Turn = function() {
 		return;
 	}
     
-    var _turn_action = _turn_instance.GetAction(_turn_context);
+    var _turn_action = _turn_instance.GetAction(__.turn_context);
     
     if(_turn_action.IsValid()) {
         show_debug_message($"{_turn_instance.GetCharacterData().name} prepares {instanceof(_turn_action.action)}");
-        _turn_context.SetTurnAction(_turn_action);
-        _turn_instance.InitializeAction(_turn_context, _turn_action.action);
+        __.turn_context.SetTurnAction(_turn_action);
+        _turn_instance.InitializeAction(__.turn_context, _turn_action.action);
         __.scheduler.AddTurnAction(_turn_action);
         __.battleState = BattleStates.ExecuteAction;
     }
@@ -213,21 +230,38 @@ ExecuteAction = function() {
 
 PostTurn = function() {
     var _turn_instance = GetCurrentTurnInstance();
+    var _action = __.turn_context.GetTurnAction().action;
+    var _action_end_turn = is_instanceof(_action, NoAction) ? false : _action.GetMetadata().GetData("endTurn", false);
     
-    if(_turn_instance.IsPlayer() && _turn_instance.GetEnergy() > 0) {
+    if(_turn_instance.IsPlayer() && ObjOptionsProvider.GetOption(OPTION_USE_TEAM_ENERGY, false) && global.team_energy == 0) {
+        _turn_instance.OnPostTurn();
+        var _instance = MoveToNextTurnInstance();
+        while(_instance.IsPlayer()) {
+            _instance = MoveToNextTurnInstance();
+        }
+        ToPreTurn();
+        return;
+    }
+    
+    if(_turn_instance.IsPlayer() && _turn_instance.CanAct() && !__.end_turn && !_action_end_turn) {
         __.battleState = BattleStates.Turn;
         return;
     }
     
-	__.currentTurnOrder[__.currentTurnIndex].OnPostTurn();
-	__.currentTurnIndex++;
-	
-	if(__.currentTurnIndex >= array_length(__.currentTurnOrder)) {
-		__.CreateTurnOrder();
-		__.currentTurnIndex = 0;
-	}
-	
-	__.battleState = BattleStates.PreTurn;
+	_turn_instance.OnPostTurn();
+    
+    MoveToNextTurnInstance();
+	ToPreTurn();
 }
 
 PostBattle = function() { }
+
+EndTurn = function() {
+    __.battleState = BattleStates.PostTurn;
+    __.end_turn = true;
+}
+
+ToPreTurn = function() {
+    __.battleState = BattleStates.PreTurn;
+    __.end_turn = false;
+}

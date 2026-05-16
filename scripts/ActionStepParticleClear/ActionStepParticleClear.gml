@@ -8,7 +8,7 @@ function ActionStepParticleClear(_config) : ActionStep(_config) constructor {
         
         var _instance = turn_context.GetTurnInstance();
         
-        _instance.ClearParticle(id);
+        _instance.GetParticles().Remove(id);
         
         finished = true;
     }

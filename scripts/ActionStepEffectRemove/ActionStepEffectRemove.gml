@@ -7,7 +7,7 @@ function ActionStepEffectRemove(_config) : ActionStep(_config) constructor {
         }
         
         var _instance = turn_context.GetTurnInstance();
-        _instance.ClearEffect(id);
+        _instance.GetEffects().Remove(id);
         
         finished = true;
     }

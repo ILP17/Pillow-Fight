@@ -14,7 +14,7 @@ function BuffActionStrategy() : ActionStrategy() constructor {
 			var _action = _character_data.GetAction(i);
             var _metadata = _action.GetMetadata();
 			
-			if(_metadata.effectType != EffectType.Buff) {
+			if(_metadata.effectType != EffectType.Status) {
 				continue;
 			}
 			
@@ -31,7 +31,7 @@ function BuffActionStrategy() : ActionStrategy() constructor {
 				
                 var _buffs = _metadata.GetData("buffs", []);
                 
-				if(!_target.HasAnyBuff(_buffs)) {
+				if(!_target.GetStatusManager().HasAnyStatus(_buffs)) {
 					_should_buff = 1;
 					break;
 				}

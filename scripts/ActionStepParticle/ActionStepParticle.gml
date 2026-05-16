@@ -23,7 +23,7 @@ function ActionStepParticle(_config) : ActionStep(_config) constructor {
         var _depth = EvaluateDepth(depth);
         
         if(!is_undefined(id)) {
-            _instance.AddParticle(id, CreateParticleEffect(_x, _y, _depth, particle));
+            _instance.GetParticles().Add(id, CreateParticleEffect(_x, _y, _depth, particle));
             finished = true;
             return;
         }

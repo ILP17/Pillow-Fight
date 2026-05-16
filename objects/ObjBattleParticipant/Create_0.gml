@@ -8,14 +8,13 @@ with(__) {
     is_player = false;
 	health = 0;
     energy = 0;
-	healthDisplay = 0;
-	buffs = [];
+	status_manager = new StatusManager();
 	actionEvaluator = undefined;
-	effects = {};
-	particles = {};
-	animations = {};
+	effects = new InstanceDictionary();
+	particles = new InstanceDictionary();
+	animations = new AnimationDictionary();
 	OnDeath = method(_self, function() {
-		ClearBuffs();
+		__.status_manager.ClearBuffs();
 		RemoveAll();
 		ObjBattleStateController.OnBattleParticipantDeath(id);
 		sprite_index = __.spriteDead;
@@ -29,9 +28,7 @@ with(__) {
 **/
 Initialize = function(_character_data, _is_player) {
 	__.character_data = _character_data;
-	
 	__.health = __.character_data.GetStat(HP_STAT);
-	__.healthDisplay = __.health;
 	__.is_player = _is_player;
 	
 	var _name = sprite_get_name(__.character_data.sprite);
@@ -46,25 +43,34 @@ Initialize = function(_character_data, _is_player) {
 	return id;
 }
 
-Reset = function() {
-    __.energy = 3;
-}
+Reset = function() { __.energy = 3; }
 
 AddEnergy = function(_amount) {
+    if(ObjOptionsProvider.GetOption(OPTION_USE_TEAM_ENERGY, false)) {
+        global.team_energy = clamp(global.team_energy + _amount, 0, global.max_team_energy);
+        return;
+    }
+    
     __.energy = clamp(__.energy + _amount, 0, 3);
 }
 
-IsPlayer = function() {
-    return __.is_player;
-}
+IsPlayer = function() { return __.is_player; }
 
-GetEnergy = function(_amount) {
-    return __.energy;
-}
+GetName = function() { return __.character_data.name; }
 
-GetCharacterData = function() {
-    return __.character_data;
-}
+GetHealth = function() { return __.health; }
+
+GetStatusManager = function() { return __.status_manager; }
+
+GetEnergy = function(_amount) { return __.energy; }
+
+GetCharacterData = function() { return __.character_data; }
+
+GetEffects = function() { return __.effects; }
+
+GetParticles = function() { return __.particles; }
+
+GetAnimations = function() { return __.animations; }
 
 /**
  * Gets a stat's value
@@ -73,9 +79,10 @@ GetCharacterData = function() {
 **/
 GetStat = function(_stat_key) {
 	var _value = __.character_data.GetStat(_stat_key);
+    var _status_count = __.status_manager.GetBuffCount();
 	
-	for(var i = 0; i < array_length(__.buffs); i++) {
-		_value *= __.buffs[i].stats[$ _stat_key];
+	for(var i = 0; i < _status_count; i++) {
+		_value *= __.status_manager.GetBuff(i).stats[$ _stat_key];
 	}
 	
 	return floor(_value);
@@ -106,7 +113,10 @@ GetAction = function(_turn_context) {
 **/
 InitializeAction = function(_turn_context, _action) {
     _action.Initialize(_turn_context);
-    AddEnergy(-_action.GetMetadata().GetData("cost", 0));
+    
+    if(IsPlayer()) {
+        AddEnergy(-_action.GetMetadata().GetData("cost", 0));
+    }
 }
 
 /**
@@ -146,60 +156,10 @@ CanAct = function() {
 }
 
 /**
-	@param {Struct.Buff} _buff_constructor
-	@return {bool}
-*/
-HasBuff = function(_buff_constructor) {
-	var _method = method({_buff_constructor}, function(_buff, _index) {
-		return instanceof(_buff) == script_get_name(_buff_constructor);
-	});
-	
-	return array_any(__.buffs, _method);
-}
-
-/**
-	Returns true if battle participant has any of the provided buffs
-	@param {Array<Struct.Buff>} _buffs
-	@return {bool}
-*/
-HasAnyBuff = function(_buffs) {
-	for(var i = 0; i < array_length(_buffs); i++) {
-		if(HasBuff(_buffs[i])) {
-			return true;
-		}
-	}
-	
-	return false;
-}
-
-/**
-	@param {Struct.Buff}
-*/
-ApplyBuff = function(_buff) {
-	array_push(__.buffs, _buff);
-}
-
-/**
-	Clears buffs
-*/
-ClearBuffs = function() {
-	__.buffs = [];
-}
-
-/**
  * BattleStateManager will call this at the end of the current turn for this battle participant
 **/
 OnPostTurn = function() {
-    //Decays all buffs' turn timers by 1
-	static Filter = function(_buff, _index) {
-		return _buff.turnCount > 0;
-	}
-	
-	__.buffs = array_filter(__.buffs, Filter);
-	
-	for(var i = 0; i < array_length(__.buffs); i++) {
-		__.buffs[i].DecrementTurnCount();
-	}
+    __.status_manager.DecayStatuses();
 }
 
 Damage = function(_damage) {
@@ -231,80 +191,8 @@ Damage = function(_damage) {
 	}
 }
 
-/**
- * @param {String} _id
- * @param {Id.Instance} _instance
-**/
-AddEffect = function(_id, _effect_object) {
-	__.effects[$ _id] = _effect_object;
-}
-
-/**
- * @param {String} _id
- * @return {Id.Instance}
-**/
-GetEffect = function(_id) {
-	return __.effects[$ _id];
-}
-
-/**
- * @param {String} _id
-**/
-ClearEffect = function(_id) {
-	instance_destroy(__.effects[$ _id]);
-	variable_struct_remove(__.effects, _id);
-}
-
-/**
- * @param {String} _id
- * @param {Id.Instance} _instance
-**/
-AddParticle = function(_id, _instance) {
-	__.particles[$ _id] = _instance;
-}
-
-/**
- * @param {String} _id
-**/
-ClearParticle = function(_id) {
-	instance_destroy(__.particles[$ _id]);
-	variable_struct_remove(__.particles, _id);
-}
-
-/**
- * @param {String} _id
- * @param {Struct.Animation} _instance
-**/
-AddAnimation = function(_id, _instance) {
-	__.animations[$ _id] = _instance;
-}
-
-/**
- * @param {String} _id
-**/
-StopAnimation = function(_id) {
-    __.animations[$ _id].Stop();
-	variable_struct_remove(__.animations, _id);
-}
-
 RemoveAll = function() {
-	static RemoveEffect = function(_name, _effect) {
-		instance_destroy(_effect);
-	}
-    
-    static RemoveAnimation = function(_name, _animation) {
-		_animation.Stop();
-	}
-    
-    static RemoveParticle = function(_name, _particle) {
-		instance_destroy(_particle);
-	}
-	
-	struct_foreach(__.effects, RemoveEffect);
-	struct_foreach(__.animations, RemoveAnimation);
-	struct_foreach(__.particles, RemoveParticle);
-    
-	__.effects = {};
-	__.animations = {};
-	__.particles = {};
+	__.effects.Clear();
+	__.animations.Clear();
+	__.particles.Clear();
 }

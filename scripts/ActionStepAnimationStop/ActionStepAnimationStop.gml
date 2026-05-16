@@ -7,7 +7,7 @@ function ActionStepAnimationStop(_config) : ActionStep(_config) constructor {
         }
         
         var _instance = turn_context.GetTurnInstance();
-        _instance.StopAnimation(id);
+        _instance.GetAnimations().Remove(id);
         
         finished = true;
     }

@@ -35,7 +35,7 @@ function ActionStepEffect(_config) : ActionStep(_config) constructor {
         effect.image_angle = angle;
         
         if(!is_undefined(id)) {
-            _instance.AddEffect(id, effect);
+            _instance.GetEffects().Add(id, effect);
         }
         
         if(!is_undefined(animation)) {

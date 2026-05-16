@@ -8,7 +8,7 @@ enum BattleStates {
 	PostBattle	// Exp Award Animation
 }
 
-enum BattleVictors {
+enum BattleTeams {
     NA,
 	Alpha,
 	Beta

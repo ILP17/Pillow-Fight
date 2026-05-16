@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"__Buff",
+  "%Name":"__Status",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__Buff",
+  "name":"__Status",
   "parent":{
     "name":"Buffs",
     "path":"folders/Scripts/Buffs.yy",

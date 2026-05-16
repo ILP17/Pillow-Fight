@@ -1,0 +1,8 @@
+{
+    "comment": "Kill",
+    "icon": 1,
+    "stats": {
+        "at": 1.5,
+        "mag": 1.25
+    }
+}

@@ -7,7 +7,7 @@ function ActionStepEffectAnimationWait(_config) : ActionStep(_config) constructo
         }
         
         var _instance = turn_context.GetTurnInstance();
-        var _effect = _instance.GetEffect(id);
+        var _effect = _instance.GetEffects().Get(id);
         var _effect_animation = _effect.GetAnimation();
         
         if(is_undefined(_effect) || !instance_exists(_effect) || is_undefined(_effect_animation)) {

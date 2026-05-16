@@ -52,10 +52,12 @@
     },
     "action_angel_beam": {
         "name": "Angel Beam",
-        "cost": 3
+        "cost": 3,
+        "endTurn": true
     },
     "action_angel_beam_attack": {
         "name": "_name_",
-        "cost": 3
+        "cost": 3,
+        "endTurn": true
     }
 }

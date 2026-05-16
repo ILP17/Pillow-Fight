@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"__ProtectionBuff",
+  "%Name":"StatusManager",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__ProtectionBuff",
+  "name":"StatusManager",
   "parent":{
     "name":"Buffs",
     "path":"folders/Scripts/Buffs.yy",

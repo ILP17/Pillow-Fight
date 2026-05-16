@@ -2,7 +2,7 @@ enum EffectType {
 	Damage,
 	Heal,
 	Revive,
-	Buff
+	Status
 }
 
 function EffectTypeFromString(_enum) {
@@ -13,6 +13,6 @@ function EffectTypeFromString(_enum) {
         case "damage": return EffectType.Damage;
         case "heal": return EffectType.Heal;
         case "revive": return EffectType.Revive;
-        case "buff": return EffectType.Buff;
+        case "buff": return EffectType.Status;
     }
 }

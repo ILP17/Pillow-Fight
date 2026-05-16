@@ -21,7 +21,7 @@ function ActionStepAnimation(_config) : ActionStep(_config) constructor {
         
         if(!is_undefined(id)) {
             var _instance = turn_context.GetTurnInstance();
-            _instance.AddAnimation(id, animation);
+            _instance.GetAnimations().Add(id, animation);
         } else {
             animation.Play();
         }

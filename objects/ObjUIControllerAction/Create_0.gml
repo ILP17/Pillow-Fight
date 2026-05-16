@@ -50,6 +50,23 @@ SetCharacter = function(_turn_context) {
         flexpanel_node_insert_child(__.list_node, _node, i);
     }
     
+    var _node = flexpanel_create_node({
+        width: "100%",
+        height: 24,
+        layerElements: [
+            {
+                type: "Instance",
+                instanceObjectIndex: ObjButton,
+                instanceVariables: { text: $"End Turn", callback: method({ action: undefined, selected: __on_action_selected }, function() { selected(action) }) }, 
+                flexStretchWidth: true,
+                flexStretchHeight: true,
+                instanceColour: -1
+            }
+        ]
+    });
+    
+    flexpanel_node_insert_child(__.list_node, _node, i);
+    
     if(is_instanceof(_character_data, ExamplePlayerCharacter) || is_instanceof(_character_data, ExampleMonsterCharacter)) {
         var _text_id = layer_text_get_id(UI_ACTION, "UIActionTextPrompt");
         layer_text_text(_text_id, string(__.prompt, _character_data.name));
@@ -75,11 +92,17 @@ on_action_selected = function(_action) { }
  * @param {Struct.Action} _action
 **/
 __on_action_selected = function(_action) {
+    if(is_undefined(_action)) {
+        ObjBattleStateController.EndTurn();
+        Hide();
+        return
+    }
+    
     var _action_metadata = _action.GetMetadata();
     var _func = _action_metadata.GetData("targetStrategy", undefined);
     var _target_strategy = new _func();
     
-    _target_strategy.Initialize(__.turn_context, _action)
+    _target_strategy.Initialize(__.turn_context, _action); 
     
     if (__.battle_participant.GetEnergy() < _action_metadata.GetData("cost", 0) || 
         array_length(_target_strategy.GetValidTargets()) == 0) {

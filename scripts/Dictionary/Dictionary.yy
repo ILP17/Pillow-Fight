@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"__ValorBuff",
+  "%Name":"Dictionary",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"__ValorBuff",
+  "name":"Dictionary",
   "parent":{
-    "name":"Buffs",
-    "path":"folders/Scripts/Buffs.yy",
+    "name":"Utility",
+    "path":"folders/Scripts/Utility.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
