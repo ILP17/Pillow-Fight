@@ -1,12 +1,23 @@
 auto_run = false;
 
-randomize();
-show_debug_message($"START seed={random_get_seed()}");
+HandleSeed = function() {
+    var _seed = ObjOptionsProvider.GetOption("seed", undefined);
+    
+    if(is_undefined(_seed)) {
+        randomize();
+    } else {
+        random_set_seed(_seed);
+    }
+    
+    show_debug_message($"START seed={random_get_seed()}");
+}
 
 StartBattle = function() {
     if(ObjBattleStateController.GetBattleState() != BattleStates.NA) {
         return;
     }
+    
+    HandleSeed();
     
     global.enemyParty=ObjEncounterProvider.GetRandomEncounter();
     

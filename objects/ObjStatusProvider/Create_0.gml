@@ -2,6 +2,7 @@ GetStatus = function(_key, _turn_count) {
     var _status_data = __.status[$ _key];
     var _status = new Status(_key, _turn_count, _status_data[$ "icon"]);
     _status.stats = new StatsMultiplierModifier(_status_data[$ "stats"]);
+    _status.energy = _status_data[$ "energy"] ?? 0;
     
     return _status;
 }

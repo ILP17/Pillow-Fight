@@ -1,19 +1,19 @@
 function StatusManager() constructor {
     /**
-     * Gets the number of buffs
+     * Gets the number of statuses
      * @return {Real}
     **/
-    GetBuffCount = function() { return array_length(__.statuses); }
+    GetStatusCount = function() { return array_length(__.statuses); }
     
     /**
      * Gets a status at the provided index
      * @param {Real} _index
      * @return {Struct.Status}
     **/
-    GetBuff = function(_index) { return __.statuses[_index]; }
+    GetStatus = function(_index) { return __.statuses[_index]; }
     
     /**
-     * @param {string} _status_id
+     * @param {String} _status_id
      * @return {bool}
     **/
     HasStatus = function(_status_id) {
@@ -26,12 +26,12 @@ function StatusManager() constructor {
     
     /**
      * Returns true any of the provided buffs are found
-     * @param {Array<Struct.Status>} _statuses
+     * @param {Array<String>} _status_ids
      * @return {bool}
     **/
-    static HasAnyStatus = function(_statuses) {
-    	for(var i = 0; i < array_length(_statuses); i++) {
-    		if(HasStatus(_statuses[i])) {
+    static HasAnyStatus = function(_status_ids) {
+    	for(var i = 0; i < array_length(_status_ids); i++) {
+    		if(HasStatus(_status_ids[i])) {
     			return true;
     		}
     	}
@@ -42,19 +42,19 @@ function StatusManager() constructor {
     /**
      * @param {Struct.Status} _status
     **/
-    static ApplyBuff = function(_status) {
+    static AddStatus = function(_status) {
     	array_push(__.statuses, _status);
     }
     
     /**
      * Clears buffs
     **/
-    static ClearBuffs = function() {
+    static ClearStatus = function() {
     	__.statuses = [];
     }
     
     static DecayStatuses = function() {
-        //Decays all buffs' turn timers by 1
+        //Decays all status' turn timers by 1
         static Filter = function(_status, _index) {
             return _status.turn_count > 0;
         }
@@ -62,7 +62,7 @@ function StatusManager() constructor {
         __.statuses = array_filter(__.statuses, Filter);
         
         for(var i = 0; i < array_length(__.statuses); i++) {
-            GetBuff(i).DecrementTurnCount();
+            GetStatus(i).DecrementTurnCount();
         }
     }
     

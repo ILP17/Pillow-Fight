@@ -1,5 +1,7 @@
 function ActionStepIf(_config) : ActionStep(_config) constructor {
     exists = _config[$ "exists"];
+    has_status = _config[$ "has_status"];
+    target = _config[$ "target"];
     step_true = [];
     step_false = [];
     selected_step = 0;
@@ -53,6 +55,18 @@ function ActionStepIf(_config) : ActionStep(_config) constructor {
         
         if(!is_undefined(exists)) {
             _evaluation = ParseInstance(exists) != noone;
+        }
+        
+        if(!is_undefined(has_status)) {
+            if(is_undefined(target)) {
+                ShowMessageAndEnd("ActionStepIf.Run", "\"target\" must be defined when using \"has_status\"");
+                return;
+            }
+            
+            var _status = has_status;
+            var _target = ParseInstance(target);
+            
+            _evaluation = _target != noone && _target.GetStatusManager().HasStatus(_status);
         }
         
         if(_evaluation) {

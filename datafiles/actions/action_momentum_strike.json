@@ -1,0 +1,25 @@
+{
+    "steps": [
+        {
+            "type": "animation", "animation": "jump", "target": "attacker"
+        },
+        {
+            "type": "if", "has_status": "energize", "target": "attacker", "false": [
+                { "type": "particle", "particle": "PartSysValorBuff", "x": "attacker", "y": "attacker-16", "depth": "attacker+1" },
+                { "type": "status", "status": "energize", "active_turns": 1, "target": "attacker" }
+            ]
+        },
+        {
+            "type": "move", "target": "attacker", "x": "victim", "y": "victim", "speed": 12, "padding": 24
+        },
+        {
+            "type": "damage", "agressor": "attacker", "defender": "victim", "agressor_stat": "at", "defender_stat": "df", "scaler": 0.8
+        },
+        {
+            "type": "move", "target": "attacker", "x": "attacker.start", "y": "attacker.start", "speed": 8
+        },
+        { 
+            "type": "timer", "time": 10, "repeat": 1 
+        }
+    ]
+}

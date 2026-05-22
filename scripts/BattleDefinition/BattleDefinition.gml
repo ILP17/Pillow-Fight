@@ -8,5 +8,7 @@
 #macro UI_ACTION "UIActionList"
 #macro OPTION_USE_TEAM_ENERGY "use_team_energy"
 
-global.team_energy = 6;
-global.max_team_energy = 6;
+function ShowMessageAndEnd(_object_and_method, _message) {
+    show_message($"[{_object_and_method}] {_message}");
+    game_end();
+}

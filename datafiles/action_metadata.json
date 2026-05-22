@@ -59,5 +59,17 @@
         "name": "_name_",
         "cost": 3,
         "endTurn": true
+    },
+    "action_momentum_strike": {
+        "name": "Momentum Strike",
+        "cost": 2
+    },
+    "action_beef_up_buff": {
+        "name": "Beef Up",
+        "cost": 2,
+        "targetStrategy": "buff",
+        "targetType": "self",
+        "effectType": "buff",
+        "buffs": ["beef_up"]
     }
 }

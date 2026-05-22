@@ -21,7 +21,7 @@ function ActionStepStatus(_config) : ActionStep(_config) constructor {
             return;
         }
         
-        _target.GetStatusManager().ApplyBuff(ObjStatusProvider.GetStatus(status, active_turns));
+        _target.ApplyStatus(ObjStatusProvider.GetStatus(status, active_turns));
         
         finished = true;
     }

@@ -1,3 +1,4 @@
 {
-    "use_team_energy": false
+    "use_team_energy": false,
+    "comment": "add seed property and set it to a number, seed can be seen in game"
 }

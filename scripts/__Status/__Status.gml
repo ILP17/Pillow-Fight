@@ -8,6 +8,7 @@ function Status(_id, _turn_count, _icon_index = 0) constructor {
 	icon_index = _icon_index;
 	turn_count = _turn_count;
 	stats = new StatsMultiplierModifier({});
+    energy = 0;
 	
 	static DecrementTurnCount = function() {
 		turn_count --;

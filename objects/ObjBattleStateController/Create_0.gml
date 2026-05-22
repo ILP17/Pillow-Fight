@@ -110,7 +110,7 @@ MoveToNextTurnInstance = function() {
     __.currentTurnIndex = (__.currentTurnIndex + 1) % array_length(__.currentTurnOrder);
     
     if(__.currentTurnIndex < _prev_turn_index) {
-        if(ObjOptionsProvider.GetOption(OPTION_USE_TEAM_ENERGY, false)) { global.team_energy = global.max_team_energy; }
+        if(ObjOptionsProvider.GetOption(OPTION_USE_TEAM_ENERGY, false)) { ObjTeamEnergyManager.Reset(); }
 		__.CreateTurnOrder();
 	}
     
@@ -189,10 +189,9 @@ Turn = function() {
 	if(__.scheduler.HasReadyTurnAction()) {
 		var _turn_action = __.scheduler.GetCurrentTurnAction();
         __.turn_context.SetTurnAction(_turn_action);
-        _turn_instance.InitializeAction(__.turn_context, _turn_action.action);
-        
-		var _new_targets = _turn_instance.UpdateTargets(__.turn_context);
+        var _new_targets = _turn_instance.UpdateTargets(__.turn_context);
         _turn_action.targets = _new_targets;
+        _turn_instance.InitializeAction(__.turn_context, _turn_action.action);
 		
 		if(array_length(_new_targets) == 0) {
 			_turn_action.action.Fail();
@@ -233,7 +232,7 @@ PostTurn = function() {
     var _action = __.turn_context.GetTurnAction().action;
     var _action_end_turn = is_instanceof(_action, NoAction) ? false : _action.GetMetadata().GetData("endTurn", false);
     
-    if(_turn_instance.IsPlayer() && ObjOptionsProvider.GetOption(OPTION_USE_TEAM_ENERGY, false) && global.team_energy == 0) {
+    if(_turn_instance.IsPlayer() && ObjOptionsProvider.GetOption(OPTION_USE_TEAM_ENERGY, false) && ObjTeamEnergyManager.GetEnergy() == 0) {
         _turn_instance.OnPostTurn();
         var _instance = MoveToNextTurnInstance();
         while(_instance.IsPlayer()) {

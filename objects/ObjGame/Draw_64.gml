@@ -16,6 +16,7 @@ if(_battle_state > BattleStates.NA) {
 }
 
 _debug_text += $"\nCurrent Turn: {_current_turn_name}";
+_debug_text += $"\nSeed: {random_get_seed()}";
 
 draw_text(_margin_x, _margin_y, _debug_text);
 

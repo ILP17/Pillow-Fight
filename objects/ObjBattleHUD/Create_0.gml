@@ -54,12 +54,12 @@ DrawBattleParticipantHUD = function(_battle_participant, _status_manager) {
     }
     
     if(ObjOptionsProvider.GetOption(OPTION_USE_TEAM_ENERGY, false)) {
-        var _buff_count = _status_manager.GetBuffCount();
+        var _buff_count = _status_manager.GetStatusCount();
         
         for(var i = 0; i < _buff_count; i++) {
         	draw_sprite(
         		SprBuffIcons,
-        		_status_manager.GetBuff(i).icon_index,
+        		_status_manager.GetStatus(i).icon_index,
         		(_is_player ? _x1 : _x2) + (-18 * (i + 1)) * _x_scale,
         		_y1);
         }
@@ -79,12 +79,12 @@ DrawBattleParticipantHUD = function(_battle_participant, _status_manager) {
         draw_text((_is_player ? _x1 : _x2) + -12 * _x_scale, _y1 + 8, _energy);
     }
     
-    var _buff_count = _status_manager.GetBuffCount();
+    var _buff_count = _status_manager.GetStatusCount();
     
     for(var i = 0; i < _buff_count; i++) {
     	draw_sprite(
     		SprBuffIcons,
-    		_status_manager.GetBuff(i).icon_index,
+    		_status_manager.GetStatus(i).icon_index,
     		(_is_player ? _x1 : _x2) + (-18 - 18 * (i + 1)) * _x_scale,
     		_y1);
     }
@@ -97,7 +97,7 @@ DrawTurnOrder = function() {
     for(var i = 0, n = array_length(_turn_order); i < n; i++) {
         var _battle_participant = _turn_order[i];
         var _is_player = _battle_participant.IsPlayer();
-        var _sprite = _battle_participant.sprite_index;
+        var _sprite = _battle_participant.__.sprite;
         var _width = sprite_get_width(_sprite);
         var _alpha = 0.65;
         
@@ -129,4 +129,8 @@ SetUp = function(_battle_participants) {
     for(var i = 0; i < array_length(_battle_participants); i++) {
         __.health_display[$ $"{_battle_participants[i]}"] = _battle_participants[i].GetHealth();
     }
+}
+
+SetHealthDisplay = function(_battle_participant) {
+    __.health_display[$ $"{_battle_participant}"] = _battle_participant.GetHealth();
 }
