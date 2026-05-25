@@ -6,7 +6,7 @@
   "name":"__AllTargetStrategy",
   "parent":{
     "name":"Target Strategies",
-    "path":"folders/Scripts/Target Strategies.yy",
+    "path":"folders/Pillow_Fight/Scripts/Target Strategies.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

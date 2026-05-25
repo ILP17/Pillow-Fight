@@ -1,11 +1,11 @@
 /**
- * @param {Struct.BaseBattleParticipantData} _character_data
+ * @param {Struct.BattleParticipantData} _character_data
 **/
 function PlayerActionEvaluator(_character_data) : ActionEvaluator() constructor { 
-	__ = {};
+	PRIVATE
     
     with(__) {
-        characterData = _character_data;
+        character_data = _character_data;
         action = new NoAction();
         /**
          * @return {Struct.TargetStrategy}
@@ -30,7 +30,7 @@ function PlayerActionEvaluator(_character_data) : ActionEvaluator() constructor 
 	 * @return {Struct.Action}
 	**/
 	TryDetermineAction = function(_turn_context) {
-        var _character_data = __.characterData;
+        var _character_data = __.character_data;
         
         if(!ObjUIControllerAction.IsShowing() && !ScrActionIsValid(__.action)) {
             ObjUIControllerAction.Show();

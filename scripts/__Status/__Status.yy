@@ -6,7 +6,7 @@
   "name":"__Status",
   "parent":{
     "name":"Buffs",
-    "path":"folders/Scripts/Buffs.yy",
+    "path":"folders/Pillow_Fight/Scripts/Buffs.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

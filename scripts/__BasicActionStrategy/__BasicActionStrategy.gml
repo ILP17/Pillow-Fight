@@ -1,6 +1,6 @@
 function BasicActionStrategy() : ActionStrategy() constructor {
 	/**
-	 * @param {Struct.BaseBattleParticipantData} _character_data
+	 * @param {Struct.BattleParticipantData} _character_data
 	 * @param {Struct.TurnContext} _turn_context
 	 * @param {Array<real>} _weights
 	 * @return {Array<real>}

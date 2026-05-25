@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Control",
-    "path":"folders/Objects/Control.yy",
+    "path":"folders/Pillow_Fight/Objects/Control.yy",
   },
   "parentObjectId":null,
   "persistent":true,

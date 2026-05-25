@@ -6,7 +6,7 @@
   "name":"Dictionary",
   "parent":{
     "name":"Utility",
-    "path":"folders/Scripts/Utility.yy",
+    "path":"folders/Pillow_Fight/Scripts/Utility.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

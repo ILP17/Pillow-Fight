@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
-    "path":"folders/Objects.yy",
+    "path":"folders/Pillow_Fight/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

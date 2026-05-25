@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"Damage_Scripts",
   "parent":{
-    "name":"Actions",
-    "path":"folders/Scripts/Actions.yy",
+    "name":"Scripts",
+    "path":"folders/Pillow_Fight/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

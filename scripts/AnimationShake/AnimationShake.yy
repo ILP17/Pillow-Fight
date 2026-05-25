@@ -6,7 +6,7 @@
   "name":"AnimationShake",
   "parent":{
     "name":"Animations",
-    "path":"folders/Scripts/Animations.yy",
+    "path":"folders/Pillow_Fight/Scripts/Animations.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

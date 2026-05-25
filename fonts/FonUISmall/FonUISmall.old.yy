@@ -191,7 +191,7 @@
   "name":"FonUISmall",
   "parent":{
     "name":"Fonts",
-    "path":"folders/__Pillow_Combat/Fonts.yy",
+    "path":"folders/Fonts.yy",
   },
   "pointRounding":0,
   "ranges":[

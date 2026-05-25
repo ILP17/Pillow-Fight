@@ -6,7 +6,7 @@
   "name":"__BasicActionStrategy",
   "parent":{
     "name":"Action Strategies",
-    "path":"folders/Scripts/Action Strategies.yy",
+    "path":"folders/Pillow_Fight/Scripts/Action Strategies.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

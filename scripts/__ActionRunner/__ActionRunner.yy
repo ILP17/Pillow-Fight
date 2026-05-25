@@ -6,7 +6,7 @@
   "name":"__ActionRunner",
   "parent":{
     "name":"Actions",
-    "path":"folders/Scripts/Actions.yy",
+    "path":"folders/Pillow_Fight/Scripts/Actions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

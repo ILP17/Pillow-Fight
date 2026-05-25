@@ -67,7 +67,7 @@ SetCharacter = function(_turn_context) {
     
     flexpanel_node_insert_child(__.list_node, _node, i);
     
-    if(is_instanceof(_character_data, ExamplePlayerCharacter) || is_instanceof(_character_data, ExampleMonsterCharacter)) {
+    if(is_instanceof(_character_data, ExampleMonsterCharacter)) {
         var _text_id = layer_text_get_id(UI_ACTION, "UIActionTextPrompt");
         layer_text_text(_text_id, string(__.prompt, _character_data.name));
     }

@@ -1,12 +1,15 @@
 /** 
  * @param _config
 **/
-function ExampleMonsterCharacter(_config = {}) : BaseBattleParticipantData() constructor {
+function BattleParticipantData(_config = {}) constructor {
 	__ = {};
 	with(__) {
-		actions = _config[$ "actions"] ?? [BasicHitAction];
+		actions = _config[$ "actions"] ?? [NoAction];
 		strategies = _config[$ "strategies"] ?? [BasicActionStrategy];
 		stats = _config[$ "stats"] ?? new Stats();
+        name = _config[$ "name"] ?? "";
+        sprite = _config[$ "sprite"] ?? SprPlayer;
+        isBoss = _config[$ "isBoss"] ?? false;
 	}
 	
 	/** 
@@ -52,8 +55,4 @@ function ExampleMonsterCharacter(_config = {}) : BaseBattleParticipantData() con
 		//Feather ignore once GM1045
 		return new __.strategies[_index]();
 	}
-	
-	name = _config[$ "name"] ?? "";
-	sprite = _config[$ "sprite"] ?? SprPlayer;
-	isBoss = _config[$ "isBoss"] ?? false;
 }

@@ -6,7 +6,7 @@
   "name":"ActionStepParticleClear",
   "parent":{
     "name":"Action Engine",
-    "path":"folders/Scripts/Action Engine.yy",
+    "path":"folders/Pillow_Fight/Scripts/Action Engine.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

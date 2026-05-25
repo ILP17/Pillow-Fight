@@ -1,5 +1,5 @@
 /**
- * @param {Struct.BaseBattleParticipantData} _character_data
+ * @param {Struct.BattleParticipantData} _character_data
 **/
 function CPUActionEvaluator(_character_data) : ActionEvaluator() constructor { 
 	__ = {};

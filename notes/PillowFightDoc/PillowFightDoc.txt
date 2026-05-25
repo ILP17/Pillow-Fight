@@ -1,0 +1,79 @@
+# Pillow Fight
+
+## Battle Participant
+
+### Functions
+
+#### Reset()
+> Called at the start of the battle participant's turn
+
+#### AddEnergy(real _amount)
+> Adds an amount of energy to the battle participant
+
+#### IsPlayer() -> bool
+> Returns true if this battle participant is player controlled
+
+#### GetName() -> string
+> Returns the display name for this battle participant
+
+#### GetHealth() -> real
+> Returns the current health for this battle participant
+
+#### GetEnergy() -> real
+> Returns the current energy for this battle participant
+
+#### GetCharacterData -> BattleParticipantData
+> Returns the static battle participant data
+
+#### GetStatusManager() -> StatusManager
+> Returns the status manager
+
+#### GetEffects() -> InstanceDictionary
+> Returns a dictionary of effect instances
+g
+#### GetParticles() -> InstanceDictionary
+> Returns a dictionary of particle instances
+
+#### GetAnimations() -> AnimationDictionary
+> Returns a dictionary of animations
+
+#### GetStat(string _stat_key) -> real
+> Returns the stats value with all applicable status effects are applied
+
+#### GetAction(TurnContext _turn_context) -> Turn Action
+> BattleStateManager will call this before proceeding to the ExecuteAction state.\
+> Returning undefined or invalid TurnAction effectively makes the BattleStateManager wait.
+
+#### InitializeAction(TurnContext _turn_context, Action _action)
+> Initializes the provided action and deducts energy
+
+#### UpdateTargets(TurnContext _turn_context) -> Array<Id.Instance>
+> If the BattleStateManager determines that the original targets are no longer valid, it will call this to get new targets.\
+> Returns an updated list of targets
+
+#### GetHealthRatio() -> real
+> Returns cuurent hp / max hp
+
+#### IsAlive() -> bool
+> Return true if the battle participant is alive
+
+#### IsTargetable() -> bool
+> Return true if the battle participant is targetable
+
+#### CanAct() -> bool
+> Returns true if this participant is able to act.\
+> If it is this battle participant's turn and it can't act, its turn is skipped.
+
+#### OnPostTurn()
+> BattleStateManager will call this at the end of the current turn for this battle participant
+
+#### ApplyStatus(Status _status)
+> Applies the provided status to this battle participant
+
+#### Damage(real _damage, bool [_allow_crit] = true)
+> Processes incoming damage and crit chance
+
+#### RemoveAll()
+> Clears all effects, particles, and animations
+
+___

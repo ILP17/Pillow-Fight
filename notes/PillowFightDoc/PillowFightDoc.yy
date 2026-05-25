@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"v1",
+  "%Name":"PillowFightDoc",
+  "name":"PillowFightDoc",
+  "parent":{
+    "name":"Pillow_Fight",
+    "path":"folders/Pillow_Fight.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}

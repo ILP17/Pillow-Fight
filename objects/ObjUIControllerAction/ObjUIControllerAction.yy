@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"UI",
-    "path":"folders/Objects/UI.yy",
+    "path":"folders/Pillow_Fight/Objects/UI.yy",
   },
   "parentObjectId":null,
   "persistent":true,

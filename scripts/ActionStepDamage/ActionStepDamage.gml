@@ -1,7 +1,7 @@
 function ActionStepDamage(_config) : ActionStep(_config) constructor {
     agressor = _config[$ "agressor"];
     defender = _config[$ "defender"];
-    agressor_stat = _config[$ "agressor_stat"] ?? AT_STAT;
+    agressor_stat = _config[$ "agressor_stat"] ?? STAT_AT;
     defender_stat = _config[$ "defender_stat"];
     scaler = _config[$ "scaler"] ?? 1;
     base_damage = _config[$ "base_damage"] ?? 0;

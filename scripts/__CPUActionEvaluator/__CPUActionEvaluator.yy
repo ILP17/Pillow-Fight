@@ -6,7 +6,7 @@
   "name":"__CPUActionEvaluator",
   "parent":{
     "name":"Action Evaluator",
-    "path":"folders/Scripts/Action Evaluator.yy",
+    "path":"folders/Pillow_Fight/Scripts/Action Evaluator.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

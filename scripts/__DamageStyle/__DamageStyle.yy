@@ -6,7 +6,7 @@
   "name":"__DamageStyle",
   "parent":{
     "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "path":"folders/Pillow_Fight/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

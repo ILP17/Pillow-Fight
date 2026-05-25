@@ -3,7 +3,6 @@ __ = {};
 with(__) {
 	sprite = SprPillowCombatMissing;
 	spriteDead = SprPillowCombatMissing;
-	healthColor = c_aqua;
 	character_data = undefined;
     is_player = false;
 	health = 0;
@@ -23,12 +22,12 @@ with(__) {
 }
 
 /**
- * @param {Struct.BaseBattleParticipantData} _character_data
+ * @param {Struct.BattleParticipantData} _character_data
  * @param {bool} _is_player
 **/
 Initialize = function(_character_data, _is_player) {
 	__.character_data = _character_data;
-	__.health = GetStat(HP_STAT);
+	__.health = GetStat(STAT_HP);
 	__.is_player = _is_player;
 	
 	var _name = sprite_get_name(__.character_data.sprite);
@@ -139,7 +138,7 @@ UpdateTargets = function(_turn_context) {
 }
 
 GetHealthRatio = function() {
-	return __.health / GetStat(HP_STAT);
+	return __.health / GetStat(STAT_HP);
 }
 
 /**
@@ -169,11 +168,11 @@ CanAct = function() {
 **/
 OnPostTurn = function() {
     var _hp_ratio = GetHealthRatio();
-    var _prev_hp = GetStat(HP_STAT);
+    var _prev_hp = GetStat(STAT_HP);
     
     __.status_manager.DecayStatuses();
     
-    var _current_hp = GetStat(HP_STAT);
+    var _current_hp = GetStat(STAT_HP);
     
     if(_prev_hp != _current_hp) {
         __.health = floor(_current_hp * _hp_ratio);
@@ -186,11 +185,11 @@ OnPostTurn = function() {
 **/
 ApplyStatus = function(_status) {
     var _hp_ratio = GetHealthRatio();
-    var _prev_hp = GetStat(HP_STAT);
+    var _prev_hp = GetStat(STAT_HP);
     
     __.status_manager.AddStatus(_status);
     
-    var _current_hp = GetStat(HP_STAT);
+    var _current_hp = GetStat(STAT_HP);
     
     if(_prev_hp != _current_hp) {
         Damage(floor(_current_hp * _hp_ratio) - __.health, false);
@@ -211,7 +210,7 @@ Damage = function(_damage, _allow_crit = true) {
 		_style = 3;
 	}
 	
-	__.health = clamp(__.health + _damage, 0, GetStat(HP_STAT));
+	__.health = clamp(__.health + _damage, 0, GetStat(STAT_HP));
 	
 	instance_create_depth(
 		x + irandom_range(-12, 12),
